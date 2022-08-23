@@ -1,11 +1,14 @@
 import '/src/styles/Header.css'
+
 import {
-  HiHome,
   HiOutlinePaperAirplane,
-  HiOutlineHeart,
+  HiOutlinePlusCircle,
   HiOutlineSearch,
+  HiOutlineHeart,
 } from 'react-icons/hi'
-import { FiPlusSquare } from 'react-icons/fi'
+
+import { GrHomeRounded } from 'react-icons/gr'
+
 export function Header() {
   return (
     <header className="header">
@@ -17,13 +20,18 @@ export function Header() {
       </div>
 
       <div className="header__nav">
-        <HiHome className="header__nav--icon" />
-        <HiOutlinePaperAirplane className="header__nav--icon" />
+        <GrHomeRounded className="header__nav--icon home" />
+        <HiOutlinePaperAirplane className="header__nav--icon plane" />
         <button className="upload__button">
-          <FiPlusSquare className="header__nav--icon" />
+          <HiOutlinePlusCircle className="header__nav--icon" />
         </button>
+        <HiOutlineSearch className="header__nav--icon" />{' '}
         <HiOutlineHeart className="header__nav--icon" />
-        <HiOutlineSearch className="header__nav--icon" />
+        <img
+          className="profile__picture"
+          src="https://pbs.twimg.com/profile_images/1336080903995416577/LYMVFS40_400x400.jpg"
+          alt="profile picture"
+        />
       </div>
     </header>
   )
