@@ -1,0 +1,47 @@
+.header {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  justify-content: space-evenly;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--grey);
+}
+
+.header__logo img {
+  width: 100%;
+  max-width: 100px;
+  margin-right: 15rem;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.header__nav .upload__button {
+  background-color: transparent;
+  border: none;
+}
+
+.header__nav .header__nav--icon {
+  cursor: pointer;
+  margin: 0 11px;
+  font-size: calc(24 / 16 * 1rem);
+}
+
+.header__nav .header__nav--icon.home {
+  margin-right: 15px;
+  font-size: calc(22 / 16 * 1rem);
+}
+
+.header__nav .header__nav--icon.plane {
+  transform: translateY(-2px) rotate(60deg);
+}
+
+.header__nav .profile__picture {
+  width: 25px;
+  margin-left: 10px;
+  border-radius: 50%;
+}
