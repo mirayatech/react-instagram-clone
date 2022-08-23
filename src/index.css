@@ -1,3 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --white: #fff;
+  --off-white: #fafafa;
+  --grey: #c8c8c8;
+  --black: #262626;
+  --red: #f75050;
+  --blue: #2b92e4;
+}
+
+@import url('/src/styles/Header.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--off-white);
+}
