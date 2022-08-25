@@ -17,6 +17,7 @@
 }
 
 .scroll__btn {
+  cursor: pointer;
   border: none;
   padding: 3px;
   display: flex;
