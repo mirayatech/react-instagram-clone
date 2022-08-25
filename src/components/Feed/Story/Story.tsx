@@ -10,7 +10,9 @@ type StoryProps = {
 export function Story({ profile }: StoryProps) {
   return (
     <div className="story">
-      <img src={profile.picture} alt="A Story" />
+      <div className="story__image">
+        <img src={profile.picture} alt="A Story" />
+      </div>
       <p>{profile.username}</p>
     </div>
   )
