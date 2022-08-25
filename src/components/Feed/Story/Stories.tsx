@@ -21,9 +21,7 @@ export function Stories() {
         <IoIosArrowBack />
       </button>
       {Profiles.map((profile, id) => (
-        <div>
-          <Story profile={profile} key={id} />
-        </div>
+        <Story profile={profile} key={id} />
       ))}
       <button onClick={slideRight} className="scroll__btn right">
         <IoIosArrowForward />{' '}
