@@ -11,7 +11,7 @@
   scroll-behavior: smooth;
 }
 
-.scroll__btn {
+.story__button {
   cursor: pointer;
   border: none;
   padding: 3px;
@@ -24,12 +24,12 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.scroll__btn.left {
+.story__button.left {
   left: 10px;
   position: sticky;
 }
 
-.scroll__btn.right {
+.story__button.right {
   right: 10px;
   position: sticky;
 }

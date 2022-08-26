@@ -17,13 +17,13 @@ export function Stories() {
 
   return (
     <div className="stories" ref={sliderRef}>
-      <button onClick={slideLeft} className="scroll__btn left">
+      <button onClick={slideLeft} className="story__button left">
         <IoIosArrowBack />
       </button>
       {Profiles.map((profile, id) => (
         <Story profile={profile} key={id} />
       ))}
-      <button onClick={slideRight} className="scroll__btn right">
+      <button onClick={slideRight} className="story__button right">
         <IoIosArrowForward />{' '}
       </button>
     </div>
