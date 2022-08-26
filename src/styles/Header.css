@@ -37,7 +37,7 @@
   font-size: calc(22 / 16 * 1rem);
 }
 
-.header__nav .profile__picture {
+.header__nav .header__profile {
   width: 25px;
   margin-left: 10px;
   border-radius: 50%;

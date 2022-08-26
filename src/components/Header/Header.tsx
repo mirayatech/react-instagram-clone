@@ -28,7 +28,7 @@ export function Header() {
         <HiOutlineSearch className="header__nav--icon" />{' '}
         <HiOutlineHeart className="header__nav--icon" />
         <img
-          className="profile__picture"
+          className="header__profile"
           src="https://pbs.twimg.com/profile_images/1336080903995416577/LYMVFS40_400x400.jpg"
           alt="profile picture"
         />
