@@ -68,6 +68,7 @@
 
 .story p {
   width: 70px;
+  text-align: center;
   cursor: pointer;
   overflow: hidden;
   white-space: nowrap;
