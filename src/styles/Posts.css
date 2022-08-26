@@ -1,0 +1,109 @@
+.post {
+  width: 100%;
+  margin: 15px 0;
+  max-width: 410px;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+  background-color: var(--white);
+}
+
+.post .post__header {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.post .post__header .post__header--wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.post .post__header .post__header--wrapper img {
+  width: 35px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.post .post__header .post__header--wrapper p {
+  font-weight: 500;
+  line-height: 1.5;
+  font-size: calc(13 / 16 * 1rem);
+}
+
+.post .post__header .post__header--wrapper .post__profile--info p:nth-child(2) {
+  font-weight: 400;
+  font-size: calc(12 / 16 * 1rem);
+}
+
+.post .post__header.ellipsis {
+  font-size: calc(20 / 16 * 1rem);
+}
+
+.post .post__image {
+  width: 100%;
+}
+
+/* DESCRIPTION */
+.post__description .post__actions {
+  display: flex;
+  padding: 10px 10px 8px;
+  justify-content: space-between;
+}
+
+.post__description .post__actions .post__actions--icon {
+  cursor: pointer;
+  font-size: calc(25 / 16 * 1rem);
+}
+
+.post__description .post__actions .post__actions--icon:not(:first-child) {
+  margin-left: 10px;
+}
+
+.post__description .post__actions .post__actions--icon:nth-child(3) {
+  font-size: calc(24 / 16 * 1rem);
+}
+
+.post__description .post__likes {
+  font-weight: 500;
+  padding: 0px 10px 5px 10px;
+  font-size: calc(14 / 16 * 1rem);
+}
+
+.post__description .post__caption {
+  padding: 0px 10px 15px;
+  font-size: calc(14 / 16 * 1rem);
+}
+
+.post__description .post__caption .thick {
+  font-weight: 500;
+}
+
+.post .post__commenting {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  border-top: 1px solid var(--grey);
+}
+
+.post .post__commenting .post__commenting--icon {
+  font-size: calc(25 / 16 * 1rem);
+}
+
+.post .post__commenting input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: calc(14 / 16 * 1rem);
+}
+
+.post .post__commenting button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--blue);
+  background-color: transparent;
+  font-size: calc(14 / 16 * 1rem);
+}
