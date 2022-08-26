@@ -22,17 +22,19 @@ type PostProps = {
 export function Post({ profile }: PostProps) {
   return (
     <article className="post">
-      <div className="post__intro">
-        <div className="post__intro--wrapper">
+      <div className="post__header">
+        <div className="post__header--wrapper">
           <img src={profile.picture} alt={profile.username} />
-          <span className="location">
+          <span className="post__profile--info">
             <p>{profile.username}</p>
             <p>{profile.location}</p>
           </span>
         </div>{' '}
         <MdOutlineMoreHoriz className="ellipsis" />
       </div>
+
       <img src={profile.post} alt="Instagram post" className="post__image" />
+
       <div className="post__description">
         <div className="post__actions">
           <div className="post__actions--wrapper">
@@ -43,7 +45,7 @@ export function Post({ profile }: PostProps) {
           <HiOutlineBookmark className="post__actions--icon" />
         </div>
 
-        <div className="post__like">
+        <div className="post__likes">
           <p>{profile.like} likes</p>
         </div>
         <div className="post__caption">
@@ -52,8 +54,8 @@ export function Post({ profile }: PostProps) {
           </p>
         </div>
 
-        <div className="post__comment">
-          <VscSmiley className="post__comment--icon" />
+        <div className="post__commenting">
+          <VscSmiley className="post__commenting--icon" />
 
           <input type="text" name="comment" placeholder="Add a comment..." />
           <button>Post</button>

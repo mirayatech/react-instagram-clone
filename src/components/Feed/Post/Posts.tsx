@@ -3,7 +3,7 @@ import { Post } from './Post'
 
 export function Posts() {
   return (
-    <div>
+    <div className="posts">
       {Profiles.map((profile, id) => {
         return <Post profile={profile} key={id} />
       })}
