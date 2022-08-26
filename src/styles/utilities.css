@@ -1,0 +1,13 @@
+.stories,
+.post {
+  width: 100%;
+  max-width: 410px;
+  border-radius: 8px;
+  border: 1px solid var(--grey);
+  background-color: var(--white);
+}
+
+.post__description .post__actions .post__actions--icon:nth-child(3),
+.header__nav .header__nav--icon.plane {
+  transform: translateY(-2px) rotate(60deg);
+}
