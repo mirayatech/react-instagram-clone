@@ -8,16 +8,6 @@ export const Profiles = [
     like: 23,
     caption: `Who cares if we don't see the sun shine ever again 😐 I want you more than any blue sky 💙 The weather can go crazy 🌧️ `,
   },
-
-  {
-    picture:
-      'https://i.pinimg.com/564x/56/c5/8a/56c58aecc8659b978d8339bf8450cb9c.jpg',
-    username: 'tanjiro',
-    post: 'https://external-preview.redd.it/0V_ZdmHboXkj7Hhfracqr7_iphLQsMQsZkrFIZzWlCc.jpg?auto=webp&s=9130ecc8712a85dad9be954befdef2fc01348645',
-    location: 'Okutama, Japan',
-    like: 31,
-    caption: `The bond between Nezuko and me, can’t be severed by anyone 💙`,
-  },
   {
     picture:
       'https://img.wattpad.com/e7b78853cc2c606406c448ccd00df1b9955f3b9a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f5137714166756e41496f716458673d3d2d3838363835393831342e313630666262663862666163356439313537333539333138333936352e6a7067',
@@ -27,6 +17,27 @@ export const Profiles = [
     like: 46,
     caption:
       'I like instant ramen in a cup, and I really like the ramen Iruka Sensei got me at the Ichiraku Noodle Shop 🍜 ',
+  },
+
+  {
+    picture:
+      'https://i.pinimg.com/564x/56/c5/8a/56c58aecc8659b978d8339bf8450cb9c.jpg',
+    username: 'tanjiro',
+    // post: 'https://external-preview.redd.it/0V_ZdmHboXkj7Hhfracqr7_iphLQsMQsZkrFIZzWlCc.jpg?auto=webp&s=9130ecc8712a85dad9be954befdef2fc01348645',
+    post: 'https://wallpaper.dog/large/20483529.jpg',
+
+    location: 'Okutama, Japan',
+    like: 31,
+    caption: `The bond between Nezuko and me, can’t be severed by anyone 💙`,
+  },
+  {
+    picture:
+      'https://samurai-gamers.com/wp-content/uploads/2016/05/Lhhd1Z54uh5UdwqSZJDkQfLCqSY0iTiMVdIWFZFjra5MzEHVdNS1qRP7zch6EZd9x25DAwJe8oW5iSHJyEjiKs0xP9fgAEALhlOxU5qwfUAAAAASUVORK5CYII.png',
+    username: 'tony_tony_chopper01',
+    post: 'https://cdn.wallpapersafari.com/88/67/E4ZH90.jpeg',
+    // location: 'Tokyo, Japan',
+    like: 29,
+    caption: "I'm not some kind of prey animal!",
   },
 
   {
@@ -56,7 +67,7 @@ export const Profiles = [
     username: 'armin.official',
     post: 'https://wallpaperaccess.com/full/4962817.png',
     location: 'Shiganshina District, Wall Maria',
-    like: 6,
+    like: 11,
     caption: `A Person Who Cannot Sacrifice Everything, Cannot Change Anything 🀄 `,
   },
 
@@ -88,5 +99,24 @@ export const Profiles = [
     // location: 'Tokyo, Japan',
     like: 53,
     caption: `Even the strongest of opponents always have a weakness. `,
+  },
+
+  {
+    picture:
+      'https://i.pinimg.com/236x/ea/40/9a/ea409a4e825e088caa07ccce509aeb8b.jpg',
+    username: 'uzumaki_boruto',
+    post: 'https://i.pinimg.com/736x/e0/86/c7/e086c729575f110453e0c7bb7ccf12b5.jpg',
+    location: 'The Hidden Leaf Village,  Land of Fire',
+    like: 33,
+    caption: `I'll walk my own path 🐺`,
+  },
+  {
+    picture:
+      'https://i.pinimg.com/originals/2d/82/1c/2d821c7e1d20567c6b55c21a28ec52e2.jpg',
+    username: 'ino_yamanaka_official',
+    post: 'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a05d0b14-98d7-40d8-b9dd-6b0149bdeab0/degdmdg-77abe6f6-61c0-45e3-923d-7760e1c2f466.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2EwNWQwYjE0LTk4ZDctNDBkOC1iOWRkLTZiMDE0OWJkZWFiMFwvZGVnZG1kZy03N2FiZTZmNi02MWMwLTQ1ZTMtOTIzZC03NzYwZTFjMmY0NjYucG5nIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.AELfBpDDRPBQWvBKH3tio6PhsPMhQtPzD0YXsXA-xXw',
+    location: 'Konohagakure, Land of Fire',
+    like: 36,
+    caption: `There's No Meaning To A Flower Unless It Blooms 💐`,
   },
 ]
