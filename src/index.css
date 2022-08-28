@@ -4,6 +4,7 @@
 @import url('/src/styles/Feed.css');
 @import url('/src/styles/stories.css');
 @import url('/src/styles/Posts.css');
+@import url('./styles/SideProfile.css');
 
 :root {
   --white: #fff;

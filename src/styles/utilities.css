@@ -1,7 +1,7 @@
 .stories,
 .post {
-  width: 100%;
-  max-width: 410px;
+  margin: auto;
+  max-width: 450px;
   border-radius: 8px;
   border: 1px solid var(--grey);
   background-color: var(--white);
@@ -10,4 +10,18 @@
 .post__description .post__actions .post__actions--icon:nth-child(3),
 .header__nav .header__nav--icon.plane {
   transform: translateY(-2px) rotate(60deg);
+}
+
+.username {
+  font-weight: 500;
+  font-size: calc(14 / 16 * 1rem);
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--blue);
+  background-color: transparent;
 }
