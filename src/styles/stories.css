@@ -3,7 +3,7 @@
 }
 
 .stories {
-  height: 100px;
+  height: 120px;
   display: flex;
   position: relative;
   overflow-x: scroll;

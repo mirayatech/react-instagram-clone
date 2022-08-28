@@ -22,6 +22,7 @@
 }
 
 .header__nav .upload__button {
+  color: var(--black);
   background-color: transparent;
   border: none;
 }

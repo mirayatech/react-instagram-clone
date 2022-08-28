@@ -1,7 +1,6 @@
 .post {
   width: 100%;
-  margin: 15px 0;
-  max-width: 410px;
+  margin: 15px auto;
   border-radius: 8px;
   border: 1px solid var(--grey);
   background-color: var(--white);
@@ -28,7 +27,7 @@
 .post .post__header .post__header--wrapper p {
   font-weight: 500;
   line-height: 1.5;
-  font-size: calc(13 / 16 * 1rem);
+  font-size: calc(14 / 16 * 1rem);
 }
 
 .post .post__header .post__header--wrapper .post__profile--info p:nth-child(2) {
@@ -99,11 +98,6 @@
 }
 
 .post .post__commenting button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-weight: 500;
-  color: var(--blue);
-  background-color: transparent;
+  align-items: center;
   font-size: calc(14 / 16 * 1rem);
 }
