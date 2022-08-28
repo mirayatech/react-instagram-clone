@@ -26,7 +26,7 @@ export function Post({ profile }: PostProps) {
         <div className="post__header--wrapper">
           <img src={profile.picture} alt={profile.username} />
           <span className="post__profile--info">
-            <p>{profile.username}</p>
+            <p className="username">{profile.username}</p>
             <p>{profile.location}</p>
           </span>
         </div>{' '}
