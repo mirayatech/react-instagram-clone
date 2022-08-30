@@ -21,7 +21,7 @@ export const Profiles = [
   {
     picture:
       'https://i.pinimg.com/736x/19/a0/5d/19a05dc7c53b878accbc687403ad9157.jpg',
-    username: 'hodaka_official',
+    username: 'hisoka',
     post: 'https://images5.alphacoders.com/733/thumb-1920-733486.png',
     location: 'Swardani City',
     like: 93,
