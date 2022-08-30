@@ -1,14 +1,10 @@
 import '../../styles/Login.css'
 import { GrGoogle } from 'react-icons/gr'
-
+import AnimePicture from '../../images/anime.png'
 export function Login() {
   return (
     <div className="Login">
-      <img
-        src="https://betelgeusetech.com/wp-content/uploads/2021/05/instadevice.png"
-        alt="Two phones"
-        className="login__picture"
-      />
+      <img src={AnimePicture} alt="Two phones" className="login__picture" />
 
       <div className="login__form">
         <img

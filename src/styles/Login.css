@@ -7,11 +7,13 @@
 }
 
 .login__picture {
-  width: 500px;
-  margin-left: -10%;
+  margin-left: -5%;
+
+  width: 350px;
 }
 
 .login__form {
+  margin-left: 150px;
   height: 350px;
   display: flex;
   padding: 0 30px;
