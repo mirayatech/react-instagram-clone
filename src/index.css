@@ -5,6 +5,7 @@
 @import url('/src/styles/stories.css');
 @import url('/src/styles/Posts.css');
 @import url('./styles/SideProfile.css');
+@import url('./styles/Login.css');
 
 :root {
   --white: #fff;
