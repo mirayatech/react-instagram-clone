@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import '/src/styles/SideProfile.css'
 export function SideProfile() {
   return (
@@ -12,7 +13,9 @@ export function SideProfile() {
           <p className="username">mirayatech</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
-        <button>Sign Out</button>
+        <button>
+          <Link to="/login"> Sign Out</Link>{' '}
+        </button>
       </div>
 
       <div className="suggestions">
