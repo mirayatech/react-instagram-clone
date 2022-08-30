@@ -10,14 +10,23 @@ import {
 } from 'react-icons/hi'
 
 type PostProps = {
-  profile: {
-    picture: string
-    username: string
-    post: string
-    location: string
-    like: number
-    caption: string
-  }
+  profile:
+    | {
+        picture: string
+        username: string
+        post: string
+        location: string
+        like: number
+        caption: string
+      }
+    | {
+        picture: string
+        username: string
+        post: string
+        location?: undefined
+        like: number
+        caption: string
+      }
 }
 export function Post({ profile }: PostProps) {
   return (
