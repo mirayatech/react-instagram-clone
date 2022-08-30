@@ -11,6 +11,15 @@ export const Profiles = [
 
   {
     picture:
+      'https://i.pinimg.com/564x/d8/73/3b/d8733b2333a607ff082b3580365c1827.jpg',
+    username: 'hodaka_official',
+    post: 'https://artforum.com/uploads/upload.002/id16392/featured00_1064x.jpg',
+    location: 'Tokyo, Japan',
+    like: 98,
+    caption: `Who cares if we don't see the sun shine ever again 😐 I want you more than any blue sky 💙 The weather can go crazy 🌧️ `,
+  },
+  {
+    picture:
       'https://i.pinimg.com/736x/19/a0/5d/19a05dc7c53b878accbc687403ad9157.jpg',
     username: 'hodaka_official',
     post: 'https://images5.alphacoders.com/733/thumb-1920-733486.png',
@@ -19,15 +28,6 @@ export const Profiles = [
     caption: `I’ll wait. And when the fruit is ripe, I’ll pluck it 😏`,
   },
 
-  {
-    picture:
-      'https://i.pinimg.com/564x/d8/73/3b/d8733b2333a607ff082b3580365c1827.jpg',
-    username: 'hodaka_official',
-    post: 'https://artforum.com/uploads/upload.002/id16392/featured00_1064x.jpg',
-    location: 'Tokyo, Japan',
-    like: 98,
-    caption: `Who cares if we don't see the sun shine ever again 😐 I want you more than any blue sky 💙 The weather can go crazy 🌧️ `,
-  },
   {
     picture:
       'https://img.wattpad.com/e7b78853cc2c606406c448ccd00df1b9955f3b9a/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f5137714166756e41496f716458673d3d2d3838363835393831342e313630666262663862666163356439313537333539333138333936352e6a7067',
