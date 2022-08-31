@@ -9,16 +9,6 @@ import { firebaseAuth } from './library/firebase'
 export default function App() {
   const [isUserSignedIn, setIsUserSignedIn] = useState(true)
 
-  // useEffect(() => {
-  //   onAuthStateChanged(firebaseAuth, (currentUser) => {
-  //     if (currentUser) {
-  //       return setIsUserSignedIn(true)
-  //     } else {
-  //       setIsUserSignedIn(false)
-  //     }
-  //   })
-  // }, [])
-
   return (
     <UserAuthContextProvider>
       <Routes>
