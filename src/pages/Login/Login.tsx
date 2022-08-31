@@ -2,14 +2,16 @@ import '../../styles/Login.css'
 import { GrGoogle } from 'react-icons/gr'
 import { Footer } from '../../exportFiles'
 import { signInWithPopup } from 'firebase/auth'
-import { firebaseAuth, googleAuthProvider } from '../../firebase/firebase'
+import { firebaseAuth, googleAuthProvider } from '../../library/firebase'
 import AnimePicture from '../../images/anime.png'
 import { useNavigate } from 'react-router-dom'
 
 export function Login() {
   const navigate = useNavigate()
-  const signInWithGoogle = () => {
-    signInWithPopup(firebaseAuth, googleAuthProvider).then(() => navigate('/'))
+  const signInWithGoogle = async () => {
+    await signInWithPopup(firebaseAuth, googleAuthProvider).then(() =>
+      navigate('/home')
+    )
   }
   return (
     <>
