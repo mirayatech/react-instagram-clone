@@ -54,7 +54,14 @@
 
 .profile button,
 .main__profile button {
+  cursor: default;
   margin-left: auto;
   align-self: center;
   font-size: calc(12 / 16 * 1rem);
+}
+
+.main__profile button a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--blue);
 }
