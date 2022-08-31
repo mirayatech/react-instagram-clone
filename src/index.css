@@ -6,7 +6,7 @@
 @import url('/src/styles/Posts.css');
 @import url('./styles/SideProfile.css');
 @import url('./styles/Login.css');
-
+@import url('./styles/Footer.css');
 :root {
   --white: #fff;
   --off-white: #fafafa;
