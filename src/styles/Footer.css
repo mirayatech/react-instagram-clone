@@ -1,0 +1,17 @@
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #95959d;
+}
+
+footer a {
+  color: #95959d;
+}
+
+.footer__heart {
+  font-size: 0.8rem;
+}
+
+footer a:hover {
+  color: #656565;
+}
