@@ -1,4 +1,4 @@
-.feed {
+.feed__container {
   position: relative;
   display: grid;
   grid-template-columns: 500px 300px;
