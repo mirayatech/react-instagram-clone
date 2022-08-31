@@ -1,13 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useUserAuth } from '../../../context/context'
 import { firebaseAuth } from '../../../library/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 import '/src/styles/SideProfile.css'
 
 export function SideProfile() {
-  const { logOut } = useUserAuth()
-
   const [currentUserProfile, setCurrentUserProfile] = useState({
     photoURL: '',
     displayName: '',
@@ -16,12 +13,9 @@ export function SideProfile() {
   const navigate = useNavigate()
 
   const handleLogout = async () => {
-    try {
-      await logOut()
+    await signOut(firebaseAuth).then(() => {
       navigate('/')
-    } catch (error) {
-      console.log(error.message)
-    }
+    })
   }
 
   useEffect(() => {
