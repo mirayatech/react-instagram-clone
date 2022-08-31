@@ -5,9 +5,13 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useState, useEffect } from 'react'
 
 export function SideProfile() {
-  const [currentUserProfile, setCurrentUserProfile] = useState([])
+  const [currentUserProfile, setCurrentUserProfile] = useState({
+    photoURL: '',
+    displayName: '',
+  })
 
   const navigate = useNavigate()
+
   const signUserOut = () => {
     signOut(firebaseAuth).then(() => {
       navigate('/login')
@@ -29,8 +33,8 @@ export function SideProfile() {
           <p className="username">{currentUserProfile.displayName}</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
-        <button onClick={signUserOut}>
-          <Link to="/login"> Sign Out</Link>{' '}
+        <button className="signOut" onClick={signUserOut}>
+          <Link to="/login"> Sign Out</Link>
         </button>
       </div>
 
@@ -101,7 +105,4 @@ export function SideProfile() {
       </div>
     </div>
   )
-}
-function currentUser(arg0: Auth, currentUser: any) {
-  throw new Error('Function not implemented.')
 }
