@@ -1,19 +1,35 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '/src/styles/SideProfile.css'
+import { firebaseAuth } from '../../../firebase/firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { useState, useEffect } from 'react'
+
 export function SideProfile() {
+  const [currentUserProfile, setCurrentUserProfile] = useState([])
+
+  const navigate = useNavigate()
+  const signUserOut = () => {
+    signOut(firebaseAuth).then(() => {
+      navigate('/login')
+    })
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+      return setCurrentUserProfile(currentUser)
+    })
+  }, [])
+
   return (
     <div className="SideProfile">
       <div className="main__profile">
-        <img
-          src="https://i.pinimg.com/564x/56/c5/8a/56c58aecc8659b978d8339bf8450cb9c.jpg"
-          alt="Your profile picture"
-        />
+        <img src={currentUserProfile?.photoURL} alt="Your profile picture" />
 
         <div className="main__profile--info">
-          <p className="username">mirayatech</p>
+          <p className="username">{currentUserProfile.displayName}</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
-        <button>
+        <button onClick={signUserOut}>
           <Link to="/login"> Sign Out</Link>{' '}
         </button>
       </div>
@@ -85,4 +101,7 @@ export function SideProfile() {
       </div>
     </div>
   )
+}
+function currentUser(arg0: Auth, currentUser: any) {
+  throw new Error('Function not implemented.')
 }
