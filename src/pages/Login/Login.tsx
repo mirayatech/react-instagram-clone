@@ -16,7 +16,11 @@ export function Login() {
   return (
     <>
       <div className="Login">
-        <img src={AnimePicture} alt="Two phones" className="login__picture" />
+        <img
+          src={AnimePicture}
+          alt="Animated girl"
+          className="login__picture"
+        />
 
         <div className="login__form">
           <img
