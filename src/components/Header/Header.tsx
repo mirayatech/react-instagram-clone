@@ -11,7 +11,11 @@ import {
 
 import { GrHomeRounded } from 'react-icons/gr'
 
-export function Header() {
+type HeaderProps = {
+  openModal: () => void
+}
+
+export function Header({ openModal }: HeaderProps) {
   const [currentHeaderProfile, setCurrentHeaderProfile] = useState({
     photoURL: '',
   })
@@ -34,7 +38,7 @@ export function Header() {
       <div className="header__nav">
         <GrHomeRounded className="header__nav--icon home" />
         <HiOutlinePaperAirplane className="header__nav--icon plane" />
-        <button className="upload__button">
+        <button className="upload__button" onClick={openModal}>
           <HiOutlinePlusCircle className="header__nav--icon" />
         </button>
         <HiOutlineSearch className="header__nav--icon" />{' '}
