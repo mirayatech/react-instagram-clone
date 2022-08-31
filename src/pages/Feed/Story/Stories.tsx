@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { Profiles } from '../../../data/profile'
+import { Profiles } from '../../../library/profile'
 import { Story } from './Story'
 import '/src/styles/stories.css'
 export function Stories() {

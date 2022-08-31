@@ -1,4 +1,4 @@
-import { Profiles } from '../../../data/profile'
+import { Profiles } from '../../../library/profile'
 import { Post } from './Post'
 
 export function Posts() {
