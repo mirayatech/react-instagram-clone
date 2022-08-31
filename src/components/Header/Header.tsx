@@ -1,5 +1,7 @@
 import '/src/styles/Header.css'
-
+import { useEffect, useState } from 'react'
+import { firebaseAuth } from '../../library/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 import {
   HiOutlinePaperAirplane,
   HiOutlinePlusCircle,
@@ -10,6 +12,16 @@ import {
 import { GrHomeRounded } from 'react-icons/gr'
 
 export function Header() {
+  const [currentHeaderProfile, setCurrentHeaderProfile] = useState({
+    photoURL: '',
+  })
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (currentUser) => {
+      return setCurrentHeaderProfile(currentUser)
+    })
+  }, [])
+
   return (
     <header className="header">
       <div className="header__logo">
@@ -29,7 +41,7 @@ export function Header() {
         <HiOutlineHeart className="header__nav--icon" />
         <img
           className="header__profile"
-          src="https://pbs.twimg.com/profile_images/1336080903995416577/LYMVFS40_400x400.jpg"
+          src={currentHeaderProfile.photoURL}
           alt="profile picture"
         />
       </div>
