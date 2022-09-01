@@ -30,7 +30,7 @@ export function SideProfile() {
         <img src={currentUserProfile?.photoURL} alt="Your profile picture" />
 
         <div className="main__profile--info">
-          <p className="username">{currentUserProfile.displayName}</p>
+          <p className="username">{currentUserProfile?.displayName}</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
         <button className="signOut" onClick={handleLogout}>
