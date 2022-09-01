@@ -1,28 +1,39 @@
-import { FiX, FiImage } from 'react-icons/fi'
+import '../../styles/Modal.css'
+import { FiX } from 'react-icons/fi'
+import { IoImageOutline } from 'react-icons/io5'
 
 type ModalProps = {
   closeModal: () => void
 }
 export function Modal({ closeModal }: ModalProps) {
   return (
-    <div style={{ marginTop: '300px' }} className="overlay">
+    <div className="overlay">
       <div className="modal">
         <div className="modal__title">
           <h1>Create a new post</h1>
 
           <button onClick={closeModal}>
-            <FiX />
+            <FiX className="close__btn" />
           </button>
         </div>
 
-        <FiImage className="modal__svg" />
+        <IoImageOutline className="modal__svg" />
 
         <div className="modal__wrapper">
-          <input type="file" name="file" accept="image/png, image/jpeg" />
-          <input type="text" />
+          <input
+            className="modal__file--btn"
+            type="file"
+            name="file"
+            accept="image/png, image/jpeg"
+          />
+          <input
+            type="text"
+            className="modal__caption--btn"
+            placeholder="Write a caption..."
+          />
         </div>
 
-        <button>Upload Post</button>
+        <button className="upload-post__btn">Upload Post</button>
       </div>
     </div>
   )
