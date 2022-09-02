@@ -30,7 +30,7 @@
   font-size: calc(14 / 16 * 1rem);
 }
 
-.post .post__header .post__header--wrapper .post__profile--info p:nth-child(2) {
+.post .post__header .post__header--wrapper p:nth-child(2) {
   font-weight: 400;
   font-size: calc(12 / 16 * 1rem);
 }
