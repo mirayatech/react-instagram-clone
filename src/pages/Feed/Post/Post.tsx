@@ -1,6 +1,6 @@
 import '/src/styles/Posts.css'
-import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { VscSmiley } from 'react-icons/vsc'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
 
 import {
   HiOutlinePaperAirplane,
@@ -10,13 +10,13 @@ import {
 } from 'react-icons/hi'
 
 type PostProps = {
-  profile:
+  post:
     | {
         picture: string
         username: string
         post: string
         location: string
-        like: number
+        likes: number
         caption: string
       }
     | {
@@ -24,25 +24,26 @@ type PostProps = {
         username: string
         post: string
         location?: undefined
-        like: number
+        likes: number
         caption: string
       }
 }
-export function Post({ profile }: PostProps) {
+
+export function Post({ post }: PostProps) {
   return (
     <article className="post">
       <div className="post__header">
         <div className="post__header--wrapper">
-          <img src={profile.picture} alt={profile.username} />
-          <span className="post__profile--info">
-            <p className="username">{profile.username}</p>
-            <p>{profile.location}</p>
+          <img src={post.picture} alt={post.username} />
+          <span className="post__post--info">
+            <p className="username">{post.username}</p>
+            <p>{post.location}</p>
           </span>
         </div>{' '}
         <MdOutlineMoreHoriz className="ellipsis" />
       </div>
 
-      <img src={profile.post} alt="Instagram post" className="post__image" />
+      <img src={post.post} alt="Instagram post" className="post__image" />
 
       <div className="post__description">
         <div className="post__actions">
@@ -55,11 +56,11 @@ export function Post({ profile }: PostProps) {
         </div>
 
         <div className="post__likes">
-          <p>{profile.like} likes</p>
+          <p>{post.likes} likes</p>
         </div>
         <div className="post__caption">
           <p>
-            <span className="thick">{profile.username}</span> {profile.caption}
+            <span className="thick">{post.username}</span> {post.caption}
           </p>
         </div>
 
