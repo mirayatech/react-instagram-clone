@@ -1,5 +1,5 @@
 type StoryProps = {
-  profile: {
+  story: {
     picture: string
     username: string
     post: string
@@ -7,13 +7,13 @@ type StoryProps = {
   }
 }
 
-export function Story({ profile }: StoryProps) {
+export function Story({ story }: StoryProps) {
   return (
     <div className="story">
       <div className="story__image">
-        <img src={profile.picture} alt="A Story" />
+        <img src={story.picture} alt="A Story" />
       </div>
-      <p>{profile.username}</p>
+      <p>{story.username}</p>
     </div>
   )
 }
