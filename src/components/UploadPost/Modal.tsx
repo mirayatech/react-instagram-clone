@@ -3,14 +3,63 @@ import { FiX } from 'react-icons/fi'
 import { IoCameraOutline } from 'react-icons/io5'
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import {
+  addDoc,
+  collection,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from 'firebase/firestore'
+import {
+  firebaseAuth,
+  firebaseDb,
+  firebaseStorage,
+} from '../../library/firebase'
+import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 
 type ModalProps = {
   closeModal: () => void
+  setOpen: any
 }
 
-export function Modal({ closeModal }: ModalProps) {
+export function Modal({ closeModal, setOpen }: ModalProps) {
   const [selectedFile, setSelectedFile] = useState(null)
+  const [loading, setLoading] = useState(false)
   const filePickerRef = useRef(null)
+  const captionRef = useRef(null)
+
+  const uploadPost = async () => {
+    if (loading) return
+    setLoading(true)
+
+    const docReference = await addDoc(collection(firebaseDb, 'posts'), {
+      username: firebaseAuth.currentUser?.displayName,
+      caption: captionRef.current.value,
+      profileImg: firebaseAuth.currentUser?.photoURL,
+      timestamp: serverTimestamp(),
+    })
+
+    console.log('New doc added with ID', docReference.id)
+
+    const imageReference = ref(
+      firebaseStorage,
+      `posts/${docReference.id}/image`
+    )
+
+    await uploadString(imageReference, selectedFile, 'data_url').then(
+      async (snapshot) => {
+        const downloadURL = await getDownloadURL(imageReference)
+
+        await updateDoc(doc(firebaseDb, 'posts', docReference.id), {
+          image: downloadURL,
+        })
+      }
+    )
+
+    closeModal()
+    setLoading(false)
+    setSelectedFile(null)
+  }
 
   const addImageToPost = (e) => {
     const reader = new FileReader()
@@ -83,10 +132,13 @@ export function Modal({ closeModal }: ModalProps) {
           <h1>Upload new post</h1>
           <input
             type="text"
+            ref={captionRef}
             className="modal__caption"
             placeholder="Please enter a caption..."
           />
-          <button className="upload-post__btn">Upload Post</button>{' '}
+          <button onClick={uploadPost} className="upload-post__btn">
+            {loading ? 'Uploading...' : 'Upload Post'}
+          </button>{' '}
         </div>
       </motion.div>
     </motion.div>

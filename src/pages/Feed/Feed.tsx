@@ -22,7 +22,7 @@ export function Feed() {
     <div className="feed">
       {isOpen === true ? <Modal closeModal={closeModal} /> : ''}
 
-      <Header openModal={openModal} />
+      <Header openModal={openModal} setOpen={setIsOpen} />
       <div className="feed__container">
         <section className="feed__wrapper">
           <Stories />
