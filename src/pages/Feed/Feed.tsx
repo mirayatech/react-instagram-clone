@@ -1,4 +1,5 @@
 import { Header } from '../../exportFiles'
+import { UploadPost } from '../../components/UploadPost/UploadPost'
 import { Modal } from '../../components/UploadPost/Modal'
 import { SideProfile } from './Side-Profile/SideProfile'
 import { Stories } from './Story/Stories'
@@ -26,6 +27,9 @@ export function Feed() {
       <div className="feed__container">
         <section className="feed__wrapper">
           <Stories />
+
+          <UploadPost />
+
           <Posts />
         </section>
 
