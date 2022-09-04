@@ -13,7 +13,7 @@ export function UserAuthContextProvider({
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentuser) => {
-      console.log('Auth', currentuser)
+      // console.log('Auth', currentuser)
       setUser(currentuser)
     })
 
