@@ -12,7 +12,7 @@
 
 .header__logo img {
   width: 100%;
-  max-width: 100px;
+  max-width: 110px;
   margin-right: 15rem;
 }
 
@@ -27,9 +27,15 @@
   border: none;
 }
 
+.header__nav .upload__button .header__nav--icon {
+  cursor: pointer;
+  font-size: calc(22 / 16 * 1rem);
+}
+
 .header__nav .header__nav--icon {
   cursor: pointer;
   margin: 0 11px;
+  cursor: default;
   font-size: calc(24 / 16 * 1rem);
 }
 
