@@ -10,40 +10,26 @@ import {
 } from 'react-icons/hi'
 
 type PostProps = {
-  post:
-    | {
-        picture: string
-        username: string
-        post: string
-        location: string
-        likes: number
-        caption: string
-      }
-    | {
-        picture: string
-        username: string
-        post: string
-        location?: undefined
-        likes: number
-        caption: string
-      }
+  caption: string
+  profileImg: string
+  image: string
+  username: string
 }
 
-export function Post({ post }: PostProps) {
+export function Post({ username, profileImg, image, caption }: PostProps) {
   return (
     <article className="post">
       <div className="post__header">
         <div className="post__header--wrapper">
-          <img src={post.picture} alt={post.username} />
+          <img src={profileImg} alt={username} />
           <span className="post__post--info">
-            <p className="username">{post.username}</p>
-            <p>{post.location}</p>
+            <p className="username">{username}</p>
           </span>
         </div>{' '}
         <MdOutlineMoreHoriz className="ellipsis" />
       </div>
 
-      <img src={post.post} alt="Instagram post" className="post__image" />
+      <img src={image} alt="Instagram post" className="post__image" />
 
       <div className="post__description">
         <div className="post__actions">
@@ -56,11 +42,11 @@ export function Post({ post }: PostProps) {
         </div>
 
         <div className="post__likes">
-          <p>{post.likes} likes</p>
+          <p>0 likes</p>
         </div>
         <div className="post__caption">
           <p>
-            <span className="thick">{post.username}</span> {post.caption}
+            <span className="thick">{username}</span> {caption}
           </p>
         </div>
 

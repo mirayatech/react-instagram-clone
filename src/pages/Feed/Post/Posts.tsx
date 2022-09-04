@@ -1,15 +1,18 @@
 import { Post } from './Post'
 import { useEffect, useState } from 'react'
 import { firebaseDb } from '../../../library/firebase'
-import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  CollectionReference,
+} from 'firebase/firestore'
 
 type Post = {
   caption: string
-  id: string
-  likes: number
-  location: string
-  picture: string
-  post: string
+  profileImg: string
+  image: string
   username: string
 }
 
@@ -17,21 +20,34 @@ export function Posts() {
   const [posts, setPosts] = useState<Post[]>([])
   const postsCollectionReference = collection(
     firebaseDb,
-    'profiles'
+    'posts'
   ) as CollectionReference<Post>
 
   useEffect(() => {
-    const getPosts = () =>
-      onSnapshot(postsCollectionReference, (snapshot) =>
-        setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      )
-    getPosts()
-  }, [])
+    const unsubscribe = onSnapshot(
+      query(postsCollectionReference, orderBy('timestamp', 'desc')),
+      (snapshot) => {
+        setPosts(snapshot.docs.map((doc) => doc.data()))
+      }
+    )
+
+    return () => {
+      unsubscribe()
+    }
+  }, [firebaseDb])
 
   return (
     <div className="posts">
-      {posts.map((post) => {
-        return <Post post={post} key={post.id} />
+      {posts.map(({ username, profileImg, caption, image }, id) => {
+        return (
+          <Post
+            username={username}
+            profileImg={profileImg}
+            caption={caption}
+            image={image}
+            key={id}
+          />
+        )
       })}
     </div>
   )
