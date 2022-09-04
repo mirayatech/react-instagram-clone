@@ -1,7 +1,6 @@
 import { Header } from '../../exportFiles'
-import { UploadPost } from '../../components/UploadPost/UploadPost'
-import { Modal } from '../../components/UploadPost/Modal'
-import { SideProfile } from './Side-Profile/SideProfile'
+import { Modal } from '../../components/Modal/Modal'
+import { SideProfile } from './SideProfile/SideProfile'
 import { Stories } from './Story/Stories'
 import { Posts } from './Post/Posts'
 import { useState } from 'react'
@@ -23,12 +22,10 @@ export function Feed() {
     <div className="feed">
       {isOpen === true ? <Modal closeModal={closeModal} /> : ''}
 
-      <Header openModal={openModal} setOpen={setIsOpen} />
+      <Header openModal={openModal} />
       <div className="feed__container">
         <section className="feed__wrapper">
           <Stories />
-
-          <UploadPost />
 
           <Posts />
         </section>
