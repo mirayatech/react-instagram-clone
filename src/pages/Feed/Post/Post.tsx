@@ -8,15 +8,39 @@ import {
   HiOutlineChat,
   HiOutlineBookmark,
 } from 'react-icons/hi'
+import { useState } from 'react'
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  Timestamp,
+} from 'firebase/firestore'
+import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
 type PostProps = {
+  id: string
   caption: string
   profileImg: string
   image: string
   username: string
 }
 
-export function Post({ username, profileImg, image, caption }: PostProps) {
+export function Post({ username, profileImg, image, caption, id }: PostProps) {
+  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState([])
+
+  const sendComment = async () => {
+    const commentToSend = comment
+    setComment('')
+
+    await addDoc(collection(firebaseDb, 'posts', id, 'comments'), {
+      comment: commentToSend,
+      username: firebaseAuth.currentUser?.displayName,
+      userImage: firebaseAuth.currentUser?.photoURL,
+      timestamp: serverTimestamp(),
+    })
+  }
+
   return (
     <article className="post">
       <div className="post__header">
@@ -25,7 +49,7 @@ export function Post({ username, profileImg, image, caption }: PostProps) {
           <span className="post__post--info">
             <p className="username">{username}</p>
           </span>
-        </div>{' '}
+        </div>
         <MdOutlineMoreHoriz className="ellipsis" />
       </div>
 
@@ -53,8 +77,16 @@ export function Post({ username, profileImg, image, caption }: PostProps) {
         <div className="post__commenting">
           <VscSmiley className="post__commenting--icon" />
 
-          <input type="text" name="comment" placeholder="Add a comment..." />
-          <button>Post</button>
+          <input
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            type="text"
+            name="comment"
+            placeholder="Add a comment..."
+          />
+          <button onClick={sendComment} disabled={!comment.trim()}>
+            Post
+          </button>
         </div>
       </div>
     </article>

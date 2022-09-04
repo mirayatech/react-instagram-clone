@@ -7,9 +7,11 @@ import {
   orderBy,
   query,
   CollectionReference,
+  doc,
 } from 'firebase/firestore'
 
 type Post = {
+  id: string
   caption: string
   profileImg: string
   image: string
@@ -27,7 +29,7 @@ export function Posts() {
     const unsubscribe = onSnapshot(
       query(postsCollectionReference, orderBy('timestamp', 'desc')),
       (snapshot) => {
-        setPosts(snapshot.docs.map((doc) => doc.data()))
+        setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
       }
     )
 
@@ -38,9 +40,10 @@ export function Posts() {
 
   return (
     <div className="posts">
-      {posts.map(({ username, profileImg, caption, image }, id) => {
+      {posts.map(({ username, profileImg, caption, image, id }) => {
         return (
           <Post
+            id={id}
             username={username}
             profileImg={profileImg}
             caption={caption}
