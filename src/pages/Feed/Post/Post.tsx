@@ -1,19 +1,22 @@
 import '/src/styles/Posts.css'
 import { VscSmiley } from 'react-icons/vsc'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
-
+import { Comments } from './Comments'
 import {
   HiOutlinePaperAirplane,
   HiOutlineHeart,
   HiOutlineChat,
   HiOutlineBookmark,
 } from 'react-icons/hi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   addDoc,
   collection,
+  CollectionReference,
+  onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
-  Timestamp,
 } from 'firebase/firestore'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
@@ -25,21 +28,51 @@ type PostProps = {
   username: string
 }
 
+type Comments = {
+  comment: string
+  username: string | null | undefined
+  userImage: string | null | undefined
+  timestamp: {
+    nanoseconds: number
+    seconds: number
+  }
+}
+
 export function Post({ username, profileImg, image, caption, id }: PostProps) {
   const [comment, setComment] = useState('')
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState<Comments[]>([])
+
+  const commentsCollectionReference = collection(
+    firebaseDb,
+    'posts',
+    id,
+    'comments'
+  ) as CollectionReference<Comments>
 
   const sendComment = async () => {
     const commentToSend = comment
     setComment('')
 
-    await addDoc(collection(firebaseDb, 'posts', id, 'comments'), {
+    await addDoc(commentsCollectionReference, {
       comment: commentToSend,
       username: firebaseAuth.currentUser?.displayName,
       userImage: firebaseAuth.currentUser?.photoURL,
       timestamp: serverTimestamp(),
     })
   }
+
+  useEffect(() => {
+    const getComments = async () =>
+      onSnapshot(
+        query(commentsCollectionReference, orderBy('timestamp', 'desc')),
+        (snapshot) => {
+          return setComments(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          )
+        }
+      )
+    getComments()
+  }, [firebaseDb])
 
   return (
     <article className="post">
@@ -73,7 +106,19 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
             <span className="thick">{username}</span> {caption}
           </p>
         </div>
-
+        <div className="comments">
+          {comments.map(({ username, userImage, comment, timestamp }, id) => {
+            return (
+              <Comments
+                key={id}
+                username={username}
+                userImage={userImage}
+                comment={comment}
+                timestamp={timestamp}
+              />
+            )
+          })}
+        </div>
         <div className="post__commenting">
           <VscSmiley className="post__commenting--icon" />
 
