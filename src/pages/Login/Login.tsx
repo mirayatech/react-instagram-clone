@@ -1,6 +1,6 @@
 import '../../styles/Login.css'
 import { GrGoogle } from 'react-icons/gr'
-import { Footer } from '../../exportFiles'
+import { PrimaryFooter } from '../../exportFiles'
 import { signInWithPopup } from 'firebase/auth'
 import { firebaseAuth, googleAuthProvider } from '../../library/firebase'
 import AnimePicture from '../../images/anime.png'
@@ -39,7 +39,7 @@ export function Login() {
           </button>
         </div>
       </div>
-      <Footer />
+      <PrimaryFooter />
     </>
   )
 }
