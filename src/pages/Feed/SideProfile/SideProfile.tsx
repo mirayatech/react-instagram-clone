@@ -45,9 +45,9 @@ export function SideProfile() {
           <p>Suggestions for you</p> <p>See All</p>
         </div>
 
-        {SideProfiles.map(({ picture, username, suggestions }) => {
+        {SideProfiles.map(({ picture, username, suggestions }, id) => {
           return (
-            <div className="profile">
+            <div className="profile" key={id}>
               <img src={picture} alt="profile picture" />
               <div className="profile--info">
                 <p className="username">{username}</p>
