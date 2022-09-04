@@ -19,10 +19,9 @@ import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 
 type ModalProps = {
   closeModal: () => void
-  setOpen: any
 }
 
-export function Modal({ closeModal, setOpen }: ModalProps) {
+export function Modal({ closeModal }: ModalProps) {
   const [selectedFile, setSelectedFile] = useState(null)
   const [loading, setLoading] = useState(false)
   const filePickerRef = useRef(null)
