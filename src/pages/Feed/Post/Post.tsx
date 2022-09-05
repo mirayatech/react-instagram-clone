@@ -134,12 +134,12 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
         <div className="post__actions">
           <div className="post__actions--wrapper">
             {hasLiked ? (
+              <HiHeart className="post__actions--icon" onClick={likePost} />
+            ) : (
               <HiOutlineHeart
                 className="post__actions--icon"
                 onClick={likePost}
               />
-            ) : (
-              <HiHeart className="post__actions--icon" onClick={likePost} />
             )}
 
             <HiOutlineChat className="post__actions--icon" />
@@ -149,7 +149,7 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
         </div>
 
         <div className="post__likes">
-          <p>0 likes</p>
+          {likes.length > 0 && <p>{likes.length} likes</p>}
         </div>
         <div className="post__caption">
           <p>
