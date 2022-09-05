@@ -1,6 +1,6 @@
 import { Header } from '../../exportFiles'
-import { Modal } from '../../components/Modal/Modal'
-import { SideProfile } from './SideProfile/SideProfile'
+import { Modal } from '../../components/UploadPost/Modal'
+import { SideProfile } from './Side-Profile/SideProfile'
 import { Stories } from './Story/Stories'
 import { Posts } from './Post/Posts'
 import { useState } from 'react'

@@ -5,18 +5,22 @@ import { Comments } from './Comments'
 import {
   HiOutlinePaperAirplane,
   HiOutlineHeart,
+  HiHeart,
   HiOutlineChat,
   HiOutlineBookmark,
 } from 'react-icons/hi'
 import { useEffect, useState } from 'react'
 import {
+  doc,
   addDoc,
   collection,
   CollectionReference,
+  deleteDoc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
 } from 'firebase/firestore'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
@@ -41,6 +45,8 @@ type Comments = {
 export function Post({ username, profileImg, image, caption, id }: PostProps) {
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<Comments[]>([])
+  const [likes, setLikes] = useState([])
+  const [hasLiked, setHasLiked] = useState(false)
 
   const commentsCollectionReference = collection(
     firebaseDb,
@@ -72,7 +78,43 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
         }
       )
     getComments()
-  }, [firebaseDb])
+  }, [firebaseDb, id])
+
+  // Likes
+
+  useEffect(
+    () =>
+      onSnapshot(collection(firebaseDb, 'posts', id, 'likes'), (snapshot) =>
+        setLikes(snapshot.docs)
+      ),
+    [firebaseDb, id]
+  )
+
+  useEffect(
+    () =>
+      setHasLiked(
+        likes.findIndex((like) => like.id === firebaseAuth.currentUser?.uid) !==
+          -1
+      ),
+    [likes]
+  )
+
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(
+        doc(firebaseDb, 'posts', id, 'likes', firebaseAuth.currentUser?.uid)
+      )
+    } else {
+      await setDoc(
+        doc(firebaseDb, 'posts', id, 'likes', firebaseAuth.currentUser?.uid),
+        {
+          username: firebaseAuth.currentUser?.displayName,
+        }
+      )
+    }
+  }
+
+  console.log(hasLiked)
 
   return (
     <article className="post">
@@ -91,7 +133,15 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
       <div className="post__description">
         <div className="post__actions">
           <div className="post__actions--wrapper">
-            <HiOutlineHeart className="post__actions--icon" />
+            {hasLiked ? (
+              <HiOutlineHeart
+                className="post__actions--icon"
+                onClick={likePost}
+              />
+            ) : (
+              <HiHeart className="post__actions--icon" onClick={likePost} />
+            )}
+
             <HiOutlineChat className="post__actions--icon" />
             <HiOutlinePaperAirplane className="post__actions--icon" />
           </div>
