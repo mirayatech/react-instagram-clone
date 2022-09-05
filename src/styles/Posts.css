@@ -1,3 +1,34 @@
+/* Post Modal */
+
+.post__modal {
+  border-radius: 8px;
+  background-color: var(--white);
+  display: flex;
+  flex-direction: column;
+  color: var(--black);
+  width: 300px;
+}
+
+.hide {
+  display: none;
+}
+
+.post__modal button {
+  font-size: 1rem;
+  padding: 20px 0;
+
+  color: var(--black);
+}
+
+.post__modal button:first-child {
+  color: var(--red);
+  border-bottom: 1px solid var(--grey);
+}
+
+.post__modal button:hover {
+  opacity: 0.7;
+}
+
 .post {
   width: 100%;
   margin: 15px auto;
@@ -37,7 +68,8 @@
 }
 
 .post .post__header.ellipsis {
-  font-size: calc(20 / 16 * 1rem);
+  cursor: pointer;
+  font-size: calc(25 / 16 * 1rem);
 }
 
 .post .post__image {
