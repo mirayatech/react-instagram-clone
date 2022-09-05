@@ -67,9 +67,10 @@
   font-size: calc(12 / 16 * 1rem);
 }
 
-.post .post__header.ellipsis {
+.post .post__header .ellipsis {
   cursor: pointer;
-  font-size: calc(25 / 16 * 1rem);
+  color: var(--black);
+  font-size: calc(20 / 16 * 1rem);
 }
 
 .post .post__image {

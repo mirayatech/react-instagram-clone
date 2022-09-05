@@ -135,10 +135,9 @@ export function Post({
           </span>
         </div>
         {userId === firebaseAuth.currentUser?.uid && (
-          <MdOutlineMoreHoriz
-            className="ellipsis"
-            onClick={() => setIsOpen(true)}
-          />
+          <button className="ellipsis">
+            <MdOutlineMoreHoriz onClick={() => setIsOpen(true)} />
+          </button>
         )}
         {isOpen ? <PostModal id={id} setIsOpen={setIsOpen} /> : ''}
       </div>
