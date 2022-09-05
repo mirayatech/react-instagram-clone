@@ -105,7 +105,7 @@ export function Modal({ closeModal }: ModalProps) {
             scale: 1,
             opacity: 1,
             transition: {
-              delay: 0.45,
+              delay: 0.4,
             },
           },
         }}
