@@ -1,6 +1,7 @@
 import '/src/styles/Posts.css'
 import { VscSmiley } from 'react-icons/vsc'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
+import { motion } from 'framer-motion'
 import { Comments } from './Comments'
 import {
   HiOutlinePaperAirplane,
@@ -134,12 +135,33 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
         <div className="post__actions">
           <div className="post__actions--wrapper">
             {hasLiked ? (
-              <HiHeart className="post__actions--icon" onClick={likePost} />
+              <motion.button
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {
+                    scale: 1.2,
+                  },
+                  visible: {
+                    scale: 1,
+                    transition: {
+                      delay: 0.1,
+                    },
+                  },
+                }}
+              >
+                <HiHeart
+                  className="post__actions--icon heart"
+                  onClick={likePost}
+                />
+              </motion.button>
             ) : (
-              <HiOutlineHeart
-                className="post__actions--icon"
-                onClick={likePost}
-              />
+              <button>
+                <HiOutlineHeart
+                  className="post__actions--icon heart-outline"
+                  onClick={likePost}
+                />
+              </button>
             )}
 
             <HiOutlineChat className="post__actions--icon" />
