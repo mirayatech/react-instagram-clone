@@ -7,7 +7,6 @@ import {
   orderBy,
   query,
   CollectionReference,
-  doc,
 } from 'firebase/firestore'
 
 type Post = {
@@ -16,6 +15,7 @@ type Post = {
   profileImg: string
   image: string
   username: string
+  userId: string
 }
 
 export function Posts() {
@@ -40,9 +40,10 @@ export function Posts() {
 
   return (
     <div className="posts">
-      {posts.map(({ username, profileImg, caption, image, id }) => {
+      {posts.map(({ username, profileImg, caption, image, id, userId }) => {
         return (
           <Post
+            userId={userId}
             id={id}
             username={username}
             profileImg={profileImg}

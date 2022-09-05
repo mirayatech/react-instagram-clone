@@ -3,6 +3,7 @@ import { VscSmiley } from 'react-icons/vsc'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { motion } from 'framer-motion'
 import { Comments } from './Comments'
+import { PostModal } from './PostModal'
 import {
   HiOutlinePaperAirplane,
   HiOutlineHeart,
@@ -31,6 +32,7 @@ type PostProps = {
   profileImg: string
   image: string
   username: string
+  userId: string
 }
 
 type Comments = {
@@ -43,7 +45,15 @@ type Comments = {
   }
 }
 
-export function Post({ username, profileImg, image, caption, id }: PostProps) {
+export function Post({
+  username,
+  profileImg,
+  image,
+  caption,
+  userId,
+  id,
+}: PostProps) {
+  const [isOpen, setIsOpen] = useState(false)
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<Comments[]>([])
   const [likes, setLikes] = useState([])
@@ -115,8 +125,6 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
     }
   }
 
-  console.log(hasLiked)
-
   return (
     <article className="post">
       <div className="post__header">
@@ -126,7 +134,13 @@ export function Post({ username, profileImg, image, caption, id }: PostProps) {
             <p className="username">{username}</p>
           </span>
         </div>
-        <MdOutlineMoreHoriz className="ellipsis" />
+        {userId === firebaseAuth.currentUser?.uid && (
+          <MdOutlineMoreHoriz
+            className="ellipsis"
+            onClick={() => setIsOpen(true)}
+          />
+        )}
+        {isOpen ? <PostModal id={id} setIsOpen={setIsOpen} /> : ''}
       </div>
 
       <img src={image} alt="Instagram post" className="post__image" />

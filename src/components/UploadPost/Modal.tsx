@@ -32,6 +32,7 @@ export function Modal({ closeModal }: ModalProps) {
     setLoading(true)
 
     const docReference = await addDoc(collection(firebaseDb, 'posts'), {
+      userId: firebaseAuth.currentUser?.uid,
       username: firebaseAuth.currentUser?.displayName,
       caption: captionRef.current.value,
       profileImg: firebaseAuth.currentUser?.photoURL,
