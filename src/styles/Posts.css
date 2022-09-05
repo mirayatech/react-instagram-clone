@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #eee;
 }
 
 .post .post__header .post__header--wrapper {
@@ -41,6 +42,7 @@
 
 .post .post__image {
   width: 100%;
+  border-bottom: 1px solid #eee;
 }
 
 /* DESCRIPTION */
@@ -53,6 +55,14 @@
 .post__description .post__actions .post__actions--icon {
   cursor: pointer;
   font-size: calc(25 / 16 * 1rem);
+}
+
+.post__description .post__actions .post__actions--icon.heart {
+  color: var(--red);
+}
+
+.post__description .post__actions .post__actions--icon.heart-outline {
+  color: var(--black);
 }
 
 .post__description .post__actions .post__actions--icon:not(:first-child) {
