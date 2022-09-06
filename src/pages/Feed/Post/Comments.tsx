@@ -101,15 +101,12 @@ export function Comments({
                 },
               }}
             >
-              <HiHeart
-                className="post__actions--icon heart"
-                onClick={likePost}
-              />
+              <HiHeart className="comment__heart " onClick={likePost} />
             </motion.button>
           ) : (
             <button>
               <HiOutlineHeart
-                className="post__actions--icon heart-outline"
+                className="comment__heart outline"
                 onClick={likePost}
               />
             </button>
