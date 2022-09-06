@@ -33,7 +33,7 @@ export function Stories() {
   useEffect(() => {
     const getStories = async () => {
       onSnapshot(storiesCollectionReference, (snapshot) =>
-        console.log(
+        setStories(
           snapshot.docs.map((doc) => ({ ...doc.data(), storyId: doc.id }))
         )
       )
