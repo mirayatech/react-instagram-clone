@@ -32,13 +32,19 @@ export function Header({ openModal }: HeaderProps) {
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png"
           alt="Instagram logo"
+          tabIndex={1}
         />
       </div>
 
       <div className="header__nav">
         <GrHomeRounded className="header__nav--icon home" />
         <HiOutlinePaperAirplane className="header__nav--icon plane" />
-        <button className="upload__button" onClick={openModal}>
+        <button
+          className="upload__button"
+          aria-label="upload post"
+          onClick={openModal}
+          tabIndex={1}
+        >
           <HiOutlinePlusCircle className="header__nav--icon" />
         </button>
         <HiOutlineSearch className="header__nav--icon" />{' '}
@@ -46,7 +52,7 @@ export function Header({ openModal }: HeaderProps) {
         <img
           className="header__profile"
           src={currentHeaderProfile.photoURL}
-          alt="profile picture"
+          alt="Your profile picture"
         />
       </div>
     </header>
