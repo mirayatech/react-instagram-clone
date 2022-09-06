@@ -52,9 +52,14 @@
 }
 
 .comment .comment__wrapper .comment__info .comment__heart {
+  color: var(--red);
   cursor: pointer;
   margin-left: auto;
   font-size: calc(16 / 16 * 1rem);
+}
+
+.comment .comment__wrapper .comment__info .comment__heart.outlined {
+  color: var(--black);
 }
 
 .comment .comment__wrapper p {

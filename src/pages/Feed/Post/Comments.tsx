@@ -9,7 +9,10 @@ import {
 } from 'firebase/firestore'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
-import { HiOutlineHeart, HiHeart } from 'react-icons/hi'
+import {
+  HiOutlineHeart as OutlinedHeart,
+  HiHeart as FilledHeart,
+} from 'react-icons/hi'
 
 type CommentsProps = {
   postId: string
@@ -28,6 +31,9 @@ export function Comments({
   postId,
   commentUserId,
 }: CommentsProps) {
+  const [likesComment, setLikesComment] = useState([])
+  const [hasLikedComment, setHasLikedComment] = useState(false)
+
   const deleteComment = async () => {
     const commentDocument = doc(
       firebaseDb,
@@ -36,6 +42,53 @@ export function Comments({
     )
     await deleteDoc(commentDocument)
   }
+
+  useEffect(
+    () =>
+      onSnapshot(
+        collection(firebaseDb, 'comments', commentId, 'likes'),
+        (snapshot) => setLikesComment(snapshot.docs)
+      ),
+    [firebaseDb, commentId]
+  )
+
+  useEffect(
+    () =>
+      setHasLikedComment(
+        likesComment.findIndex(
+          (like) => like.id === firebaseAuth.currentUser?.uid
+        ) !== -1
+      ),
+    [likesComment]
+  )
+
+  const likeComment = async () => {
+    if (hasLikedComment) {
+      await deleteDoc(
+        doc(
+          firebaseDb,
+          'comments',
+          commentId,
+          'likes',
+          firebaseAuth.currentUser?.uid
+        )
+      )
+    } else {
+      await setDoc(
+        doc(
+          firebaseDb,
+          'comments',
+          commentId,
+          'likes',
+          firebaseAuth.currentUser?.uid
+        ),
+        {
+          username: firebaseAuth.currentUser?.displayName,
+        }
+      )
+    }
+  }
+
   return (
     <div className="comment">
       <img src={profileImage} alt="profile picture" />
@@ -47,26 +100,33 @@ export function Comments({
             {comment}
           </p>
 
-          <motion.button
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: {
-                scale: 1.2,
-              },
-              visible: {
-                scale: 1,
-                transition: {
-                  delay: 0.1,
+          {hasLikedComment ? (
+            <motion.button
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {
+                  scale: 1.2,
                 },
-              },
-            }}
-          >
-            <HiHeart className="comment__heart " />
-          </motion.button>
+                visible: {
+                  scale: 1,
+                  transition: {
+                    delay: 0.1,
+                  },
+                },
+              }}
+              className="comment__heart"
+            >
+              <FilledHeart onClick={likeComment} />
+            </motion.button>
+          ) : (
+            <button className="comment__heart outlined">
+              <OutlinedHeart onClick={likeComment} />
+            </button>
+          )}
         </div>
         <div className="comment__footer">
-          <p>0 like</p>{' '}
+          {likesComment.length === 1 && <p>{likesComment.length} likes</p>}
           {commentUserId === firebaseAuth.currentUser?.uid && (
             <button
               className="delete__comment"
