@@ -10,12 +10,12 @@ import {
 } from 'firebase/firestore'
 
 type Post = {
-  id: string
+  postId: string
   caption: string
-  profileImg: string
+  userImage: string
   image: string
   username: string
-  userId: string
+  postUserId: string
 }
 
 export function Posts() {
@@ -29,7 +29,9 @@ export function Posts() {
     const unsubscribe = onSnapshot(
       query(postsCollectionReference, orderBy('timestamp', 'desc')),
       (snapshot) => {
-        setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        setPosts(
+          snapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
+        )
       }
     )
 
@@ -40,19 +42,21 @@ export function Posts() {
 
   return (
     <div className="posts">
-      {posts.map(({ username, profileImg, caption, image, id, userId }) => {
-        return (
-          <Post
-            userId={userId}
-            id={id}
-            username={username}
-            profileImg={profileImg}
-            caption={caption}
-            image={image}
-            key={id}
-          />
-        )
-      })}
+      {posts.map(
+        ({ username, userImage, caption, image, postId, postUserId }) => {
+          return (
+            <Post
+              postUserId={postUserId}
+              postId={postId}
+              username={username}
+              userImage={userImage}
+              caption={caption}
+              image={image}
+              key={postId}
+            />
+          )
+        }
+      )}
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { Header } from '../../exportFiles'
-import { Modal } from '../../components/UploadPost/Modal'
+import { Modal } from '../../components/Modal/Modal'
 import { SideProfile } from './Side-Profile/SideProfile'
 import { Stories } from './Story/Stories'
 import { Posts } from './Post/Posts'
