@@ -22,35 +22,33 @@ type ModalProps = {
 }
 
 export function Modal({ closeModal }: ModalProps) {
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFile, setSelectedFile] = useState<any>(null)
   const [loading, setLoading] = useState(false)
-  const filePickerRef = useRef(null)
-  const captionRef = useRef(null)
+  const filePickerRef = useRef<any>(null)
+  const captionRef = useRef<any>(null)
 
   const uploadPost = async () => {
     if (loading) return
     setLoading(true)
 
-    const docReference = await addDoc(collection(firebaseDb, 'posts'), {
+    const documentReference = await addDoc(collection(firebaseDb, 'posts'), {
       userId: firebaseAuth.currentUser?.uid,
       username: firebaseAuth.currentUser?.displayName,
       caption: captionRef.current.value,
-      profileImg: firebaseAuth.currentUser?.photoURL,
+      userImage: firebaseAuth.currentUser?.photoURL,
       timestamp: serverTimestamp(),
     })
 
-    console.log('New doc added with ID', docReference.id)
-
     const imageReference = ref(
       firebaseStorage,
-      `posts/${docReference.id}/image`
+      `posts/${documentReference.id}/image`
     )
 
     await uploadString(imageReference, selectedFile, 'data_url').then(
       async (snapshot) => {
         const downloadURL = await getDownloadURL(imageReference)
 
-        await updateDoc(doc(firebaseDb, 'posts', docReference.id), {
+        await updateDoc(doc(firebaseDb, 'posts', documentReference.id), {
           image: downloadURL,
         })
       }
@@ -61,7 +59,7 @@ export function Modal({ closeModal }: ModalProps) {
     setSelectedFile(null)
   }
 
-  const addImageToPost = (e) => {
+  const addImageToPost = (e: any) => {
     const reader = new FileReader()
 
     if (e.target.files[0]) {
