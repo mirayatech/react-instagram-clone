@@ -144,37 +144,3 @@
   align-items: center;
   font-size: calc(14 / 16 * 1rem);
 }
-
-.comments {
-  height: 100%;
-  max-height: 50px;
-  overflow-y: scroll;
-}
-
-.comment {
-  display: flex;
-  align-items: center;
-  margin: 5px 10px 10px 10px;
-}
-.comment img {
-  width: 25px;
-  margin-right: 5px;
-  border-radius: 50%;
-}
-
-.comment .comment__wrapper {
-  display: flex;
-}
-
-.comment .comment__wrapper p {
-  font-size: calc(14 / 16 * 1rem);
-}
-
-.comment .comment__wrapper .comment__username {
-  font-weight: 500;
-  margin-right: 5px;
-}
-
-.comment p:nth-child(3) {
-  word-break: normal;
-}
