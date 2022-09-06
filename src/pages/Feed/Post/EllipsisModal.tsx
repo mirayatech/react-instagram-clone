@@ -3,13 +3,12 @@ import { firebaseDb } from '../../../library/firebase'
 import { motion } from 'framer-motion'
 
 type PostModalProps = {
-  setIsOpen: any
-  id: string
+  postId: string
 }
 
-export function PostModal({ setIsOpen, id }: PostModalProps) {
+export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
   const deletePost = async () => {
-    const postDoc = doc(firebaseDb, `posts/${id}`)
+    const postDoc = doc(firebaseDb, `posts/${postId}`)
     await deleteDoc(postDoc)
   }
 
@@ -49,7 +48,7 @@ export function PostModal({ setIsOpen, id }: PostModalProps) {
         }}
         className="post__modal"
       >
-        <button onClick={() => deletePost(id)}>Delete Post</button>
+        <button onClick={() => deletePost(postId)}>Delete Post</button>
         <button onClick={() => setIsOpen(false)}>Cancel</button>
       </motion.div>
     </motion.div>
