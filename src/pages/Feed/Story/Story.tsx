@@ -1,17 +1,15 @@
 type StoryProps = {
-  story: {
-    picture: string
-    username: string
-  }
+  picture: string
+  username: string
 }
 
-export function Story({ story }: StoryProps) {
+export function Story({ picture, username }: StoryProps) {
   return (
     <div className="story">
       <div className="story__image">
-        <img src={story.picture} alt="Story" />
+        <img src={picture} alt="Story" />
       </div>
-      <p>{story.username}</p>
+      <p>{username}</p>
     </div>
   )
 }
