@@ -1,6 +1,6 @@
 import { Header } from '../../exportFiles'
 import { Modal } from '../../components/Modal/Modal'
-import { SideProfile } from './Side-Profile/SideProfile'
+import { SideProfiles } from './SideProfiles/SideProfiles'
 import { Stories } from './Story/Stories'
 import { Posts } from './Post/Posts'
 import { useState } from 'react'
@@ -31,7 +31,7 @@ export function Feed() {
         </section>
 
         <aside className="feed__profile">
-          <SideProfile />
+          <SideProfiles />
         </aside>
       </div>
     </div>

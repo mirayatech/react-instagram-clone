@@ -1,16 +1,29 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { firebaseAuth } from '../../../library/firebase'
-import { SideProfiles } from '../../../library/SideProfiles'
+import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { SecondaryFooter } from '../../../exportFiles'
 import { useState, useEffect } from 'react'
-import '/src/styles/SideProfile.css'
+import { SideProfile } from './SideProfile'
+import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
 
-export function SideProfile() {
+type Story = {
+  username: string
+  picture: string
+  info: string
+  profileId: string
+}
+
+export function SideProfiles() {
+  const [profiles, setProfiles] = useState([])
   const [currentUserProfile, setCurrentUserProfile] = useState({
     photoURL: '',
     displayName: '',
   })
+
+  const profilesCollectionReference = collection(
+    firebaseDb,
+    'sideProfiles'
+  ) as CollectionReference<Story>
 
   const navigate = useNavigate()
 
@@ -24,6 +37,17 @@ export function SideProfile() {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
       return setCurrentUserProfile(currentUser)
     })
+  }, [])
+
+  useEffect(() => {
+    const getSideProfiles = () => {
+      onSnapshot(profilesCollectionReference, (snapshot) =>
+        setProfiles(
+          snapshot.docs.map((doc) => ({ ...doc.data(), profileId: doc.id }))
+        )
+      )
+    }
+    getSideProfiles()
   }, [])
 
   return (
@@ -44,20 +68,18 @@ export function SideProfile() {
         <div className="suggestions__intro">
           <p>Suggestions for you</p> <p>See All</p>
         </div>
-
-        {SideProfiles.map(({ picture, username, suggestions }, id) => {
-          return (
-            <div className="profile" key={id}>
-              <img src={picture} alt="profile picture" />
-              <div className="profile--info">
-                <p className="username">{username}</p>
-                <p>{suggestions}</p>
-              </div>
-              <button>Follow</button>
-            </div>
-          )
-        })}
       </div>
+
+      {profiles.map(({ username, picture, info, profileId }) => {
+        return (
+          <SideProfile
+            username={username}
+            picture={picture}
+            info={info}
+            key={profileId}
+          />
+        )
+      })}
       <SecondaryFooter />
     </div>
   )
