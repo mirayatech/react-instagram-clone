@@ -1,11 +1,18 @@
-import '../../styles/Footer.css'
 export function SecondaryFooter() {
   return (
     <footer className="secondary__footer">
-      Built with <span className="footer__emoji">💙</span> by{' '}
-      <a href="https://github.com/mirayatech" target="_blank">
-        Miraya
-      </a>
+      <footer>
+        <p tabIndex={1}>
+          Built with
+          <span className="footer__emoji" aria-label="love">
+            &nbsp;💙&nbsp;
+          </span>
+          by&nbsp;
+          <a tabIndex={1} href="https://github.com/mirayatech" target="_blank">
+            Miraya
+          </a>
+        </p>
+      </footer>
     </footer>
   )
 }
