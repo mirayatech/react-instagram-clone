@@ -15,7 +15,7 @@ export function Login() {
   }
   return (
     <>
-      <div className="Login">
+      <div className="login">
         <img
           src={AnimePicture}
           alt="Animated girl"
@@ -28,13 +28,13 @@ export function Login() {
             alt="Instagram logo"
           />
 
-          <p>
-            Sign in with Google to see what your favorite anime characters have
-            posted. Like their posts, comment on their posts and upload your own
-            posts.
+          <p tabIndex={1}>
+            Sign in with Google to see what your favorite Demon Slayer
+            characters have posted. Like their posts, comment on their posts and
+            upload your own posts.
           </p>
 
-          <button onClick={signInWithGoogle}>
+          <button onClick={signInWithGoogle} tabIndex={1}>
             <GrGoogle className="svg" /> Sign in with Google
           </button>
         </div>
