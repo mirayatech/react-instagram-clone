@@ -192,7 +192,7 @@ export function Post({
         </div>
 
         <div className="post__likes">
-          {likes.length === 1 && <p>{likes.length} likes</p>}
+          {likes.length > 0 && <p>{likes.length} likes</p>}
         </div>
         <div className="post__caption">
           <p>

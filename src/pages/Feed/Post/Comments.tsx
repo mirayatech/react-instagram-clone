@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import {
+  Firestore,
   doc,
+  CollectionReference,
   collection,
   deleteDoc,
   onSnapshot,
@@ -23,6 +25,13 @@ type CommentsProps = {
   commentUserId: string
 }
 
+type Like = {
+  username: string
+  firebaseDb: Firestore
+  postId: string
+  commentId: string
+}
+
 export function Comments({
   comment,
   profile,
@@ -33,6 +42,15 @@ export function Comments({
 }: CommentsProps) {
   const [likesComment, setLikesComment] = useState([])
   const [hasLikedComment, setHasLikedComment] = useState(false)
+
+  const likeCollectionReference = collection(
+    firebaseDb,
+    'posts',
+    postId,
+    'comments',
+    commentId,
+    'likes'
+  ) as CollectionReference<Like>
 
   const deleteComment = async () => {
     const commentDocument = doc(
@@ -45,9 +63,8 @@ export function Comments({
 
   useEffect(
     () =>
-      onSnapshot(
-        collection(firebaseDb, 'comments', commentId, 'likes'),
-        (snapshot) => setLikesComment(snapshot.docs)
+      onSnapshot(likeCollectionReference, (snapshot) =>
+        setLikesComment(snapshot.docs)
       ),
     [firebaseDb, commentId]
   )
@@ -63,29 +80,22 @@ export function Comments({
   )
 
   const likeComment = async () => {
+    const likeDocument = doc(
+      firebaseDb,
+      'posts',
+      postId,
+      'comments',
+      commentId,
+      'likes',
+      firebaseAuth.currentUser?.uid
+    )
+
     if (hasLikedComment) {
-      await deleteDoc(
-        doc(
-          firebaseDb,
-          'comments',
-          commentId,
-          'likes',
-          firebaseAuth.currentUser?.uid
-        )
-      )
+      await deleteDoc(likeDocument)
     } else {
-      await setDoc(
-        doc(
-          firebaseDb,
-          'comments',
-          commentId,
-          'likes',
-          firebaseAuth.currentUser?.uid
-        ),
-        {
-          username: firebaseAuth.currentUser?.displayName,
-        }
-      )
+      await setDoc(likeDocument, {
+        username: firebaseAuth.currentUser?.displayName,
+      })
     }
   }
 
@@ -126,7 +136,7 @@ export function Comments({
           )}
         </div>
         <div className="comment__footer">
-          {likesComment.length === 1 && <p>{likesComment.length} likes</p>}
+          {likesComment.length > 0 && <p>{likesComment.length} likes</p>}
           {commentUserId === firebaseAuth.currentUser?.uid && (
             <button
               className="delete__comment"
