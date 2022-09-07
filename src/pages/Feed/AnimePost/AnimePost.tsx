@@ -22,6 +22,7 @@ import {
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { AnimeComments } from './AnimeComments'
+
 type AnimePost = {
   picture: string
   caption: string
@@ -31,11 +32,11 @@ type AnimePost = {
 }
 
 type AnimeComments = {
-  commentUserId: string
-  commentId: string
-  comment: string
-  profile: string
-  profileImage: string
+  animeCommentUserId: string
+  animeCommentId: string
+  animeComment: string
+  animeProfile: string
+  animeProfileImage: string
   timestamp: {
     nanoseconds: number
     seconds: number
@@ -66,10 +67,10 @@ export function AnimePost({
     setAnimeComment('')
 
     await addDoc(animeCommentsCollectionReference, {
-      comment: commentToSend,
-      profile: firebaseAuth.currentUser?.displayName,
-      profileImage: firebaseAuth.currentUser?.photoURL,
-      commentUserId: firebaseAuth.currentUser?.uid,
+      animeComment: commentToSend,
+      animeProfile: firebaseAuth.currentUser?.displayName,
+      animeProfileImage: firebaseAuth.currentUser?.photoURL,
+      animeCommentUserId: firebaseAuth.currentUser?.uid,
       timestamp: serverTimestamp(),
     })
   }
@@ -198,22 +199,22 @@ export function AnimePost({
         <div className="comments">
           {animeComments.map(
             ({
-              profile,
-              profileImage,
-              comment,
-              commentUserId,
-              commentId,
+              animeProfile,
+              animeProfileImage,
+              animeComment,
+              animeCommentUserId,
+              animeCommentId,
               animeId,
             }) => {
               return (
                 <AnimeComments
-                  key={commentId}
-                  profile={profile}
-                  profileImage={profileImage}
-                  comment={comment}
-                  commentId={commentId}
+                  key={animeCommentId}
+                  animeProfile={animeProfile}
+                  animeProfileImage={animeProfileImage}
+                  animeComment={animeComment}
+                  animeCommentId={animeCommentId}
                   animeId={animeId}
-                  commentUserId={commentUserId}
+                  animeCommentUserId={animeCommentUserId}
                 />
               )
             }

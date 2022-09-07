@@ -17,12 +17,11 @@ import {
 } from 'react-icons/hi'
 
 type AnimeCommentsProps = {
-  profile: string
-  profileImage: string
-  comment: string
-  commentUserId: string
-  commentId: string
-  animeId: string
+  animeCommentUserId: string
+  animeCommentId: string
+  animeComment: string
+  animeProfile: string
+  animeProfileImage: string
 }
 
 type Like = {
@@ -33,11 +32,11 @@ type Like = {
 }
 
 export function AnimeComments({
-  profile,
-  profileImage,
-  comment,
-  commentUserId,
-  commentId,
+  animeProfile,
+  animeProfileImage,
+  animeComment,
+  animeCommentUserId,
+  animeCommentId,
   animeId,
 }: AnimeCommentsProps) {
   const [likesComment, setLikesComment] = useState([])
@@ -45,13 +44,13 @@ export function AnimeComments({
 
   return (
     <div className="comment">
-      <img src={profileImage} alt="profile picture" />
+      <img src={animeProfileImage} alt="profile picture" />
 
       <div className="comment__wrapper">
         <div className="comment__info">
           <p>
-            <span className="comment__username"> {profile}</span>
-            {comment}
+            <span className="comment__username"> {animeProfile}</span>
+            {animeComment}
           </p>
         </div>
         <div className="comment__footer"></div>
