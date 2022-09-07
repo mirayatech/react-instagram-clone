@@ -1,4 +1,12 @@
 import { VscSmiley as Smiley } from 'react-icons/vsc'
+import { firebaseDb, firebaseAuth } from '../../../library/firebase'
+import {
+  onSnapshot,
+  collection,
+  doc,
+  setDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -6,7 +14,8 @@ import {
   HiOutlineChat as Comment,
   HiOutlineBookmark as SavePost,
 } from 'react-icons/hi'
-
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 type AnimePost = {
   picture: string
   caption: string
@@ -21,6 +30,56 @@ export function AnimePost({
   post,
   animeId,
 }: AnimePost) {
+  const [likesAnimePost, setLikesAnimePost] = useState([])
+  const [hasLikedAnimePost, setHasLikedAnimePost] = useState(false)
+  // Likes
+
+  useEffect(
+    () =>
+      onSnapshot(
+        collection(firebaseDb, 'profiles', animeId, 'likes'),
+        (snapshot) => setLikesAnimePost(snapshot.docs)
+      ),
+    [firebaseDb, animeId]
+  )
+
+  useEffect(
+    () =>
+      setHasLikedAnimePost(
+        likesAnimePost.findIndex(
+          (like) => like.id === firebaseAuth.currentUser?.uid
+        ) !== -1
+      ),
+    [likesAnimePost]
+  )
+
+  const likePost = async () => {
+    if (hasLikedAnimePost) {
+      await deleteDoc(
+        doc(
+          firebaseDb,
+          'profiles',
+          animeId,
+          'likes',
+          firebaseAuth.currentUser?.uid
+        )
+      )
+    } else {
+      await setDoc(
+        doc(
+          firebaseDb,
+          'profiles',
+          animeId,
+          'likes',
+          firebaseAuth.currentUser?.uid
+        ),
+        {
+          username: firebaseAuth.currentUser?.displayName,
+        }
+      )
+    }
+  }
+
   return (
     <article className="post">
       <div className="post__header">
@@ -37,7 +96,7 @@ export function AnimePost({
       <div className="post__description">
         <div className="post__actions">
           <div className="post__actions--wrapper">
-            {/* {hasLiked ? (
+            {hasLikedAnimePost ? (
               <motion.button
                 initial="hidden"
                 animate="visible"
@@ -65,7 +124,7 @@ export function AnimePost({
                   onClick={likePost}
                 />
               </button>
-            )} */}
+            )}
 
             <Comment className="post__actions--icon" />
             <Plane className="post__actions--icon" />
@@ -74,7 +133,7 @@ export function AnimePost({
         </div>
 
         <div className="post__likes">
-          {/* {likes.length > 0 && <p>{likes.length} likes</p>} */}
+          {likesAnimePost.length > 0 && <p>{likesAnimePost.length} likes</p>}
         </div>
         <div className="post__caption">
           <p>

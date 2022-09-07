@@ -21,7 +21,7 @@ export function AnimePosts() {
   useEffect(() => {
     const unsubscribe = onSnapshot(animePostCollectionReference, (snapshot) => {
       setAnimePosts(
-        snapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
+        snapshot.docs.map((doc) => ({ ...doc.data(), animeId: doc.id }))
       )
     })
 
