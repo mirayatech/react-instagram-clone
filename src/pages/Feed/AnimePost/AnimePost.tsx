@@ -1,11 +1,16 @@
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 import { firebaseDb, firebaseAuth } from '../../../library/firebase'
 import {
-  onSnapshot,
-  collection,
   doc,
-  setDoc,
+  addDoc,
+  collection,
+  CollectionReference,
   deleteDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+  setDoc,
 } from 'firebase/firestore'
 import {
   HiOutlinePaperAirplane as Plane,
@@ -16,6 +21,7 @@ import {
 } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { AnimeComments } from './AnimeComments'
 type AnimePost = {
   picture: string
   caption: string
@@ -23,6 +29,19 @@ type AnimePost = {
   post: string
   animeId: string
 }
+
+type AnimeComments = {
+  commentUserId: string
+  commentId: string
+  comment: string
+  profile: string
+  profileImage: string
+  timestamp: {
+    nanoseconds: number
+    seconds: number
+  }
+}
+
 export function AnimePost({
   username,
   picture,
@@ -32,6 +51,42 @@ export function AnimePost({
 }: AnimePost) {
   const [likesAnimePost, setLikesAnimePost] = useState([])
   const [hasLikedAnimePost, setHasLikedAnimePost] = useState(false)
+  const [animeComment, setAnimeComment] = useState('')
+  const [animeComments, setAnimeComments] = useState<AnimeComments[]>([])
+
+  const animeCommentsCollectionReference = collection(
+    firebaseDb,
+    'profiles',
+    animeId,
+    'comments'
+  ) as CollectionReference<AnimeComments>
+
+  const sendAnimeComment = async () => {
+    const commentToSend = animeComment
+    setAnimeComment('')
+
+    await addDoc(animeCommentsCollectionReference, {
+      comment: commentToSend,
+      profile: firebaseAuth.currentUser?.displayName,
+      profileImage: firebaseAuth.currentUser?.photoURL,
+      commentUserId: firebaseAuth.currentUser?.uid,
+      timestamp: serverTimestamp(),
+    })
+  }
+
+  useEffect(() => {
+    const getComments = async () =>
+      onSnapshot(
+        query(animeCommentsCollectionReference, orderBy('timestamp', 'desc')),
+        (snapshot) => {
+          return setAnimeComments(
+            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
+          )
+        }
+      )
+    getComments()
+  }, [firebaseDb, animeId])
+
   // Likes
 
   useEffect(
@@ -141,27 +196,42 @@ export function AnimePost({
           </p>
         </div>
         <div className="comments">
-          {/* {comments.map(
-            ({ profile, profileImage, comment, commentUserId, commentId }) => {
+          {animeComments.map(
+            ({
+              profile,
+              profileImage,
+              comment,
+              commentUserId,
+              commentId,
+              animeId,
+            }) => {
               return (
-                <Comments
+                <AnimeComments
                   key={commentId}
                   profile={profile}
                   profileImage={profileImage}
                   comment={comment}
                   commentId={commentId}
-                  postId={postId}
+                  animeId={animeId}
                   commentUserId={commentUserId}
                 />
               )
             }
-          )} */}
+          )}
         </div>
         <div className="post__commenting">
           <Smiley className="post__commenting--icon" />
 
-          <input type="text" name="comment" placeholder="Add a comment..." />
-          <button>Post</button>
+          <input
+            value={animeComment}
+            onChange={(e) => setAnimeComment(e.target.value)}
+            type="text"
+            name="comment"
+            placeholder="Add a comment..."
+          />
+          <button onClick={sendAnimeComment} disabled={!animeComment.trim()}>
+            Post
+          </button>
         </div>
       </div>
     </article>
