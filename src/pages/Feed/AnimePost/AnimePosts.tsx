@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { firebaseDb } from '../../../library/firebase'
 import { collection, onSnapshot, CollectionReference } from 'firebase/firestore'
 
-type AnimePost = {
+type AnimePostCollection = {
   picture: string
   caption: string
   username: string
@@ -12,11 +12,11 @@ type AnimePost = {
 }
 
 export function AnimePosts() {
-  const [animePosts, setAnimePosts] = useState<AnimePost[]>([])
+  const [animePosts, setAnimePosts] = useState<AnimePostCollection[]>([])
   const animePostCollectionReference = collection(
     firebaseDb,
     'profiles'
-  ) as CollectionReference<AnimePost>
+  ) as CollectionReference<AnimePostCollection>
 
   useEffect(() => {
     const unsubscribe = onSnapshot(animePostCollectionReference, (snapshot) => {

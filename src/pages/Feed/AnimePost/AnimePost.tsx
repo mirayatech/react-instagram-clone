@@ -1,16 +1,12 @@
-import { VscSmiley as Smiley } from 'react-icons/vsc'
+import { AnimeComments } from './AnimeComments'
 import { firebaseDb, firebaseAuth } from '../../../library/firebase'
 import {
   doc,
-  addDoc,
   collection,
-  CollectionReference,
   deleteDoc,
   onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
   setDoc,
+  CollectionReference,
 } from 'firebase/firestore'
 import {
   HiOutlinePaperAirplane as Plane,
@@ -21,26 +17,17 @@ import {
 } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { AnimeComments } from './AnimeComments'
+type A = {
+  likesId: string
+  username: string
+}
 
-type AnimePost = {
+type AnimePostProps = {
   picture: string
   caption: string
   username: string
   post: string
   animeId: string
-}
-
-type AnimeComments = {
-  animeCommentUserId: string
-  animeCommentId: string
-  animeComment: string
-  animeProfile: string
-  animeProfileImage: string
-  timestamp: {
-    nanoseconds: number
-    seconds: number
-  }
 }
 
 export function AnimePost({
@@ -49,52 +36,23 @@ export function AnimePost({
   caption,
   post,
   animeId,
-}: AnimePost) {
-  const [likesAnimePost, setLikesAnimePost] = useState([])
+}: AnimePostProps) {
+  const [likesAnimePost, setLikesAnimePost] = useState<A[]>([])
   const [hasLikedAnimePost, setHasLikedAnimePost] = useState(false)
-  const [animeComment, setAnimeComment] = useState('')
-  const [animeComments, setAnimeComments] = useState<AnimeComments[]>([])
 
-  const animeCommentsCollectionReference = collection(
+  const likesCollectionReference = collection(
     firebaseDb,
     'profiles',
     animeId,
-    'comments'
-  ) as CollectionReference<AnimeComments>
-
-  const sendAnimeComment = async () => {
-    const commentToSend = animeComment
-    setAnimeComment('')
-
-    await addDoc(animeCommentsCollectionReference, {
-      animeComment: commentToSend,
-      animeProfile: firebaseAuth.currentUser?.displayName,
-      animeProfileImage: firebaseAuth.currentUser?.photoURL,
-      animeCommentUserId: firebaseAuth.currentUser?.uid,
-      timestamp: serverTimestamp(),
-    })
-  }
-
-  useEffect(() => {
-    const getComments = async () =>
-      onSnapshot(
-        query(animeCommentsCollectionReference, orderBy('timestamp', 'desc')),
-        (snapshot) => {
-          return setAnimeComments(
-            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
-          )
-        }
-      )
-    getComments()
-  }, [firebaseDb, animeId])
-
-  // Likes
+    'likes'
+  ) as CollectionReference<A>
 
   useEffect(
     () =>
-      onSnapshot(
-        collection(firebaseDb, 'profiles', animeId, 'likes'),
-        (snapshot) => setLikesAnimePost(snapshot.docs)
+      onSnapshot(likesCollectionReference, (snapshot) =>
+        setLikesAnimePost(
+          snapshot.docs.map((doc) => ({ ...doc.data(), likesId: doc.id }))
+        )
       ),
     [firebaseDb, animeId]
   )
@@ -103,7 +61,7 @@ export function AnimePost({
     () =>
       setHasLikedAnimePost(
         likesAnimePost.findIndex(
-          (like) => like.id === firebaseAuth.currentUser?.uid
+          (like) => like.likesId === firebaseAuth.currentUser?.uid
         ) !== -1
       ),
     [likesAnimePost]
@@ -141,9 +99,7 @@ export function AnimePost({
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={picture} alt={username} />
-          <span className="post__post--info">
-            <p className="username">{username}</p>
-          </span>
+          <p className="username">{username}</p>
         </div>
       </div>
 
@@ -196,44 +152,8 @@ export function AnimePost({
             <span className="thick">{username}</span> {caption}
           </p>
         </div>
-        <div className="comments">
-          {animeComments.map(
-            ({
-              animeProfile,
-              animeProfileImage,
-              animeComment,
-              animeCommentUserId,
-              animeCommentId,
-              animeId,
-            }) => {
-              return (
-                <AnimeComments
-                  key={animeCommentId}
-                  animeProfile={animeProfile}
-                  animeProfileImage={animeProfileImage}
-                  animeComment={animeComment}
-                  animeCommentId={animeCommentId}
-                  animeId={animeId}
-                  animeCommentUserId={animeCommentUserId}
-                />
-              )
-            }
-          )}
-        </div>
-        <div className="post__commenting">
-          <Smiley className="post__commenting--icon" />
 
-          <input
-            value={animeComment}
-            onChange={(e) => setAnimeComment(e.target.value)}
-            type="text"
-            name="comment"
-            placeholder="Add a comment..."
-          />
-          <button onClick={sendAnimeComment} disabled={!animeComment.trim()}>
-            Post
-          </button>
-        </div>
+        <AnimeComments animeId={animeId} />
       </div>
     </article>
   )
