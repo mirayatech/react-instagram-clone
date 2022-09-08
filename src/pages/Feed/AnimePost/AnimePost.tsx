@@ -1,13 +1,3 @@
-import { AnimeComments } from './AnimeComments'
-import { firebaseDb, firebaseAuth } from '../../../library/firebase'
-import {
-  doc,
-  collection,
-  deleteDoc,
-  onSnapshot,
-  setDoc,
-  CollectionReference,
-} from 'firebase/firestore'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -15,43 +5,54 @@ import {
   HiOutlineChat as Comment,
   HiOutlineBookmark as SavePost,
 } from 'react-icons/hi'
+import {
+  doc,
+  setDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
+  CollectionReference,
+} from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-type A = {
-  likesId: string
+import { AnimeComments } from './AnimeComments'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
+import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+
+type Like = {
+  likeId: string
   username: string
 }
 
-type AnimePostProps = {
-  picture: string
-  caption: string
-  username: string
-  post: string
+type AnimePostPropos = {
   animeId: string
+  caption: string
+  picture: string
+  post: string
+  username: string
 }
 
 export function AnimePost({
-  username,
-  picture,
-  caption,
-  post,
   animeId,
-}: AnimePostProps) {
-  const [likesAnimePost, setLikesAnimePost] = useState<A[]>([])
-  const [hasLikedAnimePost, setHasLikedAnimePost] = useState(false)
-
-  const likesCollectionReference = collection(
+  caption,
+  picture,
+  post,
+  username,
+}: AnimePostPropos) {
+  const [likes, setLikes] = useState<Like[]>([])
+  const [hasLiked, setHasLiked] = useState(false)
+  const likeCollectionReference = collection(
     firebaseDb,
     'profiles',
     animeId,
     'likes'
-  ) as CollectionReference<A>
+  ) as CollectionReference<Like>
 
   useEffect(
     () =>
-      onSnapshot(likesCollectionReference, (snapshot) =>
-        setLikesAnimePost(
-          snapshot.docs.map((doc) => ({ ...doc.data(), likesId: doc.id }))
+      onSnapshot(likeCollectionReference, (snapshot) =>
+        setLikes(
+          snapshot.docs.map((doc) => ({ ...doc.data(), likeId: doc.id }))
         )
       ),
     [firebaseDb, animeId]
@@ -59,16 +60,16 @@ export function AnimePost({
 
   useEffect(
     () =>
-      setHasLikedAnimePost(
-        likesAnimePost.findIndex(
-          (like) => like.likesId === firebaseAuth.currentUser?.uid
+      setHasLiked(
+        likes.findIndex(
+          (like) => like.likeId === firebaseAuth.currentUser?.uid
         ) !== -1
       ),
-    [likesAnimePost]
+    [likes]
   )
 
   const likePost = async () => {
-    if (hasLikedAnimePost) {
+    if (hasLiked) {
       await deleteDoc(
         doc(
           firebaseDb,
@@ -95,20 +96,22 @@ export function AnimePost({
   }
 
   return (
-    <article className="post">
+    <div className="post">
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={picture} alt={username} />
-          <p className="username">{username}</p>
+          <span className="post__post--info">
+            <p className="username">{username}</p>
+          </span>
         </div>
       </div>
 
       <img src={post} alt="Instagram post" className="post__image" />
 
-      <div className="post__description">
+      <div className="post__container">
         <div className="post__actions">
           <div className="post__actions--wrapper">
-            {hasLikedAnimePost ? (
+            {hasLiked ? (
               <motion.button
                 initial="hidden"
                 animate="visible"
@@ -145,16 +148,15 @@ export function AnimePost({
         </div>
 
         <div className="post__likes">
-          {likesAnimePost.length > 0 && <p>{likesAnimePost.length} likes</p>}
+          {likes.length > 0 && <p>{likes.length} likes</p>}
         </div>
         <div className="post__caption">
           <p>
             <span className="thick">{username}</span> {caption}
           </p>
         </div>
-
         <AnimeComments animeId={animeId} />
       </div>
-    </article>
+    </div>
   )
 }

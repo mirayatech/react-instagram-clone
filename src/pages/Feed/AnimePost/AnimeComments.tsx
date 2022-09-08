@@ -1,49 +1,49 @@
+import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 import { useState, useEffect } from 'react'
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
-import {
-  collection,
-  CollectionReference,
-  addDoc,
-  serverTimestamp,
-  onSnapshot,
-  query,
-  orderBy,
-} from 'firebase/firestore'
 import { AnimeComment } from './AnimeComment'
+import {
+  query,
+  addDoc,
+  orderBy,
+  onSnapshot,
+  collection,
+  serverTimestamp,
+  CollectionReference,
+} from 'firebase/firestore'
+
+type Comments = {
+  comment: string
+  profile: string
+  commentId: string
+  commentUserId: string
+  profileImage: string
+  timestamp: { seconds: number; nanoseconds: number }
+}
 
 type AnimeCommentsProps = {
   animeId: string
 }
-
-type T = {
-  ourComment: string
-  ourProfile: string
-  ourProfilePicture: string
-  ourCommentUserId: string
-  ourCommentId: string
-}
-
 export function AnimeComments({ animeId }: AnimeCommentsProps) {
-  const [ourComment, setOurComment] = useState('')
-  const [ourComments, setOurComments] = useState<T[]>([])
+  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState<Comments[]>([])
 
-  const animeCommentsCollectionReference = collection(
+  const commentsCollectionReference = collection(
     firebaseDb,
     'profiles',
     animeId,
     'comments'
-  ) as CollectionReference<T>
+  ) as CollectionReference<Comments>
 
-  const sendAnimeComment = async () => {
-    const commentToSend = ourComment
-    setOurComment('')
+  const sendComment = async () => {
+    const commentToSend = comment
+    setComment('')
 
-    await addDoc(animeCommentsCollectionReference, {
-      ourComment: commentToSend,
-      ourProfile: firebaseAuth.currentUser?.displayName,
-      ourProfilePicture: firebaseAuth.currentUser?.photoURL,
-      ourCommentUserId: firebaseAuth.currentUser?.uid,
+    await addDoc(commentsCollectionReference, {
+      comment: commentToSend,
+      profile: firebaseAuth.currentUser?.displayName,
+      profileImage: firebaseAuth.currentUser?.photoURL,
+      commentUserId: firebaseAuth.currentUser?.uid,
       timestamp: serverTimestamp(),
     })
   }
@@ -51,13 +51,10 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
   useEffect(() => {
     const getComments = async () =>
       onSnapshot(
-        query(animeCommentsCollectionReference, orderBy('timestamp', 'desc')),
+        query(commentsCollectionReference, orderBy('timestamp', 'desc')),
         (snapshot) => {
-          return setOurComments(
-            snapshot.docs.map((doc) => ({
-              ...doc.data(),
-              ourCommentId: doc.id,
-            }))
+          return setComments(
+            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
           )
         }
       )
@@ -65,43 +62,39 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
   }, [firebaseDb, animeId])
 
   return (
-    <div className="AnimeComments">
-      {ourComments.map(
-        ({
-          ourComment,
-          ourProfile,
-          ourProfilePicture,
-          ourCommentUserId,
-          ourCommentId,
-        }) => {
-          return (
-            <AnimeComment
-              key={ourCommentId}
-              ourComment={ourComment}
-              ourProfile={ourProfile}
-              ourCommentId={ourCommentId}
-              ourProfilePicture={ourProfilePicture}
-              ourCommentUserId={ourCommentUserId}
-              animeId={'animeId'}
-            />
-          )
-        }
-      )}
+    <>
+      <div className="comments">
+        {comments.map(
+          ({ profile, profileImage, comment, commentUserId, commentId }) => {
+            return (
+              <AnimeComment
+                animeId={animeId}
+                key={commentId}
+                profile={profile}
+                comment={comment}
+                commentId={commentId}
+                profileImage={profileImage}
+                commentUserId={commentUserId}
+              />
+            )
+          }
+        )}
+      </div>
 
-      <div className="post__commenting">
-        <Smiley className="post__commenting--icon" />
+      <div className="comments__container">
+        <Smiley className="comments__container--icon" />
 
         <input
-          value={ourComment}
-          onChange={(e) => setOurComment(e.target.value)}
-          type="text"
-          name="comment"
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment..."
+          name="comment"
+          type="text"
         />
-        <button onClick={sendAnimeComment} disabled={!ourComment.trim()}>
+        <button onClick={sendComment} disabled={!comment.trim()}>
           Post
         </button>
       </div>
-    </div>
+    </>
   )
 }

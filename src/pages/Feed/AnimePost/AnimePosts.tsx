@@ -1,47 +1,45 @@
-import { AnimePost } from './AnimePost'
-import { useEffect, useState } from 'react'
+import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
 import { firebaseDb } from '../../../library/firebase'
-import { collection, onSnapshot, CollectionReference } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
+import { AnimePost } from './AnimePost'
 
-type AnimePostCollection = {
-  picture: string
-  caption: string
-  username: string
-  post: string
+type A = {
   animeId: string
+  caption: string
+  picture: string
+  post: string
+  username: string
 }
 
 export function AnimePosts() {
-  const [animePosts, setAnimePosts] = useState<AnimePostCollection[]>([])
-  const animePostCollectionReference = collection(
+  const [animePost, setAnimePost] = useState<A[]>([])
+  const animePostsCollectionReference = collection(
     firebaseDb,
     'profiles'
-  ) as CollectionReference<AnimePostCollection>
+  ) as CollectionReference<A>
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(animePostCollectionReference, (snapshot) => {
-      setAnimePosts(
-        snapshot.docs.map((doc) => ({ ...doc.data(), animeId: doc.id }))
-      )
-    })
-
-    return () => {
-      unsubscribe()
+    const getAnimePost = () => {
+      onSnapshot(animePostsCollectionReference, (snapshot) => {
+        setAnimePost(
+          snapshot.docs.map((doc) => ({ ...doc.data(), animeId: doc.id }))
+        )
+      })
     }
+    getAnimePost()
   }, [firebaseDb])
 
   return (
     <div className="posts">
-      {animePosts.map(({ username, picture, caption, post, animeId }) => {
+      {animePost.map(({ animeId, caption, picture, post, username }) => {
         return (
           <AnimePost
-            //   animeId={animeId}
-            username={username}
-            picture={picture}
-            caption={caption}
-            post={post}
             key={animeId}
             animeId={animeId}
+            caption={caption}
+            picture={picture}
+            post={post}
+            username={username}
           />
         )
       })}

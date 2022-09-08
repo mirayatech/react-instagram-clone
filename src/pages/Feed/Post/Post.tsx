@@ -94,7 +94,7 @@ export function Post({
   }
 
   return (
-    <article className="post">
+    <div className="post">
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={userImage} alt={username} />
@@ -161,6 +161,6 @@ export function Post({
         </div>
         <Comments postId={postId} />
       </div>
-    </article>
+    </div>
   )
 }
