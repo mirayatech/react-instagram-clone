@@ -1,152 +1,101 @@
-import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
-import {
-  Firestore,
-  doc,
-  CollectionReference,
-  collection,
-  deleteDoc,
-  onSnapshot,
-  setDoc,
-} from 'firebase/firestore'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
-
+import { VscSmiley as Smiley } from 'react-icons/vsc'
+import { useState, useEffect } from 'react'
+import { Comment } from './Comment'
 import {
-  HiOutlineHeart as OutlinedHeart,
-  HiHeart as FilledHeart,
-} from 'react-icons/hi'
+  query,
+  addDoc,
+  orderBy,
+  onSnapshot,
+  collection,
+  serverTimestamp,
+  CollectionReference,
+} from 'firebase/firestore'
+
+type Comments = {
+  comment: string
+  profile: string
+  commentId: string
+  commentUserId: string
+  profileImage: string
+  timestamp: { seconds: number; nanoseconds: number }
+}
 
 type CommentsProps = {
   postId: string
-  commentId: string
-  comment: string
-  profile: string
-  profileImage: string
-  commentUserId: string
 }
 
-type Like = {
-  username: string
-  firebaseDb: Firestore
-  postId: string
-  commentId: string
-}
+export function Comments({ postId }: CommentsProps) {
+  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState<Comments[]>([])
 
-export function Comments({
-  comment,
-  profile,
-  profileImage,
-  commentId,
-  postId,
-  commentUserId,
-}: CommentsProps) {
-  const [likesComment, setLikesComment] = useState([])
-  const [hasLikedComment, setHasLikedComment] = useState(false)
-
-  const likeCollectionReference = collection(
+  const commentsCollectionReference = collection(
     firebaseDb,
     'posts',
     postId,
-    'comments',
-    commentId,
-    'likes'
-  ) as CollectionReference<Like>
+    'comments'
+  ) as CollectionReference<Comments>
 
-  const deleteComment = async () => {
-    const commentDocument = doc(
-      firebaseDb,
-      `posts/${postId}`,
-      `comments/${commentId}`
-    )
-    await deleteDoc(commentDocument)
+  const sendComment = async () => {
+    const commentToSend = comment
+    setComment('')
+
+    await addDoc(commentsCollectionReference, {
+      comment: commentToSend,
+      profile: firebaseAuth.currentUser?.displayName,
+      profileImage: firebaseAuth.currentUser?.photoURL,
+      commentUserId: firebaseAuth.currentUser?.uid,
+      timestamp: serverTimestamp(),
+    })
   }
 
-  useEffect(
-    () =>
-      onSnapshot(likeCollectionReference, (snapshot) =>
-        setLikesComment(snapshot.docs)
-      ),
-    [firebaseDb, commentId]
-  )
-
-  useEffect(
-    () =>
-      setHasLikedComment(
-        likesComment.findIndex(
-          (like) => like.id === firebaseAuth.currentUser?.uid
-        ) !== -1
-      ),
-    [likesComment]
-  )
-
-  const likeComment = async () => {
-    const likeDocument = doc(
-      firebaseDb,
-      'posts',
-      postId,
-      'comments',
-      commentId,
-      'likes',
-      firebaseAuth.currentUser?.uid
-    )
-
-    if (hasLikedComment) {
-      await deleteDoc(likeDocument)
-    } else {
-      await setDoc(likeDocument, {
-        username: firebaseAuth.currentUser?.displayName,
-      })
-    }
-  }
+  useEffect(() => {
+    const getComments = async () =>
+      onSnapshot(
+        query(commentsCollectionReference, orderBy('timestamp', 'desc')),
+        (snapshot) => {
+          return setComments(
+            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
+          )
+        }
+      )
+    getComments()
+  }, [firebaseDb, postId])
 
   return (
-    <div className="comment">
-      <img src={profileImage} alt="profile picture" />
-
-      <div className="comment__wrapper">
-        <div className="comment__info">
-          <p>
-            <span className="comment__username"> {profile}</span>
-            {comment}
-          </p>
-
-          {hasLikedComment ? (
-            <motion.button
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {
-                  scale: 1.2,
-                },
-                visible: {
-                  scale: 1,
-                  transition: {
-                    delay: 0.1,
-                  },
-                },
-              }}
-              className="comment__heart"
-            >
-              <FilledHeart onClick={likeComment} />
-            </motion.button>
-          ) : (
-            <button className="comment__heart outlined">
-              <OutlinedHeart onClick={likeComment} />
-            </button>
-          )}
-        </div>
-        <div className="comment__footer">
-          {likesComment.length > 0 && <p>{likesComment.length} likes</p>}
-          {commentUserId === firebaseAuth.currentUser?.uid && (
-            <button
-              className="delete__comment"
-              onClick={() => deleteComment(commentId)}
-            >
-              Delete{' '}
-            </button>
-          )}
-        </div>
+    <>
+      <div className="comments">
+        {comments.map(
+          ({ profile, profileImage, comment, commentUserId, commentId }) => {
+            return (
+              <Comment
+                postId={postId}
+                key={commentId}
+                profile={profile}
+                comment={comment}
+                commentId={commentId}
+                profileImage={profileImage}
+                commentUserId={commentUserId}
+              />
+            )
+          }
+        )}
       </div>
-    </div>
+
+      <div className="comments__container">
+        <Smiley className="comments__container--icon" />
+
+        <input
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          placeholder="Add a comment..."
+          name="comment"
+          type="text"
+        />
+        <button onClick={sendComment} disabled={!comment.trim()}>
+          Post
+        </button>
+      </div>
+    </>
   )
 }

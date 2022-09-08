@@ -1,8 +1,3 @@
-import { VscSmiley as Smiley } from 'react-icons/vsc'
-import { MdOutlineMoreHoriz } from 'react-icons/md'
-import { motion } from 'framer-motion'
-import { Comments } from './Comments'
-import { EllipsisModal } from './EllipsisModal'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -10,95 +5,59 @@ import {
   HiOutlineChat as Comment,
   HiOutlineBookmark as SavePost,
 } from 'react-icons/hi'
-import { useEffect, useState } from 'react'
 import {
   doc,
-  addDoc,
-  collection,
-  CollectionReference,
-  deleteDoc,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
   setDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
+  CollectionReference,
 } from 'firebase/firestore'
+import { Comments } from './Comments'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { EllipsisModal } from './EllipsisModal'
+import { MdOutlineMoreHoriz } from 'react-icons/md'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
+type Like = {
+  likeId: string
+  username: string
+}
+
 type PostProps = {
+  image: string
   postId: string
   caption: string
-  userImage: string
-  image: string
   username: string
+  userImage: string
   postUserId: string
 }
 
-type Comments = {
-  commentUserId: string
-  commentId: string
-  comment: string
-  profile: string
-  profileImage: string
-  timestamp: {
-    nanoseconds: number
-    seconds: number
-  }
-}
-
 export function Post({
+  image,
+  postId,
+  caption,
   username,
   userImage,
-  image,
-  caption,
   postUserId,
-  postId,
 }: PostProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [comment, setComment] = useState('')
-  const [comments, setComments] = useState<Comments[]>([])
-  const [likes, setLikes] = useState([])
+  const [likes, setLikes] = useState<Like[]>([])
   const [hasLiked, setHasLiked] = useState(false)
-
-  const commentsCollectionReference = collection(
+  const likeCollectionReference = collection(
     firebaseDb,
     'posts',
     postId,
-    'comments'
-  ) as CollectionReference<Comments>
-
-  const sendComment = async () => {
-    const commentToSend = comment
-    setComment('')
-
-    await addDoc(commentsCollectionReference, {
-      comment: commentToSend,
-      profile: firebaseAuth.currentUser?.displayName,
-      profileImage: firebaseAuth.currentUser?.photoURL,
-      commentUserId: firebaseAuth.currentUser?.uid,
-      timestamp: serverTimestamp(),
-    })
-  }
-
-  useEffect(() => {
-    const getComments = async () =>
-      onSnapshot(
-        query(commentsCollectionReference, orderBy('timestamp', 'desc')),
-        (snapshot) => {
-          return setComments(
-            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
-          )
-        }
-      )
-    getComments()
-  }, [firebaseDb, postId])
-
-  // Likes
+    'likes'
+  ) as CollectionReference<Like>
 
   useEffect(
     () =>
-      onSnapshot(collection(firebaseDb, 'posts', postId, 'likes'), (snapshot) =>
-        setLikes(snapshot.docs)
+      onSnapshot(likeCollectionReference, (snapshot) =>
+        setLikes(
+          snapshot.docs.map((doc) => ({ ...doc.data(), likeId: doc.id }))
+        )
       ),
     [firebaseDb, postId]
   )
@@ -106,8 +65,9 @@ export function Post({
   useEffect(
     () =>
       setHasLiked(
-        likes.findIndex((like) => like.id === firebaseAuth.currentUser?.uid) !==
-          -1
+        likes.findIndex(
+          (like) => like.likeId === firebaseAuth.currentUser?.uid
+        ) !== -1
       ),
     [likes]
   )
@@ -152,7 +112,7 @@ export function Post({
 
       <img src={image} alt="Instagram post" className="post__image" />
 
-      <div className="post__description">
+      <div className="post__container">
         <div className="post__actions">
           <div className="post__actions--wrapper">
             {hasLiked ? (
@@ -199,37 +159,7 @@ export function Post({
             <span className="thick">{username}</span> {caption}
           </p>
         </div>
-        <div className="comments">
-          {comments.map(
-            ({ profile, profileImage, comment, commentUserId, commentId }) => {
-              return (
-                <Comments
-                  key={commentId}
-                  profile={profile}
-                  profileImage={profileImage}
-                  comment={comment}
-                  commentId={commentId}
-                  postId={postId}
-                  commentUserId={commentUserId}
-                />
-              )
-            }
-          )}
-        </div>
-        <div className="post__commenting">
-          <Smiley className="post__commenting--icon" />
-
-          <input
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            type="text"
-            name="comment"
-            placeholder="Add a comment..."
-          />
-          <button onClick={sendComment} disabled={!comment.trim()}>
-            Post
-          </button>
-        </div>
+        <Comments postId={postId} />
       </div>
     </article>
   )

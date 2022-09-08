@@ -72,45 +72,45 @@
   border-bottom: 1px solid #eee;
 }
 
-/* DESCRIPTION */
-.post__description .post__actions {
+/* container */
+.post__container .post__actions {
   display: flex;
   padding: 10px 10px 8px;
   justify-content: space-between;
 }
 
-.post__description .post__actions .post__actions--icon {
+.post__container .post__actions .post__actions--icon {
   cursor: pointer;
   font-size: calc(25 / 16 * 1rem);
 }
 
-.post__description .post__actions .post__actions--icon.heart {
+.post__container .post__actions .post__actions--icon.heart {
   color: var(--red);
 }
 
-.post__description .post__actions .post__actions--icon.heart-outline {
+.post__container .post__actions .post__actions--icon.heart-outline {
   color: var(--black);
 }
 
-.post__description .post__actions .post__actions--icon:not(:first-child) {
+.post__container .post__actions .post__actions--icon:not(:first-child) {
   margin-left: 10px;
 }
 
-.post__description .post__actions .post__actions--icon:nth-child(3) {
+.post__container .post__actions .post__actions--icon:nth-child(3) {
   font-size: calc(24 / 16 * 1rem);
 }
 
-.post__description .post__likes {
+.post__container .post__likes {
   font-weight: 500;
   padding: 0px 10px 5px 10px;
   font-size: calc(14 / 16 * 1rem);
 }
 
-.post__description .post__caption {
+.post__container .post__caption {
   padding: 0px 10px 10px;
   font-size: calc(14 / 16 * 1rem);
 }
 
-.post__description .post__caption .thick {
+.post__container .post__caption .thick {
   font-weight: 500;
 }

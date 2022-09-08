@@ -47,7 +47,7 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 330px;
+  max-width: 345px;
 }
 
 .modal__info {
@@ -79,6 +79,6 @@ button {
 .main__profile button a,
 .profile button,
 .main__profile button,
-.post .post__commenting button {
+.post .comments__container button {
   color: var(--blue);
 }
