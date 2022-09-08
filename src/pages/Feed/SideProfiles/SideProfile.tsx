@@ -134,12 +134,18 @@ export function SideProfile({
                 },
               },
             }}
-            className="post__modal"
+            className="modal"
           >
-            <p>Are you sure you want to unfollow this user?</p>
+            <p className="modal__info">
+              Are you sure you want to unfollow this user?
+            </p>
 
-            <button onClick={followUser}>Unfollow</button>
-            <button onClick={() => setIsOpen(false)}>Cancel</button>
+            <button className="red__btn" onClick={followUser}>
+              Unfollow
+            </button>
+            <button className="cancel__btn" onClick={() => setIsOpen(false)}>
+              Cancel
+            </button>
           </motion.div>
         </motion.div>
       ) : (

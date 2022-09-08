@@ -46,10 +46,18 @@ export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
             },
           },
         }}
-        className="post__modal"
+        className="modal"
       >
-        <button onClick={() => deletePost(postId)}>Delete Post</button>
-        <button onClick={() => setIsOpen(false)}>Cancel</button>
+        <p className="modal__info">
+          Are you sure you want to delete this post?
+        </p>
+
+        <button className="red__btn" onClick={() => deletePost(postId)}>
+          Delete Post
+        </button>
+        <button className="cancel__btn" onClick={() => setIsOpen(false)}>
+          Cancel
+        </button>
       </motion.div>
     </motion.div>
   )
