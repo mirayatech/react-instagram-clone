@@ -7,17 +7,17 @@
 }
 
 .login__picture {
-  margin-left: -5%;
   width: 350px;
+  margin-right: 100px;
 }
 
 .login__form {
-  margin-left: 150px;
   height: 350px;
   display: flex;
   padding: 0 30px;
   font-weight: 500;
   line-height: 1.5;
+  margin-left: 100px;
   border-radius: 4px;
   text-align: center;
   align-items: center;
@@ -50,4 +50,89 @@
 
 .login__form .svg {
   margin-right: 8px;
+}
+
+@media screen and (max-width: 1000px) {
+  .login__picture {
+    margin-right: 30px;
+  }
+
+  .login__form {
+    margin-left: 30px;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .login__picture {
+    width: 310px;
+  }
+
+  .login__form {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .login {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .login__picture {
+    width: 310px;
+    margin-right: 0;
+  }
+
+  .login__form {
+    height: 330px;
+    padding: 0 30px;
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-height: 828px) {
+  .login {
+    height: 90vh;
+  }
+
+  .login__picture {
+    width: 250px;
+  }
+
+  .login__form {
+    width: 280px;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+
+  .login__form p {
+    width: 250px;
+    font-size: 0.9rem;
+  }
+
+  .login__form img {
+    width: 140px;
+  }
+
+  .login__form button {
+    font-size: 0.8rem;
+  }
+
+  .login__form .svg {
+    margin-right: 8px;
+    font-size: 0.7rem;
+  }
+}
+
+@media screen and (max-height: 690px) {
+  .login {
+    justify-content: flex-start;
+  }
+
+  .login__picture {
+    width: 200px;
+  }
 }
