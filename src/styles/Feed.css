@@ -5,3 +5,27 @@
   justify-content: center;
   padding-top: 80px;
 }
+
+@media screen and (max-width: 1000px) {
+  .feed__container {
+    grid-template-columns: 500px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .feed__container {
+    grid-template-columns: 400px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .feed__container {
+    grid-template-columns: 350px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .feed__container {
+    grid-template-columns: 300px;
+  }
+}

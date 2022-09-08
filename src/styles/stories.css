@@ -66,3 +66,13 @@
   text-overflow: ellipsis;
   font-size: calc(12 / 16 * 1rem);
 }
+
+@media screen and (max-width: 500px) {
+  .stories {
+    height: 100px;
+  }
+
+  .story img {
+    width: 55px;
+  }
+}

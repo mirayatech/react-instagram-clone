@@ -84,3 +84,24 @@
   border-radius: 3px;
   margin-bottom: 10px;
 }
+
+@media screen and (max-width: 400px) {
+  .modal__post {
+    width: 300px;
+  }
+
+  .modal__post .modal__svg {
+    margin: 50px auto 10px auto;
+    font-size: 3rem;
+  }
+
+  .modal__post .modal__img {
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .modal__img img {
+    margin-top: 8px;
+    width: 280px;
+  }
+}

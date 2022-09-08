@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   position: fixed;
-  padding: 10px 0;
+  padding: 10px 30px;
   align-items: center;
   justify-content: space-evenly;
   background-color: var(--white);
@@ -42,6 +42,44 @@
 
 .header__nav .header__profile {
   width: 25px;
-  margin-left: 10px;
+  margin-left: 12px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 560px) {
+  .header {
+    padding: 10px 20px;
+    justify-content: space-between;
+  }
+
+  .header__logo img {
+    max-width: 95px;
+    margin-right: 0;
+  }
+
+  .header__nav .upload__button .header__nav--icon {
+    font-size: calc(24 / 16 * 1rem);
+  }
+
+  .header__nav .header__nav--icon {
+    margin: 0 10px;
+    font-size: calc(22 / 16 * 1rem);
+  }
+
+  .header__nav .header__nav--icon.home {
+    margin-right: 15px;
+    font-size: calc(22 / 16 * 1rem);
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .header__nav .upload__button .header__nav--icon {
+    display: flex;
+  }
+
+  .header__nav .header__nav--icon {
+    display: none;
+    margin: 0 10px;
+    font-size: calc(22 / 16 * 1rem);
+  }
 }

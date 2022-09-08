@@ -47,11 +47,13 @@ button {
   justify-content: center;
   align-items: center;
   text-align: center;
-  max-width: 345px;
+  max-width: 340px;
+  background-color: var(--white);
+  border-radius: 8px;
 }
 
 .modal__info {
-  padding: 15px 0;
+  padding: 15px 10px;
   width: 100%;
   border-bottom: 1px solid var(--grey);
   font-size: 1rem;
