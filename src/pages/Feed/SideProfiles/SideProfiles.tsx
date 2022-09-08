@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import { SideProfile } from './SideProfile'
 import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
 
-type Story = {
+type SideProfiles = {
   username: string
   picture: string
   info: string
@@ -14,7 +14,7 @@ type Story = {
 }
 
 export function SideProfiles() {
-  const [profiles, setProfiles] = useState([])
+  const [profiles, setProfiles] = useState<SideProfiles[]>([])
   const [currentUserProfile, setCurrentUserProfile] = useState({
     photoURL: '',
     displayName: '',
@@ -23,7 +23,7 @@ export function SideProfiles() {
   const profilesCollectionReference = collection(
     firebaseDb,
     'sideProfiles'
-  ) as CollectionReference<Story>
+  ) as CollectionReference<SideProfiles>
 
   const navigate = useNavigate()
 
@@ -76,6 +76,7 @@ export function SideProfiles() {
             username={username}
             picture={picture}
             info={info}
+            profileId={profileId}
             key={profileId}
           />
         )
