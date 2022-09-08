@@ -50,12 +50,6 @@
   align-items: center;
 }
 
-.post .post__header .post__header--wrapper img {
-  width: 35px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
-
 .post .post__header .post__header--wrapper p {
   font-weight: 500;
   line-height: 1.5;
@@ -119,28 +113,4 @@
 
 .post__description .post__caption .thick {
   font-weight: 500;
-}
-
-.post .post__commenting {
-  display: flex;
-  padding: 10px;
-  align-items: center;
-  border-top: 1px solid var(--grey);
-}
-
-.post .post__commenting .post__commenting--icon {
-  font-size: calc(25 / 16 * 1rem);
-}
-
-.post .post__commenting input {
-  width: 100%;
-  padding: 5px;
-  border: none;
-  outline: none;
-  font-size: calc(14 / 16 * 1rem);
-}
-
-.post .post__commenting button {
-  align-items: center;
-  font-size: calc(14 / 16 * 1rem);
 }

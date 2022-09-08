@@ -11,57 +11,39 @@
 
 .suggestions__intro p:nth-last-child(1) {
   font-weight: 600;
-
   font-size: calc(12 / 16 * 1rem);
 }
 
 .profile,
 .main__profile {
-  width: 300px;
   display: flex;
-  align-items: center;
   margin: 15px 0;
+  align-items: center;
 }
 
 .main__profile img {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .main__profile--info p:nth-child(2) {
+  color: #929292;
   padding-top: 5px;
   font-size: calc(14 / 16 * 1rem);
-  color: #929292;
-}
-
-.profile--info,
-.main__profile--info {
-  margin-left: 10px;
 }
 
 .profile--info p:nth-child(2) {
+  color: #929292;
   padding-top: 5px;
   font-size: calc(12 / 16 * 1rem);
-  color: #929292;
-}
-
-.profile img {
-  width: 37px;
-  height: 37px;
-  border-radius: 50%;
 }
 
 .profile button,
 .main__profile button {
-  cursor: default;
   margin-left: auto;
-  align-self: center;
   font-size: calc(12 / 16 * 1rem);
 }
 
 .main__profile button a {
   cursor: pointer;
   text-decoration: none;
-  color: var(--blue);
 }

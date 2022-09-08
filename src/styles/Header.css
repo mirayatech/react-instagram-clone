@@ -1,10 +1,10 @@
 .header {
   z-index: 1;
   width: 100%;
-  position: fixed;
   display: flex;
-  align-items: center;
+  position: fixed;
   padding: 10px 0;
+  align-items: center;
   justify-content: space-evenly;
   background-color: var(--white);
   border-bottom: 1px solid var(--grey);
@@ -22,20 +22,16 @@
 }
 
 .header__nav .upload__button {
-  color: var(--black);
-  background-color: transparent;
-  border: none;
+  display: flex;
 }
 
 .header__nav .upload__button .header__nav--icon {
   cursor: pointer;
-  font-size: calc(22 / 16 * 1rem);
+  font-size: calc(26 / 16 * 1rem);
 }
 
 .header__nav .header__nav--icon {
-  cursor: pointer;
   margin: 0 11px;
-  cursor: default;
   font-size: calc(24 / 16 * 1rem);
 }
 

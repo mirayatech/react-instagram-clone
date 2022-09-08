@@ -22,6 +22,63 @@ button {
   outline: none;
   cursor: pointer;
   font-weight: 500;
-  color: var(--blue);
+  color: var(--black);
   background-color: transparent;
+}
+
+.story img,
+.main__profile img {
+  width: 60px;
+  padding: 2px;
+  border-radius: 50%;
+}
+
+.post .post__header .post__header--wrapper img,
+.profile img {
+  width: 37px;
+  height: 37px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  max-width: 330px;
+}
+
+.modal__info {
+  padding: 15px 0;
+  width: 100%;
+  border-bottom: 1px solid var(--grey);
+  font-size: 1rem;
+}
+
+.modal .red__btn {
+  color: var(--red);
+  padding: 15px 0;
+  width: 100%;
+  border-bottom: 1px solid var(--grey);
+  font-size: 1rem;
+}
+
+.modal .cancel__btn {
+  padding: 15px;
+  font-size: 1rem;
+}
+
+.modal button:hover,
+.post__modal button:hover {
+  opacity: 0.8;
+}
+
+/* Blue buttons */
+.main__profile button a,
+.profile button,
+.main__profile button,
+.post .post__commenting button {
+  color: var(--blue);
 }

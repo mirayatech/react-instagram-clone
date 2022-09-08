@@ -1,7 +1,48 @@
+.post .post__commenting {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  border-top: 1px solid var(--grey);
+}
+
+.post .post__commenting .post__commenting--icon {
+  font-size: calc(25 / 16 * 1rem);
+}
+
+.post .post__commenting input {
+  width: 100%;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: calc(14 / 16 * 1rem);
+}
+
+.post .post__commenting button {
+  align-items: center;
+  font-size: calc(14 / 16 * 1rem);
+}
+
 .comments {
   height: 100%;
-  max-height: 80px;
+  max-height: 85px;
   overflow-y: scroll;
+}
+
+.comments::-webkit-scrollbar {
+  margin-right: 30px;
+  background-color: #fff;
+  width: 4px;
+}
+.comments::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.comments::-webkit-scrollbar-thumb {
+  background-color: var(--grey);
+  border-radius: 16px;
+  border: none;
+}
+.comments::-webkit-scrollbar-button {
+  display: none;
 }
 
 .comment {
