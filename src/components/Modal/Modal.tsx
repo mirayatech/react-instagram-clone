@@ -107,7 +107,7 @@ export function Modal({ closeModal }: ModalProps) {
             },
           },
         }}
-        className="modal"
+        className="modal__post"
       >
         {selectedFile ? (
           <div className="modal__img" onClick={() => setSelectedFile(null)}>
