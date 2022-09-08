@@ -3,7 +3,7 @@ import { GrGoogle } from 'react-icons/gr'
 import { PrimaryFooter } from '../../exportFiles'
 import { signInWithPopup } from 'firebase/auth'
 import { firebaseAuth, googleAuthProvider } from '../../library/firebase'
-import AnimePicture from '../../images/anime.png'
+import AnimePicture from '../../images/image1.png'
 import { useNavigate } from 'react-router-dom'
 
 export function Login() {
