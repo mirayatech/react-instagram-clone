@@ -13,7 +13,7 @@ type Story = {
 }
 
 export function Stories() {
-  const [stories, setStories] = useState([])
+  const [stories, setStories] = useState<Story[]>([])
   const sliderRef = useRef<any>(null)
 
   const slideLeft = () => {
