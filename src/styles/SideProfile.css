@@ -1,3 +1,7 @@
+.SideProfile {
+  position: fixed;
+}
+
 .suggestions__intro {
   display: flex;
   justify-content: space-between;
