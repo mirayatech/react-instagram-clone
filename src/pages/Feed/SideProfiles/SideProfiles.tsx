@@ -1,10 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { SecondaryFooter } from '../../../exportFiles'
 import { useState, useEffect } from 'react'
 import { SideProfile } from './SideProfile'
 import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
+import { UserAuth } from '../../../context/AuthContext'
 
 type SideProfiles = {
   username: string
@@ -14,6 +15,8 @@ type SideProfiles = {
 }
 
 export function SideProfiles() {
+  const { user, logOut } = UserAuth()
+
   const [profiles, setProfiles] = useState<SideProfiles[]>([])
   const [currentUserProfile, setCurrentUserProfile] = useState({
     photoURL: '',
@@ -24,14 +27,6 @@ export function SideProfiles() {
     firebaseDb,
     'sideProfiles'
   ) as CollectionReference<SideProfiles>
-
-  const navigate = useNavigate()
-
-  const handleLogout = async () => {
-    await signOut(firebaseAuth).then(() => {
-      navigate('/')
-    })
-  }
 
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -50,6 +45,14 @@ export function SideProfiles() {
     getSideProfiles()
   }, [])
 
+  const handleSignOut = async () => {
+    try {
+      await logOut()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <div className="SideProfile">
       <div className="main__profile">
@@ -59,8 +62,8 @@ export function SideProfiles() {
           <p className="username">{currentUserProfile?.displayName}</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
-        <button className="signOut" onClick={handleLogout}>
-          <Link to="/login"> Sign Out</Link>
+        <button className="signOut" onClick={handleSignOut}>
+          Sign Out
         </button>
       </div>
 

@@ -1,22 +1,24 @@
 import { Feed, Login } from './exportFiles'
 import { Routes, Route } from 'react-router-dom'
-import { UserAuthContextProvider } from './context/context'
-import { ProtectedRoute } from './components/ProtectedRoute'
+import { AuthContextProvider } from './context/AuthContext'
+import { Protected } from './components/Protected'
 
 export function App(): JSX.Element {
   return (
-    <UserAuthContextProvider>
-      <Routes>
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Feed />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/" element={<Login />} />
-      </Routes>
-    </UserAuthContextProvider>
+    <div>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/feed"
+            element={
+              <Protected>
+                <Feed />
+              </Protected>
+            }
+          />
+        </Routes>
+      </AuthContextProvider>
+    </div>
   )
 }

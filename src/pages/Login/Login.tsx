@@ -1,18 +1,28 @@
 import '../../styles/Login.css'
 import { GrGoogle } from 'react-icons/gr'
 import { PrimaryFooter } from '../../exportFiles'
-import { signInWithPopup } from 'firebase/auth'
-import { firebaseAuth, googleAuthProvider } from '../../library/firebase'
+import { useEffect } from 'react'
 import AnimePicture from '../../images/image1.png'
+import { UserAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 export function Login() {
+  const { googleSignIn, user } = UserAuth()
   const navigate = useNavigate()
-  const signInWithGoogle = async () => {
-    await signInWithPopup(firebaseAuth, googleAuthProvider).then(() =>
-      navigate('/home')
-    )
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleSignIn()
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  useEffect(() => {
+    if (user != null) {
+      navigate('/feed')
+    }
+  }, [user])
   return (
     <>
       <div className="login">
@@ -34,7 +44,7 @@ export function Login() {
             upload your own posts.
           </p>
 
-          <button onClick={signInWithGoogle} tabIndex={1}>
+          <button onClick={handleGoogleSignIn} tabIndex={1}>
             <GrGoogle className="svg" /> Sign in with Google
           </button>
         </div>
