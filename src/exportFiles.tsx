@@ -1,3 +1,5 @@
+export { Modal } from './components/Modal/Modal'
+export { Home } from './pages/Home/Home'
 export { Header } from './components/Header/Header'
 export { Feed } from './pages/Feed/Feed'
 export { Login } from './pages/Login/Login'
