@@ -1,30 +1,28 @@
 import '/src/styles/Header.css'
-import { useEffect, useState } from 'react'
-import { firebaseAuth } from '../../library/firebase'
-import { onAuthStateChanged } from 'firebase/auth'
 import {
   HiOutlinePaperAirplane,
   HiOutlinePlusCircle,
   HiOutlineSearch,
   HiOutlineHeart,
 } from 'react-icons/hi'
-
+import { UserAuth } from '../../context/AuthContext'
 import { GrHomeRounded } from 'react-icons/gr'
+import { Link } from 'react-router-dom'
 
 type HeaderProps = {
   openModal: () => void
 }
 
 export function Header({ openModal }: HeaderProps) {
-  const [currentHeaderProfile, setCurrentHeaderProfile] = useState({
-    photoURL: '',
-  })
+  const { user, logOut } = UserAuth()
 
-  useEffect(() => {
-    onAuthStateChanged(firebaseAuth, (currentUser) => {
-      return setCurrentHeaderProfile(currentUser)
-    })
-  }, [])
+  const handleSignOut = async () => {
+    try {
+      await logOut()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <header className="header">
@@ -36,25 +34,34 @@ export function Header({ openModal }: HeaderProps) {
         />
       </div>
 
-      <div className="header__nav">
-        <GrHomeRounded className="header__nav--icon home" />
-        <HiOutlinePaperAirplane className="header__nav--icon plane" />
-        <button
-          className="upload__button"
-          aria-label="upload post"
-          onClick={openModal}
-          tabIndex={1}
-        >
-          <HiOutlinePlusCircle className="header__nav--icon" />
-        </button>
-        <HiOutlineSearch className="header__nav--icon" />{' '}
-        <HiOutlineHeart className="header__nav--icon" />
-        <img
-          className="header__profile"
-          src={currentHeaderProfile.photoURL}
-          alt="Your profile picture"
-        />
-      </div>
+      {user?.displayName ? (
+        <div className="header__nav">
+          <GrHomeRounded className="header__nav--icon home" />
+          <HiOutlinePaperAirplane className="header__nav--icon plane" />
+          <button
+            className="upload__button"
+            aria-label="upload post"
+            onClick={openModal}
+            tabIndex={1}
+          >
+            <HiOutlinePlusCircle className="header__nav--icon" />
+          </button>
+          <HiOutlineSearch className="header__nav--icon" />{' '}
+          <HiOutlineHeart className="header__nav--icon" />
+          <img
+            className="header__profile"
+            src={user.photoURL}
+            alt="Your profile picture"
+          />{' '}
+          <button className="signOut nav" onClick={handleSignOut}>
+            Sign Out
+          </button>
+        </div>
+      ) : (
+        <Link to="/login" className="link__btn">
+          Sign In
+        </Link>
+      )}
     </header>
   )
 }
