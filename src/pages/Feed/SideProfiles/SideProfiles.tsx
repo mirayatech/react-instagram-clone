@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom'
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
-import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { firebaseDb } from '../../../library/firebase'
 import { SecondaryFooter } from '../../../exportFiles'
 import { useState, useEffect } from 'react'
 import { SideProfile } from './SideProfile'
@@ -18,21 +16,11 @@ export function SideProfiles() {
   const { user, logOut } = UserAuth()
 
   const [profiles, setProfiles] = useState<SideProfiles[]>([])
-  const [currentUserProfile, setCurrentUserProfile] = useState({
-    photoURL: '',
-    displayName: '',
-  })
 
   const profilesCollectionReference = collection(
     firebaseDb,
     'sideProfiles'
   ) as CollectionReference<SideProfiles>
-
-  useEffect(() => {
-    onAuthStateChanged(firebaseAuth, (currentUser) => {
-      return setCurrentUserProfile(currentUser)
-    })
-  }, [])
 
   useEffect(() => {
     const getSideProfiles = () => {
@@ -56,10 +44,10 @@ export function SideProfiles() {
   return (
     <div className="SideProfile">
       <div className="main__profile">
-        <img src={currentUserProfile?.photoURL} alt="Your profile picture" />
+        <img src={user?.photoURL} alt="Your profile picture" />
 
         <div className="main__profile--info">
-          <p className="username">{currentUserProfile?.displayName}</p>
+          <p className="username">{user?.displayName}</p>
           <p className="light-text">Welcome to instagram</p>
         </div>
         <button className="signOut" onClick={handleSignOut}>
