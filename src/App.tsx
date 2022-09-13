@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import { AuthContextProvider } from './context/AuthContext'
 import { Protected } from './components/Protected'
 import { useState } from 'react'
+import { HamburgerMenuContextProvider } from './context/HamburgerMenuContext'
 
 export function App(): JSX.Element {
   const [isOpen, setIsOpen] = useState(false)
@@ -20,21 +21,23 @@ export function App(): JSX.Element {
   return (
     <div>
       <AuthContextProvider>
-        {isOpen === true ? <Modal closeModal={closeModal} /> : ''}
+        <HamburgerMenuContextProvider>
+          {isOpen === true ? <Modal closeModal={closeModal} /> : ''}
 
-        <Header openModal={openModal} />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/feed"
-            element={
-              <Protected>
-                <Feed />
-              </Protected>
-            }
-          />
-        </Routes>
+          <Header openModal={openModal} />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/feed"
+              element={
+                <Protected>
+                  <Feed />
+                </Protected>
+              }
+            />
+          </Routes>
+        </HamburgerMenuContextProvider>
       </AuthContextProvider>
     </div>
   )

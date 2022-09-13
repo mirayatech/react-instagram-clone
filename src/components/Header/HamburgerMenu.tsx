@@ -1,13 +1,12 @@
-import { useState } from 'react'
 import { IoMenuOutline, IoCloseOutline } from 'react-icons/io5'
 import { UserAuth } from '../../context/AuthContext'
-
+import { MenuPopup } from '../../context/HamburgerMenuContext'
 export function HamburgerMenu() {
   const { logOut } = UserAuth()
-  const [openMenu, setOpenMenu] = useState(false)
+  const { isOpen, setIsOpen } = MenuPopup()
 
   const openHamburgerMenu = () => {
-    setOpenMenu(true)
+    setIsOpen(true)
   }
 
   const handleSignOut = async () => {
@@ -20,8 +19,8 @@ export function HamburgerMenu() {
 
   return (
     <div className="HamburgerMenu">
-      {openMenu ? (
-        <button onClick={() => setOpenMenu(false)} className="bars">
+      {isOpen ? (
+        <button onClick={() => setIsOpen(false)} className="bars">
           <IoCloseOutline />
         </button>
       ) : (
@@ -30,7 +29,7 @@ export function HamburgerMenu() {
         </button>
       )}
 
-      {openMenu === true ? (
+      {isOpen === true ? (
         <div className="menu">
           <button onClick={handleSignOut}>Sign out</button>
           <button>Upload a post</button>
