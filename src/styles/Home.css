@@ -1,0 +1,11 @@
+.home {
+  position: relative;
+  display: grid;
+  justify-content: center;
+  flex-direction: column;
+  padding-top: 80px;
+}
+
+.home .post .post__container {
+  padding: 10px 0;
+}
