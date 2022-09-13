@@ -7,7 +7,9 @@ import {
 } from 'react-icons/hi'
 import { UserAuth } from '../../context/AuthContext'
 import { GrHomeRounded } from 'react-icons/gr'
+
 import { Link } from 'react-router-dom'
+import { HamburgerMenu } from './HamburgerMenu'
 
 type HeaderProps = {
   openModal: () => void
@@ -36,26 +38,26 @@ export function Header({ openModal }: HeaderProps) {
 
       {user?.displayName ? (
         <div className="header__nav">
-          <GrHomeRounded className="header__nav--icon home" />
-          <HiOutlinePaperAirplane className="header__nav--icon plane" />
-          <button
-            className="upload__button"
-            aria-label="upload post"
-            onClick={openModal}
-            tabIndex={1}
-          >
-            <HiOutlinePlusCircle className="header__nav--icon" />
-          </button>
-          <HiOutlineSearch className="header__nav--icon" />{' '}
-          <HiOutlineHeart className="header__nav--icon" />
+          <HamburgerMenu />
+          <div className="navwrapper">
+            <GrHomeRounded className="header__nav--icon house" />
+            <HiOutlinePaperAirplane className="header__nav--icon plane" />
+            <button
+              className="upload__button"
+              aria-label="upload post"
+              onClick={openModal}
+              tabIndex={1}
+            >
+              <HiOutlinePlusCircle className="header__nav--icon" />
+            </button>
+            <HiOutlineSearch className="header__nav--icon" />{' '}
+            <HiOutlineHeart className="header__nav--icon" />
+          </div>
           <img
             className="header__profile"
             src={user.photoURL}
             alt="Your profile picture"
-          />{' '}
-          <button className="signOut nav" onClick={handleSignOut}>
-            Sign Out
-          </button>
+          />
         </div>
       ) : (
         <Link to="/login" className="link__btn">
