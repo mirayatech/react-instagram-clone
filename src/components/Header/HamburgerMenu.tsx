@@ -4,7 +4,11 @@ import { UserAuth } from '../../context/AuthContext'
 import { motion } from 'framer-motion'
 import './HamburgerMenu.css'
 
-export function HamburgerMenu() {
+type HamburgerMenuProps = {
+  openModal: () => void
+}
+
+export function HamburgerMenu({ openModal }: HamburgerMenuProps) {
   const { logOut } = UserAuth()
   const { isOpen, setIsOpen } = MenuPopup()
 
@@ -52,7 +56,7 @@ export function HamburgerMenu() {
           className="menu"
         >
           <button onClick={handleSignOut}>Sign out</button>
-          <button>Upload a post</button>
+          <button onClick={openModal}>Upload a post</button>
         </motion.div>
       ) : (
         ''

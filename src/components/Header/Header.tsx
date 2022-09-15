@@ -30,7 +30,7 @@ export function Header({ openModal }: HeaderProps) {
 
       {user?.displayName ? (
         <aside className="header__wrapper">
-          <HamburgerMenu />
+          <HamburgerMenu openModal={openModal} />
           <div className="wrapper">
             <GrHomeRounded className="wrapper__icon house" />
             <HiOutlinePaperAirplane className="wrapper__icon plane" />
