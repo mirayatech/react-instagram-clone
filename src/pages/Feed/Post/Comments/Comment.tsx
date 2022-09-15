@@ -44,8 +44,7 @@ export function Comment({
   const [likesComment, setLikesComment] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    `posts/${postId}/comments/${commentId}`,
-    'likes'
+    `posts/${postId}/comments/${commentId}/likes`
   ) as CollectionReference<Like>
 
   useEffect(
@@ -86,8 +85,7 @@ export function Comment({
   const deleteComment = async () => {
     const commentDocument = doc(
       firebaseDb,
-      `posts/${postId}`,
-      `comments/${commentId}`
+      `posts/${postId}/comments/${commentId}`
     )
     await deleteDoc(commentDocument)
   }

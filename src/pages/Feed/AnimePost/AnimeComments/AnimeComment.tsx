@@ -44,18 +44,13 @@ export function AnimeComment({
   const [likesComment, setLikesComment] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    'profiles',
-    animeId,
-    'comments',
-    commentId,
-    'likes'
+    `profiles/${animeId}/comments/${commentId}/likes`
   ) as CollectionReference<Like>
 
   const deleteComment = async () => {
     const commentDocument = doc(
       firebaseDb,
-      `profiles/${animeId}`,
-      `comments/${commentId}`
+      `profiles/${animeId}/comments/${commentId}`
     )
     await deleteDoc(commentDocument)
   }
@@ -83,12 +78,7 @@ export function AnimeComment({
   const likeComment = async () => {
     const likeDocument = doc(
       firebaseDb,
-      'profiles',
-      animeId,
-      'comments',
-      commentId,
-      'likes',
-      firebaseAuth.currentUser?.uid
+      `profiles/${animeId}/comments/${commentId}/likes/${firebaseAuth.currentUser?.uid}`
     )
 
     if (hasLikedComment) {

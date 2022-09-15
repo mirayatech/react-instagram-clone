@@ -5,7 +5,7 @@ import '../../../styles/Posts.css'
 import '../../../styles/utilities.css'
 import { AnimePost } from './AnimePost'
 
-type A = {
+type AnimePostsType = {
   animeId: string
   caption: string
   picture: string
@@ -14,11 +14,11 @@ type A = {
 }
 
 export function AnimePosts() {
-  const [animePost, setAnimePost] = useState<A[]>([])
+  const [animePost, setAnimePost] = useState<AnimePostsType[]>([])
   const animePostsCollectionReference = collection(
     firebaseDb,
     'profiles'
-  ) as CollectionReference<A>
+  ) as CollectionReference<AnimePostsType>
 
   useEffect(() => {
     const getAnimePost = () => {

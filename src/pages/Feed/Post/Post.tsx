@@ -45,13 +45,12 @@ export function Post({
   userImage,
   postUserId,
 }: PostProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [likes, setLikes] = useState<Like[]>([])
   const [hasLiked, setHasLiked] = useState(false)
   const likeCollectionReference = collection(
     firebaseDb,
-    `posts/${postId}`,
-    'likes'
+    `posts/${postId}/likes`
   ) as CollectionReference<Like>
 
   useEffect(
