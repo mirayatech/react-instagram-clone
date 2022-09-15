@@ -1,7 +1,7 @@
 footer {
-  text-align: center;
-  font-size: 0.9rem;
   color: #95959d;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 footer a {
@@ -17,6 +17,6 @@ footer a:hover {
 }
 
 .secondary__footer {
-  text-align: center;
   margin-top: 30px;
+  text-align: center;
 }

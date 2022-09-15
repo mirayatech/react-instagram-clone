@@ -1,14 +1,15 @@
-import { firebaseDb } from '../../../library/firebase'
-import { SecondaryFooter } from '../../../exportFiles'
+import './SideProfile.css'
 import { useState, useEffect } from 'react'
 import { SideProfile } from './SideProfile'
-import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
+import { firebaseDb } from '../../../library/firebase'
+import { SecondaryFooter } from '../../../exportFiles'
 import { UserAuth } from '../../../context/AuthContext'
+import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
 
 type SideProfiles = {
-  username: string
-  picture: string
   info: string
+  picture: string
+  username: string
   profileId: string
 }
 
@@ -42,7 +43,7 @@ export function SideProfiles() {
   }
 
   return (
-    <div className="SideProfile">
+    <div className="side-profiles">
       <div className="main__profile">
         <img src={user?.photoURL} alt="Your profile picture" />
 
@@ -64,11 +65,11 @@ export function SideProfiles() {
       {profiles.map(({ username, picture, info, profileId }) => {
         return (
           <SideProfile
-            username={username}
-            picture={picture}
             info={info}
-            profileId={profileId}
             key={profileId}
+            picture={picture}
+            username={username}
+            profileId={profileId}
           />
         )
       })}

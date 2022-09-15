@@ -1,3 +1,5 @@
+import './Footer.css'
+
 export function PrimaryFooter() {
   return (
     <footer>

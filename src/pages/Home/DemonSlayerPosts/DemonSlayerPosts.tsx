@@ -1,7 +1,9 @@
-import { collection, onSnapshot, CollectionReference } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { firebaseDb } from '../../library/firebase'
-import { CharactersPostsComments } from './CharactersPostsComments'
+import { firebaseDb } from '../../../library/firebase'
+import { DemonSlayerComments } from './DemonSlayerComments/DemonSlayerComments'
+import { collection, onSnapshot, CollectionReference } from 'firebase/firestore'
+import '../../../styles/Posts.css'
+import '../../../styles/Comments.css'
 
 type Like = {
   likeId: string
@@ -9,26 +11,24 @@ type Like = {
 }
 
 type AnimePostPropos = {
+  post: string
   animeId: string
   caption: string
   picture: string
-  post: string
   username: string
 }
 
-export function CharactersPosts({
+export function DemonSlayerPosts({
+  post,
   animeId,
   caption,
   picture,
-  post,
   username,
 }: AnimePostPropos) {
   const [likes, setLikes] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    'profiles',
-    animeId,
-    'likes'
+    `profiles/${animeId}/likes`
   ) as CollectionReference<Like>
 
   useEffect(
@@ -46,9 +46,7 @@ export function CharactersPosts({
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={picture} alt={username} />
-          <span className="post__post--info">
-            <p className="username">{username}</p>
-          </span>
+          <p className="username">{username}</p>
         </div>
       </div>
 
@@ -60,10 +58,10 @@ export function CharactersPosts({
         </div>
         <div className="post__caption">
           <p>
-            <span className="thick">{username}</span> {caption}
+            <span className="username thick">{username}</span> {caption}
           </p>
         </div>
-        <CharactersPostsComments animeId={animeId} />
+        <DemonSlayerComments animeId={animeId} />
       </div>
     </div>
   )

@@ -8,10 +8,13 @@
   color: var(--black);
   width: 300px;
 }
-
-.hide {
-  display: none;
+.post__header--ellipsis {
+  font-size: calc(18 / 16 * 1rem);
 }
+
+/* .hide {
+  display: none;
+} */
 
 .post__modal button {
   font-size: 1rem;
@@ -51,14 +54,9 @@
 }
 
 .post .post__header .post__header--wrapper p {
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.5;
   font-size: calc(14 / 16 * 1rem);
-}
-
-.post .post__header .post__header--wrapper p:nth-child(2) {
-  font-weight: 400;
-  font-size: calc(12 / 16 * 1rem);
 }
 
 .post .post__header .ellipsis {
@@ -79,29 +77,26 @@
   justify-content: space-between;
 }
 
-.post__container .post__actions .post__actions--icon {
-  cursor: pointer;
+.post__container .post__actions .post--icons {
+  cursor: default;
   font-size: calc(25 / 16 * 1rem);
 }
 
-.post__container .post__actions .post__actions--icon.heart {
+.post__container .post__actions .post--icons.heart {
+  cursor: pointer;
   color: var(--red);
 }
 
-.post__container .post__actions .post__actions--icon.heart-outline {
-  color: var(--black);
-}
-
-.post__container .post__actions .post__actions--icon:not(:first-child) {
+.post__container .post__actions .post--icons:not(:first-child) {
   margin-left: 10px;
 }
 
-.post__container .post__actions .post__actions--icon:nth-child(3) {
+.post__container .post__actions .post--icons:nth-child(3) {
   font-size: calc(24 / 16 * 1rem);
 }
 
 .post__container .post__likes {
-  font-weight: 500;
+  font-weight: 600;
   padding: 0px 10px 5px 10px;
   font-size: calc(14 / 16 * 1rem);
 }
@@ -111,6 +106,7 @@
   font-size: calc(14 / 16 * 1rem);
 }
 
-.post__container .post__caption .thick {
-  font-weight: 500;
+.post__container .post__caption .username.thick,
+.post__container .post__caption .username {
+  font-weight: 600;
 }

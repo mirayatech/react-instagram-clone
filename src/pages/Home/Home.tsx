@@ -1,5 +1,5 @@
-import { UsersPosts } from './UsersPosts'
-import { CharactersPosts } from './CharactersPosts'
+import { UsersPosts } from './UserPosts/UsersPosts'
+import { DemonSlayerPosts } from './DemonSlayerPosts/DemonSlayerPosts'
 import { useEffect, useState } from 'react'
 import { firebaseDb } from '../../library/firebase'
 import {
@@ -9,6 +9,8 @@ import {
   query,
   CollectionReference,
 } from 'firebase/firestore'
+
+import './Home.css'
 
 type UsersPost = {
   postId: string
@@ -87,7 +89,7 @@ export function Home() {
 
       {charactersPosts.map(({ animeId, caption, picture, post, username }) => {
         return (
-          <CharactersPosts
+          <DemonSlayerPosts
             key={animeId}
             animeId={animeId}
             caption={caption}

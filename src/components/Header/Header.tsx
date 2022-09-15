@@ -1,4 +1,3 @@
-import '/src/styles/Header.css'
 import {
   HiOutlinePaperAirplane,
   HiOutlinePlusCircle,
@@ -6,25 +5,18 @@ import {
   HiOutlineHeart,
 } from 'react-icons/hi'
 import { UserAuth } from '../../context/AuthContext'
-import { GrHomeRounded } from 'react-icons/gr'
-
-import { Link } from 'react-router-dom'
 import { HamburgerMenu } from './HamburgerMenu'
+import { GrHomeRounded } from 'react-icons/gr'
+import { Link } from 'react-router-dom'
+import './Header.css'
+import '../../styles/utilities.css'
 
 type HeaderProps = {
   openModal: () => void
 }
 
 export function Header({ openModal }: HeaderProps) {
-  const { user, logOut } = UserAuth()
-
-  const handleSignOut = async () => {
-    try {
-      await logOut()
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const { user } = UserAuth()
 
   return (
     <header className="header">
@@ -37,30 +29,30 @@ export function Header({ openModal }: HeaderProps) {
       </div>
 
       {user?.displayName ? (
-        <div className="header__nav">
+        <aside className="header__wrapper">
           <HamburgerMenu />
-          <div className="navwrapper">
-            <GrHomeRounded className="header__nav--icon house" />
-            <HiOutlinePaperAirplane className="header__nav--icon plane" />
+          <div className="wrapper">
+            <GrHomeRounded className="wrapper__icon house" />
+            <HiOutlinePaperAirplane className="wrapper__icon plane" />
             <button
               className="upload__button"
               aria-label="upload post"
               onClick={openModal}
               tabIndex={1}
             >
-              <HiOutlinePlusCircle className="header__nav--icon" />
+              <HiOutlinePlusCircle className="wrapper__icon" />
             </button>
-            <HiOutlineSearch className="header__nav--icon" />{' '}
-            <HiOutlineHeart className="header__nav--icon" />
+            <HiOutlineSearch className="wrapper__icon" />{' '}
+            <HiOutlineHeart className="wrapper__icon" />
           </div>
           <img
-            className="header__profile"
+            className="wrapper__profile"
             src={user.photoURL}
             alt="Your profile picture"
           />
-        </div>
+        </aside>
       ) : (
-        <Link to="/login" className="link__btn">
+        <Link to="/login" className="wrapper__btn">
           Sign In
         </Link>
       )}

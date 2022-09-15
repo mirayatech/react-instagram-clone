@@ -41,8 +41,8 @@
   padding: 1px;
   display: flex;
   cursor: pointer;
-  align-items: center;
   border-radius: 50%;
+  align-items: center;
   margin: 0 10px 2px 10px;
   border: double 1px transparent;
   background-clip: content-box, border-box;

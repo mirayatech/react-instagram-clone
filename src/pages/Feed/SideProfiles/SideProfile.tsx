@@ -1,14 +1,17 @@
 import {
   doc,
-  collection,
-  deleteDoc,
-  onSnapshot,
   setDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
   CollectionReference,
 } from 'firebase/firestore'
+import './SideProfile.css'
+import '../../../styles/utilities.css'
+
+import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
-import { motion } from 'framer-motion'
 
 type follows = {
   followId: string
@@ -16,21 +19,21 @@ type follows = {
 }
 
 type SideProfileProps = {
-  username: string
-  picture: string
   info: string
+  picture: string
+  username: string
   profileId: string
 }
 
 export function SideProfile({
-  username,
-  picture,
   info,
+  picture,
+  username,
   profileId,
 }: SideProfileProps) {
-  const [follows, setFollows] = useState<follows[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [hasFollowed, setHasFollowed] = useState(false)
+  const [follows, setFollows] = useState<follows[]>([])
   const followsCollectionReference = collection(
     firebaseDb,
     'sideProfiles',
@@ -63,20 +66,14 @@ export function SideProfile({
       await deleteDoc(
         doc(
           firebaseDb,
-          'sideProfiles',
-          profileId,
-          'follows',
-          firebaseAuth.currentUser?.uid
+          `sideProfiles/${profileId}/follows/${firebaseAuth.currentUser?.uid}`
         )
       )
     } else {
       await setDoc(
         doc(
           firebaseDb,
-          'sideProfiles',
-          profileId,
-          'follows',
-          firebaseAuth.currentUser?.uid
+          `sideProfiles/${profileId}/follows/${firebaseAuth.currentUser?.uid}`
         ),
         {
           username: firebaseAuth.currentUser?.displayName,
@@ -94,9 +91,13 @@ export function SideProfile({
           <p>{info}</p>
         </div>
         {hasFollowed ? (
-          <button onClick={() => setIsOpen(true)}>Unfollow</button>
+          <button className="profile__button" onClick={() => setIsOpen(true)}>
+            Unfollow
+          </button>
         ) : (
-          <button onClick={followUser}>Follow</button>
+          <button className="profile__button" onClick={followUser}>
+            Follow
+          </button>
         )}
       </div>
 
@@ -140,10 +141,13 @@ export function SideProfile({
               Are you sure you want to unfollow this user?
             </p>
 
-            <button className="red__btn" onClick={followUser}>
+            <button className="modal__action--button" onClick={followUser}>
               Unfollow
             </button>
-            <button className="cancel__btn" onClick={() => setIsOpen(false)}>
+            <button
+              className="modal__cancel--button"
+              onClick={() => setIsOpen(false)}
+            >
               Cancel
             </button>
           </motion.div>

@@ -1,3 +1,6 @@
+import '../../../styles/Posts.css'
+import '../../../styles/utilities.css'
+
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -15,8 +18,7 @@ import {
 } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { AnimeComments } from './AnimeComments'
-import { MdOutlineMoreHoriz } from 'react-icons/md'
+import { AnimeComments } from './AnimeComments/AnimeComments'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
 type Like = {
@@ -73,20 +75,14 @@ export function AnimePost({
       await deleteDoc(
         doc(
           firebaseDb,
-          'profiles',
-          animeId,
-          'likes',
-          firebaseAuth.currentUser?.uid
+          `profiles/${animeId}/likes/${firebaseAuth.currentUser?.uid}`
         )
       )
     } else {
       await setDoc(
         doc(
           firebaseDb,
-          'profiles',
-          animeId,
-          'likes',
-          firebaseAuth.currentUser?.uid
+          `profiles/${animeId}/likes/${firebaseAuth.currentUser?.uid}`
         ),
         {
           username: firebaseAuth.currentUser?.displayName,
@@ -100,9 +96,7 @@ export function AnimePost({
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={picture} alt={username} />
-          <span className="post__post--info">
-            <p className="username">{username}</p>
-          </span>
+          <p className="username">{username}</p>
         </div>
       </div>
 
@@ -127,24 +121,21 @@ export function AnimePost({
                   },
                 }}
               >
-                <FilledHeart
-                  className="post__actions--icon heart"
-                  onClick={likePost}
-                />
+                <FilledHeart className="post--icons heart" onClick={likePost} />
               </motion.button>
             ) : (
               <button>
                 <OutlinedHeart
-                  className="post__actions--icon heart-outline"
+                  className="post--icons heart-outline"
                   onClick={likePost}
                 />
               </button>
             )}
 
-            <Comment className="post__actions--icon" />
-            <Plane className="post__actions--icon" />
+            <Comment className="post--icons" />
+            <Plane className="post--icons" />
           </div>
-          <SavePost className="post__actions--icon" />
+          <SavePost className="post--icons" />
         </div>
 
         <div className="post__likes">
@@ -152,7 +143,7 @@ export function AnimePost({
         </div>
         <div className="post__caption">
           <p>
-            <span className="thick">{username}</span> {caption}
+            <span className="username thick">{username}</span> {caption}
           </p>
         </div>
         <AnimeComments animeId={animeId} />

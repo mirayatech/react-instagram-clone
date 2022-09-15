@@ -1,3 +1,5 @@
+import './stories.css'
+
 type StoryProps = {
   picture: string
   username: string

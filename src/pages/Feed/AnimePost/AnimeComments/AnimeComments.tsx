@@ -1,7 +1,7 @@
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 import { useState, useEffect } from 'react'
-import { Comment } from './Comment'
+import { AnimeComment } from './AnimeComment'
 import {
   query,
   addDoc,
@@ -11,6 +11,8 @@ import {
   serverTimestamp,
   CollectionReference,
 } from 'firebase/firestore'
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
 
 type Comments = {
   comment: string
@@ -21,19 +23,16 @@ type Comments = {
   timestamp: { seconds: number; nanoseconds: number }
 }
 
-type CommentsProps = {
-  postId: string
+type AnimeCommentsProps = {
+  animeId: string
 }
-
-export function Comments({ postId }: CommentsProps) {
+export function AnimeComments({ animeId }: AnimeCommentsProps) {
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<Comments[]>([])
 
   const commentsCollectionReference = collection(
     firebaseDb,
-    'posts',
-    postId,
-    'comments'
+    `profiles/${animeId}/comments`
   ) as CollectionReference<Comments>
 
   const sendComment = async () => {
@@ -60,7 +59,7 @@ export function Comments({ postId }: CommentsProps) {
         }
       )
     getComments()
-  }, [firebaseDb, postId])
+  }, [firebaseDb, animeId])
 
   return (
     <>
@@ -68,8 +67,8 @@ export function Comments({ postId }: CommentsProps) {
         {comments.map(
           ({ profile, profileImage, comment, commentUserId, commentId }) => {
             return (
-              <Comment
-                postId={postId}
+              <AnimeComment
+                animeId={animeId}
                 key={commentId}
                 profile={profile}
                 comment={comment}
@@ -87,12 +86,17 @@ export function Comments({ postId }: CommentsProps) {
 
         <input
           value={comment}
+          className="comments__container--input"
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment..."
           name="comment"
           type="text"
         />
-        <button onClick={sendComment} disabled={!comment.trim()}>
+        <button
+          className="comments__container--button"
+          onClick={sendComment}
+          disabled={!comment.trim()}
+        >
           Post
         </button>
       </div>

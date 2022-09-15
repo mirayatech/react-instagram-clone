@@ -1,3 +1,6 @@
+import '../../../styles/Posts.css'
+import '../../../styles/utilities.css'
+
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -13,7 +16,7 @@ import {
   onSnapshot,
   CollectionReference,
 } from 'firebase/firestore'
-import { Comments } from './Comments'
+import { Comments } from './Comments/Comments'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { EllipsisModal } from './EllipsisModal'
@@ -47,8 +50,7 @@ export function Post({
   const [hasLiked, setHasLiked] = useState(false)
   const likeCollectionReference = collection(
     firebaseDb,
-    'posts',
-    postId,
+    `posts/${postId}`,
     'likes'
   ) as CollectionReference<Like>
 
@@ -75,16 +77,16 @@ export function Post({
   const likePost = async () => {
     if (hasLiked) {
       await deleteDoc(
-        doc(firebaseDb, 'posts', postId, 'likes', firebaseAuth.currentUser?.uid)
+        doc(
+          firebaseDb,
+          `posts/${postId}/likes/${firebaseAuth.currentUser?.uid}`
+        )
       )
     } else {
       await setDoc(
         doc(
           firebaseDb,
-          'posts',
-          postId,
-          'likes',
-          firebaseAuth.currentUser?.uid
+          `posts/${postId}/likes/${firebaseAuth.currentUser?.uid}`
         ),
         {
           username: firebaseAuth.currentUser?.displayName,
@@ -98,12 +100,10 @@ export function Post({
       <div className="post__header">
         <div className="post__header--wrapper">
           <img src={userImage} alt={username} />
-          <span className="post__post--info">
-            <p className="username">{username}</p>
-          </span>
+          <p className="username">{username}</p>
         </div>
         {postUserId === firebaseAuth.currentUser?.uid && (
-          <button className="ellipsis">
+          <button className="post__header--ellipsis">
             <MdOutlineMoreHoriz onClick={() => setIsOpen(true)} />
           </button>
         )}
@@ -131,24 +131,21 @@ export function Post({
                   },
                 }}
               >
-                <FilledHeart
-                  className="post__actions--icon heart"
-                  onClick={likePost}
-                />
+                <FilledHeart className="post--icons heart" onClick={likePost} />
               </motion.button>
             ) : (
               <button>
                 <OutlinedHeart
-                  className="post__actions--icon heart-outline"
+                  className="post--icons heart-outline"
                   onClick={likePost}
                 />
               </button>
             )}
 
-            <Comment className="post__actions--icon" />
-            <Plane className="post__actions--icon" />
+            <Comment className="post--icons" />
+            <Plane className="post--icons" />
           </div>
-          <SavePost className="post__actions--icon" />
+          <SavePost className="post--icons" />
         </div>
 
         <div className="post__likes">
@@ -156,7 +153,7 @@ export function Post({
         </div>
         <div className="post__caption">
           <p>
-            <span className="thick">{username}</span> {caption}
+            <span className="username thick">{username}</span> {caption}
           </p>
         </div>
         <Comments postId={postId} />

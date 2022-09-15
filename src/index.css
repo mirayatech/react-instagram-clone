@@ -1,21 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-@import url('./styles/Comments.css');
-@import url('./styles/utilities');
-@import url('/src/styles/Header.css');
-@import url('/src/styles/Feed.css');
-@import url('/src/styles/stories.css');
-@import url('/src/styles/Posts.css');
-@import url('./styles/SideProfile.css');
-@import url('./styles/Login.css');
-@import url('./styles/Footer.css');
-@import url('./styles/Modal.css');
 :root {
   --white: #fff;
-  --off-white: #fafafa;
-  --grey: #c8c8c8;
-  --black: #262626;
   --red: #f75050;
   --blue: #0095f6;
+  --grey: #c8c8c8;
+  --black: #262626;
+  --off-white: #fafafa;
 }
 
 * {

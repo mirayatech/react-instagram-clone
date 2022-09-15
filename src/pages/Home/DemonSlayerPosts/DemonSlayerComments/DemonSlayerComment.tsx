@@ -1,17 +1,18 @@
-import { CollectionReference, collection, onSnapshot } from 'firebase/firestore'
-
 import { useEffect, useState } from 'react'
-import { firebaseDb } from '../../library/firebase'
+import { firebaseDb } from '../../../../library/firebase'
+import { CollectionReference, collection, onSnapshot } from 'firebase/firestore'
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
 
 type Like = {
   username: string
-  postId: string
+  animeId: string
   commentId: string
   likeId: string
 }
 
 type CommentsProps = {
-  postId: string
+  animeId: string
   comment: string
   profile: string
   commentId: string
@@ -19,8 +20,8 @@ type CommentsProps = {
   commentUserId: string
 }
 
-export function UsersPostsComment({
-  postId,
+export function DemonSlayerComment({
+  animeId,
   comment,
   profile,
   commentId,
@@ -29,11 +30,7 @@ export function UsersPostsComment({
   const [likesComment, setLikesComment] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    'posts',
-    postId,
-    'comments',
-    commentId,
-    'likes'
+    `profiles/${animeId}/comments/${commentId}/likes`
   ) as CollectionReference<Like>
 
   useEffect(

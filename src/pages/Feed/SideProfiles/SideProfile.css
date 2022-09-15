@@ -1,5 +1,6 @@
 .SideProfile {
   position: fixed;
+  width: 300px;
 }
 
 .suggestions__intro {
@@ -44,12 +45,17 @@
 .profile button,
 .main__profile button {
   margin-left: auto;
+
   font-size: calc(12 / 16 * 1rem);
 }
 
 .main__profile button a {
   cursor: pointer;
   text-decoration: none;
+}
+
+.signOut:hover {
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 1000px) {

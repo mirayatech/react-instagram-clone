@@ -1,16 +1,16 @@
-import { CollectionReference, collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { firebaseDb } from '../../library/firebase'
+import { firebaseDb } from '../../../../library/firebase'
+import { CollectionReference, collection, onSnapshot } from 'firebase/firestore'
 
 type Like = {
-  username: string
-  animeId: string
-  commentId: string
+  postId: string
   likeId: string
+  username: string
+  commentId: string
 }
 
 type CommentsProps = {
-  animeId: string
+  postId: string
   comment: string
   profile: string
   commentId: string
@@ -18,8 +18,8 @@ type CommentsProps = {
   commentUserId: string
 }
 
-export function CharactersPostsComment({
-  animeId,
+export function UsersPostsComment({
+  postId,
   comment,
   profile,
   commentId,
@@ -28,11 +28,7 @@ export function CharactersPostsComment({
   const [likesComment, setLikesComment] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    'profiles',
-    animeId,
-    'comments',
-    commentId,
-    'likes'
+    `posts/${postId}/comments/${commentId}/likes`
   ) as CollectionReference<Like>
 
   useEffect(

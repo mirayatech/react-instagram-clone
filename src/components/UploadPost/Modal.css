@@ -13,33 +13,34 @@
 }
 
 .overlay .close__btn {
-  z-index: 30;
-  color: var(--white);
-  position: absolute;
   top: 25px;
   right: 25px;
+  z-index: 30;
+  border: none;
   font-size: 2.5rem;
+  position: absolute;
+  color: var(--white);
+  background-color: transparent;
 }
 
 .modal__post {
   width: 400px;
-  border: 1px solid var(--grey);
   border-radius: 8px;
   position: relative;
+  border: 1px solid var(--grey);
   background-color: var(--white);
 }
 
 .modal__post .modal__svg {
   display: flex;
-  text-align: center;
-  cursor: pointer;
-  margin: 50px auto 25px auto;
-  font-size: 3.5rem;
-  color: var(--blue);
-  background-color: #c5e9ff;
-
-  border-radius: 50%;
   padding: 10px;
+  cursor: pointer;
+  font-size: 3.5rem;
+  text-align: center;
+  color: var(--blue);
+  border-radius: 50%;
+  margin: 50px auto 25px auto;
+  background-color: #c5e9ff;
 }
 
 .modal__post .modal__img {
@@ -48,41 +49,49 @@
 }
 
 .modal__img img {
-  margin-top: 10px;
-  border-radius: 6px;
-  object-fit: cover;
   width: 380px;
+  margin-top: 10px;
+  object-fit: cover;
+  border-radius: 6px;
 }
 
 .modal__post .modal__wrapper {
   width: 95%;
-  margin: 0 auto;
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
 }
 
 .modal__post .modal__wrapper h1 {
-  text-align: center;
   margin: 20px 0;
+  font-weight: 600;
+  text-align: center;
   font-size: 1.1rem;
-  font-weight: 500;
 }
 
 .modal__post .modal__wrapper .modal__caption {
   padding: 10px;
   outline: none;
   border-radius: 3px;
-  border: 1px solid var(--grey);
   margin-bottom: 10px;
+  border: 1px solid var(--grey);
 }
 
 .modal__post .upload-post__btn {
-  font-size: 0.9rem;
+  border: none;
   padding: 10px;
-  background: var(--blue);
-  color: var(--white);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
   border-radius: 3px;
   margin-bottom: 10px;
+  color: var(--white);
+  background: var(--blue);
+  transition: all 0.3s ease;
+}
+
+.modal__post .upload-post__btn:hover {
+  background-color: #0082d9;
 }
 
 @media screen and (max-width: 400px) {
@@ -91,8 +100,8 @@
   }
 
   .modal__post .modal__svg {
-    margin: 50px auto 10px auto;
     font-size: 3rem;
+    margin: 50px auto 10px auto;
   }
 
   .modal__post .modal__img {
@@ -101,7 +110,7 @@
   }
 
   .modal__img img {
-    margin-top: 8px;
     width: 280px;
+    margin-top: 8px;
   }
 }

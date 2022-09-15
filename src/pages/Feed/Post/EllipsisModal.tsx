@@ -1,7 +1,7 @@
 import { deleteDoc, doc } from 'firebase/firestore'
 import { firebaseDb } from '../../../library/firebase'
 import { motion } from 'framer-motion'
-
+import '../../../styles/utilities.css'
 type PostModalProps = {
   postId: string
 }
@@ -52,10 +52,16 @@ export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
           Are you sure you want to delete this post?
         </p>
 
-        <button className="red__btn" onClick={() => deletePost(postId)}>
+        <button
+          className="modal__action--button"
+          onClick={() => deletePost(postId)}
+        >
           Delete Post
         </button>
-        <button className="cancel__btn" onClick={() => setIsOpen(false)}>
+        <button
+          className="modal__cancel--button"
+          onClick={() => setIsOpen(false)}
+        >
           Cancel
         </button>
       </motion.div>

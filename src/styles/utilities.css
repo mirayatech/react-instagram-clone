@@ -13,7 +13,7 @@
 }
 
 .username {
-  font-weight: 500;
+  font-weight: 600;
   font-size: calc(14 / 16 * 1rem);
 }
 
@@ -21,7 +21,7 @@ button {
   border: none;
   outline: none;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--black);
   background-color: transparent;
 }
@@ -59,7 +59,7 @@ button {
   font-size: 1rem;
 }
 
-.modal .red__btn {
+.modal .modal__action--button {
   color: var(--red);
   padding: 15px 0;
   width: 100%;
@@ -67,7 +67,7 @@ button {
   font-size: 1rem;
 }
 
-.modal .cancel__btn {
+.modal .modal__cancel--button {
   padding: 15px;
   font-size: 1rem;
 }
@@ -83,4 +83,13 @@ button {
 .main__profile button,
 .post .comments__container button {
   color: var(--blue);
+  transition: all 0.3s ease;
+}
+
+.main__profile button a:hover,
+.profile button:hover,
+.main__profile button:hover,
+.post .comments__container button:hover {
+  color: var(--blue);
+  color: #0079ca;
 }

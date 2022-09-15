@@ -1,7 +1,8 @@
-import { firebaseDb } from '../../library/firebase'
-import { UsersPostsComment } from './UsersPostsComment'
+import { firebaseDb } from '../../../../library/firebase'
 import { useState, useEffect } from 'react'
-
+import { DemonSlayerComment } from './DemonSlayerComment'
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
 import {
   query,
   orderBy,
@@ -18,18 +19,15 @@ type Comments = {
   profileImage: string
 }
 
-type CommentsProps = {
-  postId: string
+type AnimeCommentsProps = {
+  animeId: string
 }
-
-export function UsersPostsComments({ postId }: CommentsProps) {
+export function DemonSlayerComments({ animeId }: AnimeCommentsProps) {
   const [comments, setComments] = useState<Comments[]>([])
 
   const commentsCollectionReference = collection(
     firebaseDb,
-    'posts',
-    postId,
-    'comments'
+    `profiles/${animeId}/comments`
   ) as CollectionReference<Comments>
 
   useEffect(() => {
@@ -43,15 +41,15 @@ export function UsersPostsComments({ postId }: CommentsProps) {
         }
       )
     getComments()
-  }, [firebaseDb, postId])
+  }, [firebaseDb, animeId])
 
   return (
     <div className="comments">
       {comments.map(
         ({ profile, profileImage, comment, commentUserId, commentId }) => {
           return (
-            <UsersPostsComment
-              postId={postId}
+            <DemonSlayerComment
+              animeId={animeId}
               key={commentId}
               profile={profile}
               comment={comment}

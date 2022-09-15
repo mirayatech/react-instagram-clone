@@ -1,10 +1,12 @@
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
 import {
   doc,
-  CollectionReference,
-  collection,
-  deleteDoc,
-  onSnapshot,
   setDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
+  CollectionReference,
 } from 'firebase/firestore'
 import {
   HiOutlineHeart as OutlinedHeart,
@@ -12,13 +14,13 @@ import {
 } from 'react-icons/hi'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 
 type Like = {
-  username: string
-  postId: string
-  commentId: string
   likeId: string
+  postId: string
+  username: string
+  commentId: string
 }
 
 type CommentsProps = {
@@ -42,21 +44,9 @@ export function Comment({
   const [likesComment, setLikesComment] = useState<Like[]>([])
   const likeCollectionReference = collection(
     firebaseDb,
-    'posts',
-    postId,
-    'comments',
-    commentId,
+    `posts/${postId}/comments/${commentId}`,
     'likes'
   ) as CollectionReference<Like>
-
-  const deleteComment = async () => {
-    const commentDocument = doc(
-      firebaseDb,
-      `posts/${postId}`,
-      `comments/${commentId}`
-    )
-    await deleteDoc(commentDocument)
-  }
 
   useEffect(
     () =>
@@ -81,12 +71,7 @@ export function Comment({
   const likeComment = async () => {
     const likeDocument = doc(
       firebaseDb,
-      'posts',
-      postId,
-      'comments',
-      commentId,
-      'likes',
-      firebaseAuth.currentUser?.uid
+      `posts/${postId}/comments/${commentId}/likes/${firebaseAuth.currentUser?.uid}`
     )
 
     if (hasLikedComment) {
@@ -98,6 +83,14 @@ export function Comment({
     }
   }
 
+  const deleteComment = async () => {
+    const commentDocument = doc(
+      firebaseDb,
+      `posts/${postId}`,
+      `comments/${commentId}`
+    )
+    await deleteDoc(commentDocument)
+  }
   return (
     <div className="comment">
       <img src={profileImage} alt="profile picture" />
@@ -138,7 +131,7 @@ export function Comment({
           {likesComment.length > 0 && <p>{likesComment.length} likes</p>}
           {commentUserId === firebaseAuth.currentUser?.uid && (
             <button
-              className="delete__comment"
+              className="comment__delete--button"
               onClick={() => deleteComment(commentId)}
             >
               Delete

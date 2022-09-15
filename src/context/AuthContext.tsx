@@ -9,7 +9,11 @@ import { firebaseAuth } from '../library/firebase'
 
 const AuthContext = createContext()
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const [user, setUser] = useState({})
 
   const googleSignIn = () => {

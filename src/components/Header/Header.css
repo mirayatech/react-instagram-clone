@@ -1,6 +1,7 @@
 .header {
   z-index: 1;
   width: 100%;
+  height: 60px;
   display: flex;
   position: fixed;
   padding: 10px 30px;
@@ -10,40 +11,72 @@
   border-bottom: 1px solid var(--grey);
 }
 
+.wrapper__btn {
+  text-decoration: none;
+  color: var(--blue);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.wrapper__btn:hover {
+  text-decoration: underline;
+  color: #0079ca;
+}
+
 .header__logo img {
   width: 100%;
   max-width: 110px;
   margin-right: 15rem;
 }
 
-.header__nav {
+.header__wrapper {
   display: flex;
   align-items: center;
 }
 
-.header__nav .upload__button {
+.wrapper {
   display: flex;
+  align-items: center;
 }
 
-.header__nav .upload__button .header__nav--icon {
+.wrapper .upload__button {
+  border: none;
+  display: flex;
+  background-color: transparent;
+}
+
+.wrapper .upload__button .wrapper__icon {
   cursor: pointer;
   font-size: calc(26 / 16 * 1rem);
+  background-color: transparent;
 }
 
-.header__nav .header__nav--icon {
+.wrapper .wrapper__icon {
   margin: 0 11px;
   font-size: calc(24 / 16 * 1rem);
 }
 
-.header__nav .header__nav--icon.home {
+.wrapper .wrapper__icon.house {
   margin-right: 15px;
   font-size: calc(22 / 16 * 1rem);
 }
 
-.header__nav .header__profile {
+.header__wrapper .wrapper__profile {
   width: 25px;
   margin-left: 12px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 800px) {
+  .header__wrapper .wrapper__profile {
+    width: 26px;
+    margin-left: 12px;
+    border-radius: 50%;
+  }
+
+  .wrapper {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 560px) {
@@ -57,27 +90,27 @@
     margin-right: 0;
   }
 
-  .header__nav .upload__button .header__nav--icon {
+  .header__wrapper .upload__button .wrapper__icon {
     font-size: calc(24 / 16 * 1rem);
   }
 
-  .header__nav .header__nav--icon {
+  .header__wrapper .wrapper__icon {
     margin: 0 10px;
     font-size: calc(22 / 16 * 1rem);
   }
 
-  .header__nav .header__nav--icon.home {
+  .header__wrapper .wrapper__icon.home {
     margin-right: 15px;
     font-size: calc(22 / 16 * 1rem);
   }
 }
 
 @media screen and (max-width: 390px) {
-  .header__nav .upload__button .header__nav--icon {
+  .header__wrapper .upload__button .wrapper__icon {
     display: flex;
   }
 
-  .header__nav .header__nav--icon {
+  .header__wrapper .wrapper__icon {
     display: none;
     margin: 0 10px;
     font-size: calc(22 / 16 * 1rem);

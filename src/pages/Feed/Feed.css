@@ -1,9 +1,9 @@
 .feed__container {
-  position: relative;
   display: grid;
-  grid-template-columns: 500px 300px;
-  justify-content: center;
   padding-top: 80px;
+  position: relative;
+  justify-content: center;
+  grid-template-columns: 500px 300px;
 }
 
 @media screen and (max-width: 1000px) {

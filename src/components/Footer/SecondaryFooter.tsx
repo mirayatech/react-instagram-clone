@@ -1,3 +1,4 @@
+import './Footer.css'
 export function SecondaryFooter() {
   return (
     <footer className="secondary__footer">

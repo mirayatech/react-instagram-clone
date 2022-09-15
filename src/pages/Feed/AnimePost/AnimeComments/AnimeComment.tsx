@@ -10,9 +10,11 @@ import {
   HiOutlineHeart as OutlinedHeart,
   HiHeart as FilledHeart,
 } from 'react-icons/hi'
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 
 type Like = {
   username: string
@@ -137,7 +139,7 @@ export function AnimeComment({
           {likesComment.length > 0 && <p>{likesComment.length} likes</p>}
           {commentUserId === firebaseAuth.currentUser?.uid && (
             <button
-              className="delete__comment"
+              className="comment__delete--button"
               onClick={() => deleteComment(commentId)}
             >
               Delete

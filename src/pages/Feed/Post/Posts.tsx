@@ -1,20 +1,23 @@
 import { Post } from './Post'
+import '../../../styles/Posts.css'
+import '../../../styles/utilities.css'
 import { useEffect, useState } from 'react'
 import { firebaseDb } from '../../../library/firebase'
+
 import {
-  collection,
-  onSnapshot,
-  orderBy,
   query,
+  orderBy,
+  onSnapshot,
+  collection,
   CollectionReference,
 } from 'firebase/firestore'
 
 type Post = {
+  image: string
   postId: string
   caption: string
-  userImage: string
-  image: string
   username: string
+  userImage: string
   postUserId: string
 }
 
@@ -46,13 +49,13 @@ export function Posts() {
         ({ username, userImage, caption, image, postId, postUserId }) => {
           return (
             <Post
-              postUserId={postUserId}
+              key={postId}
+              image={image}
               postId={postId}
+              caption={caption}
               username={username}
               userImage={userImage}
-              caption={caption}
-              image={image}
-              key={postId}
+              postUserId={postUserId}
             />
           )
         }

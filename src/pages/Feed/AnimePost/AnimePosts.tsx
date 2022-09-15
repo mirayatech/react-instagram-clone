@@ -1,6 +1,8 @@
 import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
 import { firebaseDb } from '../../../library/firebase'
 import { useState, useEffect } from 'react'
+import '../../../styles/Posts.css'
+import '../../../styles/utilities.css'
 import { AnimePost } from './AnimePost'
 
 type A = {

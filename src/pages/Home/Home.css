@@ -1,9 +1,9 @@
 .home {
-  position: relative;
   display: grid;
-  justify-content: center;
-  flex-direction: column;
   padding-top: 80px;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .home .post .post__container {

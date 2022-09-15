@@ -13,5 +13,5 @@ export const HamburgerMenuContextProvider = ({ children }) => {
 }
 
 export const MenuPopup = () => {
-  return useContext(PopupContext)
+  return useContext(HamburgerMenuContext)
 }

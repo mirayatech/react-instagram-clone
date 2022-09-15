@@ -76,7 +76,7 @@
   margin-top: 8px;
 }
 
-.comment .comment__wrapper .comment__footer .delete__comment {
+.comment .comment__wrapper .comment__footer .comment__delete--button {
   color: #989898;
   font-size: calc(12 / 16 * 1rem);
 }

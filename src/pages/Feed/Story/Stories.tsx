@@ -1,20 +1,21 @@
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
-import { Story } from './Story'
-import { useRef, useEffect, useState } from 'react'
 import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 import { firebaseDb } from '../../../library/firebase'
+import { useRef, useEffect, useState } from 'react'
+import { Story } from './Story'
+import './stories.css'
 
 type Story = {
-  storyId: string
   username: string
+  storyId: string
   picture: string
-  post: string
   caption: string
+  post: string
 }
 
 export function Stories() {
   const [stories, setStories] = useState<Story[]>([])
-  const sliderRef = useRef<any>(null)
+  const sliderRef = useRef(null)
 
   const slideLeft = () => {
     let slider = sliderRef.current
@@ -50,7 +51,7 @@ export function Stories() {
         return <Story username={username} picture={picture} key={storyId} />
       })}
       <button onClick={slideRight} className="story__button right">
-        <IoIosArrowForward />{' '}
+        <IoIosArrowForward />
       </button>
     </div>
   )

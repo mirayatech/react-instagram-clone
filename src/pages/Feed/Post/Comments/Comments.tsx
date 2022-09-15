@@ -1,7 +1,10 @@
-import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+import '../../../../styles/Comments.css'
+import '../../../../styles/utilities.css'
+
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 import { useState, useEffect } from 'react'
-import { AnimeComment } from './AnimeComment'
+import { Comment } from './Comment'
 import {
   query,
   addDoc,
@@ -16,23 +19,22 @@ type Comments = {
   comment: string
   profile: string
   commentId: string
-  commentUserId: string
   profileImage: string
+  commentUserId: string
   timestamp: { seconds: number; nanoseconds: number }
 }
 
-type AnimeCommentsProps = {
-  animeId: string
+type CommentsProps = {
+  postId: string
 }
-export function AnimeComments({ animeId }: AnimeCommentsProps) {
+
+export function Comments({ postId }: CommentsProps) {
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<Comments[]>([])
 
   const commentsCollectionReference = collection(
     firebaseDb,
-    'profiles',
-    animeId,
-    'comments'
+    `posts/${postId}/comments`
   ) as CollectionReference<Comments>
 
   const sendComment = async () => {
@@ -41,9 +43,9 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
 
     await addDoc(commentsCollectionReference, {
       comment: commentToSend,
+      commentUserId: firebaseAuth.currentUser?.uid,
       profile: firebaseAuth.currentUser?.displayName,
       profileImage: firebaseAuth.currentUser?.photoURL,
-      commentUserId: firebaseAuth.currentUser?.uid,
       timestamp: serverTimestamp(),
     })
   }
@@ -59,7 +61,7 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
         }
       )
     getComments()
-  }, [firebaseDb, animeId])
+  }, [firebaseDb, postId])
 
   return (
     <>
@@ -67,8 +69,8 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
         {comments.map(
           ({ profile, profileImage, comment, commentUserId, commentId }) => {
             return (
-              <AnimeComment
-                animeId={animeId}
+              <Comment
+                postId={postId}
                 key={commentId}
                 profile={profile}
                 comment={comment}
@@ -86,12 +88,17 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
 
         <input
           value={comment}
+          className="comments__container--input"
           onChange={(e) => setComment(e.target.value)}
           placeholder="Add a comment..."
           name="comment"
           type="text"
         />
-        <button onClick={sendComment} disabled={!comment.trim()}>
+        <button
+          className="comments__container--button"
+          onClick={sendComment}
+          disabled={!comment.trim()}
+        >
           Post
         </button>
       </div>

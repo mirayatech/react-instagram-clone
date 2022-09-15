@@ -1,31 +1,33 @@
-import '../../styles/Modal.css'
-import { FiX } from 'react-icons/fi'
+import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 import { IoCameraOutline } from 'react-icons/io5'
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { FiX } from 'react-icons/fi'
+import './Modal.css'
+import '../../styles/utilities.css'
+
 import {
+  doc,
   addDoc,
   collection,
-  doc,
-  serverTimestamp,
   updateDoc,
+  serverTimestamp,
 } from 'firebase/firestore'
 import {
-  firebaseAuth,
   firebaseDb,
+  firebaseAuth,
   firebaseStorage,
 } from '../../library/firebase'
-import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 
 type ModalProps = {
   closeModal: () => void
 }
 
 export function Modal({ closeModal }: ModalProps) {
-  const [selectedFile, setSelectedFile] = useState<any>(null)
+  const [selectedFile, setSelectedFile] = useState(null)
   const [loading, setLoading] = useState(false)
-  const filePickerRef = useRef<any>(null)
-  const captionRef = useRef<any>(null)
+  const filePickerRef = useRef(null)
+  const captionRef = useRef(null)
 
   const uploadPost = async () => {
     if (loading) return
@@ -59,7 +61,7 @@ export function Modal({ closeModal }: ModalProps) {
     setSelectedFile(null)
   }
 
-  const addImageToPost = (e: any) => {
+  const addImageToPost = (e) => {
     const reader = new FileReader()
 
     if (e.target.files[0]) {

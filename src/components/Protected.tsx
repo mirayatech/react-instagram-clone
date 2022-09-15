@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext'
 
-export const Protected = ({ children }) => {
+export const Protected = ({ children }: { children: React.ReactNode }) => {
   const { user } = UserAuth()
   if (!user) {
     return <Navigate to="/" />
