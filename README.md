@@ -18,12 +18,7 @@ suggested users on the side profile as long as you are logged in.
 ### ...
 
 ### 🛠️ - Dependencies 
-* `CSS`
-* `React`
-* `Firebase`
-* `TypeScript`
-* `Framer Motion`
-* `Build tool: Vite`
+`CSS` &nbsp;`React` &nbsp;`Firebase` &nbsp;`TypeScript` &nbsp;`Framer Motion` &nbsp;`Build tool: Vite`
 
 ### 🎥 - Preview
 ### coming soon...
