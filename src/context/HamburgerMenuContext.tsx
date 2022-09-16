@@ -2,7 +2,11 @@ import { useContext, createContext, useState } from 'react'
 
 const HamburgerMenuContext = createContext()
 
-export const HamburgerMenuContextProvider = ({ children }) => {
+export const HamburgerMenuContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode
+}) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (

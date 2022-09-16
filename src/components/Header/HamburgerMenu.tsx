@@ -16,12 +16,18 @@ export function HamburgerMenu({ openModal }: HamburgerMenuProps) {
     setIsOpen(true)
   }
 
+  const openHamburgerModal = () => {
+    openModal()
+    setIsOpen(false)
+  }
+
   const handleSignOut = async () => {
     try {
       await logOut()
     } catch (error) {
       console.log(error)
     }
+    setIsOpen(false)
   }
 
   return (
@@ -56,7 +62,7 @@ export function HamburgerMenu({ openModal }: HamburgerMenuProps) {
           className="menu"
         >
           <button onClick={handleSignOut}>Sign out</button>
-          <button onClick={openModal}>Upload a post</button>
+          <button onClick={openHamburgerModal}>Upload a post</button>
         </motion.div>
       ) : (
         ''
