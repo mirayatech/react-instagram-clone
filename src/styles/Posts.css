@@ -78,7 +78,6 @@
 }
 
 .post__container .post__actions .post--icons {
-  cursor: default;
   font-size: calc(25 / 16 * 1rem);
 }
 

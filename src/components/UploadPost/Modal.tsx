@@ -50,7 +50,7 @@ export function Modal({ closeModal }: ModalProps) {
       async (snapshot) => {
         const downloadURL = await getDownloadURL(imageReference)
 
-        await updateDoc(doc(firebaseDb, 'posts', documentReference.id), {
+        await updateDoc(doc(firebaseDb, `posts/${documentReference.id}`), {
           image: downloadURL,
         })
       }
