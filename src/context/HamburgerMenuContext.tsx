@@ -1,6 +1,9 @@
 import { useContext, createContext, useState } from 'react'
 
-const HamburgerMenuContext = createContext()
+const HamburgerMenuContext = createContext({
+  isOpen: false,
+  setIsOpen: (isOpen: boolean) => {},
+})
 
 export const HamburgerMenuContextProvider = ({
   children,
