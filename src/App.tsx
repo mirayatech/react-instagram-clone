@@ -1,11 +1,12 @@
-import { Feed, Login, Home, Header, Modal } from './exportFiles'
-import { Routes, Route } from 'react-router-dom'
-import { AuthContextProvider } from './context/AuthContext'
-import { Protected } from './components/Protected'
 import { useState } from 'react'
-import { HamburgerMenuContextProvider } from './context/HamburgerMenuContext'
+import { Routes, Route } from 'react-router-dom'
 
-export function App(): JSX.Element {
+import { Protected } from './components/Protected'
+import { AuthContextProvider } from './context/AuthContext'
+import { HamburgerMenuContextProvider } from './context/HamburgerMenuContext'
+import { Feed, Login, Home, Header, Modal } from './exportFiles'
+
+export function App() {
   const [isOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
