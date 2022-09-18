@@ -1,8 +1,21 @@
-import { useContext, createContext, useState } from 'react'
+import type {
+  Dispatch,
+  SetStateAction} from 'react';
 
-const HamburgerMenuContext = createContext({
+import {
+  useContext,
+  createContext,
+  useState
+} from 'react'
+
+type HamburgerMenuContextType = {
+  isOpen: boolean
+  setIsOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const HamburgerMenuContext = createContext<HamburgerMenuContextType>({
   isOpen: false,
-  setIsOpen: (isOpen: boolean) => {},
+  setIsOpen: () => undefined,
 })
 
 export const HamburgerMenuContextProvider = ({
@@ -19,6 +32,6 @@ export const HamburgerMenuContextProvider = ({
   )
 }
 
-export const MenuPopup = () => {
+export const useHamburgerMenuContext = () => {
   return useContext(HamburgerMenuContext)
 }

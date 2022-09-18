@@ -1,29 +1,22 @@
+import type { User } from 'firebase/auth'
+
+import { onAuthStateChanged } from 'firebase/auth'
 import { useContext, createContext, useEffect, useState } from 'react'
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  onAuthStateChanged,
-} from 'firebase/auth'
+
 import { firebaseAuth } from '../library/firebase'
 
-const AuthContext = createContext()
-
-export const AuthContextProvider = ({
-  children,
-}: {
+type AuthContextProviderProps = {
   children: React.ReactNode
-}) => {
-  const [user, setUser] = useState({})
+}
 
-  const googleSignIn = () => {
-    const provider = new GoogleAuthProvider()
-    signInWithPopup(firebaseAuth, provider)
-  }
+type AuthContext = {
+  user: User | null
+}
 
-  const logOut = () => {
-    signOut(firebaseAuth)
-  }
+const AuthContext = createContext<AuthContext>({ user: null })
+
+export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -36,12 +29,10 @@ export const AuthContextProvider = ({
   }, [])
 
   return (
-    <AuthContext.Provider value={{ googleSignIn, logOut, user }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   )
 }
 
-export const UserAuth = () => {
+export const useAuthContext = () => {
   return useContext(AuthContext)
 }
