@@ -15,10 +15,20 @@ suggested users on the side profile as long as you are logged in.
 
 ### 🧠 - What I learned 
 
-### ...
+- Using `useContext`
+- useEffect with cleanup
+- Type Narrowing in TypeScript
+- Order Firestore data by TimeStamp
+- Create private/authentication route
+- Integrate Google Authentication with Firebase
+- Using firestore and cloud storage at the same time (to be able to upload a post)
+- And much more...
 
 ### 🛠️ - Dependencies 
 `CSS` &nbsp;`React` &nbsp;`Firebase` &nbsp;`TypeScript` &nbsp;`Framer Motion` &nbsp;`Build tool: Vite`
 
 ### 🎥 - Preview
-### coming soon...
+ 
+
+https://user-images.githubusercontent.com/71933266/190892897-d4d66ebe-2fb2-4084-a516-ecd7d7417e58.mov
+
