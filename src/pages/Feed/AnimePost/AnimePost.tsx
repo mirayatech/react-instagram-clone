@@ -11,7 +11,7 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
