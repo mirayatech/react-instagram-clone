@@ -1,7 +1,10 @@
+import type { CollectionReference } from 'firebase/firestore';
+
+import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+
 import { firebaseDb } from '../../../library/firebase'
 import { DemonSlayerComments } from './DemonSlayerComments/DemonSlayerComments'
-import { collection, onSnapshot, CollectionReference } from 'firebase/firestore'
 import '../../../styles/Posts.css'
 import '../../../styles/Comments.css'
 

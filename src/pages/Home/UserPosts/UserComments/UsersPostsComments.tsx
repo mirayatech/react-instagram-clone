@@ -1,17 +1,13 @@
+import type { CollectionReference } from 'firebase/firestore'
+
+import { query, orderBy, onSnapshot, collection } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
+
 import { firebaseDb } from '../../../../library/firebase'
 import { UsersPostsComment } from './UsersPostsComment'
-import { useState, useEffect } from 'react'
 import '../../../../styles/Posts.css'
 import '../../../../styles/utilities.css'
 import '../../../../styles/Comments.css'
-
-import {
-  query,
-  orderBy,
-  onSnapshot,
-  collection,
-  CollectionReference,
-} from 'firebase/firestore'
 
 type Comments = {
   comment: string

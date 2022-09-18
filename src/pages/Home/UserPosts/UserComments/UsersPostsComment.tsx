@@ -1,6 +1,9 @@
+import type { CollectionReference} from 'firebase/firestore';
+
+import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+
 import { firebaseDb } from '../../../../library/firebase'
-import { CollectionReference, collection, onSnapshot } from 'firebase/firestore'
 
 type Like = {
   postId: string

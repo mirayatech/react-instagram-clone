@@ -1,14 +1,20 @@
-import { UsersPosts } from './UserPosts/UsersPosts'
-import { DemonSlayerPosts } from './DemonSlayerPosts/DemonSlayerPosts'
-import { useEffect, useState } from 'react'
-import { firebaseDb } from '../../library/firebase'
+import type {
+  CollectionReference} from 'firebase/firestore';
+
 import {
   collection,
   onSnapshot,
   orderBy,
-  query,
-  CollectionReference,
+  query
 } from 'firebase/firestore'
+import { useEffect, useState } from 'react'
+
+import { firebaseDb } from '../../library/firebase'
+import { DemonSlayerPosts } from './DemonSlayerPosts/DemonSlayerPosts'
+import { UsersPosts } from './UserPosts/UsersPosts'
+
+
+
 
 import './Home.css'
 

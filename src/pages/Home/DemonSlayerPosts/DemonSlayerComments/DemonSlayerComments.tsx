@@ -1,15 +1,13 @@
-import { firebaseDb } from '../../../../library/firebase'
+import type { CollectionReference } from 'firebase/firestore'
+
+import { query, orderBy, onSnapshot, collection } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
+
+import { firebaseDb } from '../../../../library/firebase'
 import { DemonSlayerComment } from './DemonSlayerComment'
+
 import '../../../../styles/Comments.css'
 import '../../../../styles/utilities.css'
-import {
-  query,
-  orderBy,
-  onSnapshot,
-  collection,
-  CollectionReference,
-} from 'firebase/firestore'
 
 type Comments = {
   comment: string
