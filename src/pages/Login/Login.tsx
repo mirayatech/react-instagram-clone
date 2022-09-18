@@ -1,13 +1,15 @@
 import './Login.css'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { PrimaryFooter } from '../../exportFiles'
+
 import AnimePicture from '../../Assets/images/image1.png'
-import { UserAuth } from '../../context/AuthContext'
+import { useAuthContext } from '../../context/AuthContext'
+import { PrimaryFooter } from '../../exportFiles'
+import { googleSignIn } from '../../library/firebase'
 
 export function Login() {
   const navigate = useNavigate()
-  const { googleSignIn, user } = UserAuth()
+  const { user } = useAuthContext()
 
   const handleGoogleSignIn = async () => {
     try {
