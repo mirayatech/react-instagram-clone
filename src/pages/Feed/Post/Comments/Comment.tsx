@@ -1,19 +1,22 @@
 import '../../../../styles/Comments.css'
 import '../../../../styles/utilities.css'
+import type { CommentType } from './Comments'
+import type { CollectionReference } from 'firebase/firestore'
+
 import {
   doc,
   setDoc,
   deleteDoc,
   collection,
   onSnapshot,
-  CollectionReference,
 } from 'firebase/firestore'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import {
   HiOutlineHeart as OutlinedHeart,
   HiHeart as FilledHeart,
 } from 'react-icons/hi'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+
 import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 
 type Like = {
@@ -25,20 +28,12 @@ type Like = {
 
 type CommentsProps = {
   postId: string
-  comment: string
-  profile: string
-  commentId: string
-  profileImage: string
-  commentUserId: string
+  comment: CommentType
 }
 
 export function Comment({
   postId,
-  comment,
-  profile,
-  commentId,
-  profileImage,
-  commentUserId,
+  comment: { comment, commentId, commentUserId, profile, profileImage },
 }: CommentsProps) {
   const [hasLikedComment, setHasLikedComment] = useState(false)
   const [likesComment, setLikesComment] = useState<Like[]>([])
@@ -91,7 +86,7 @@ export function Comment({
   }
   return (
     <div className="comment">
-      <img src={profileImage} alt="profile picture" />
+      <img src={profileImage || ''} alt="profile picture" />
 
       <div className="comment__wrapper">
         <div className="comment__info">
@@ -130,7 +125,7 @@ export function Comment({
           {commentUserId === firebaseAuth.currentUser?.uid && (
             <button
               className="comment__delete--button"
-              onClick={() => deleteComment(commentId)}
+              onClick={() => deleteComment()}
             >
               Delete
             </button>

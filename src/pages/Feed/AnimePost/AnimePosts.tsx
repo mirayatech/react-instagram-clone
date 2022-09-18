@@ -1,11 +1,14 @@
-import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
-import { firebaseDb } from '../../../library/firebase'
+import type { CollectionReference} from 'firebase/firestore';
+
+import { collection, onSnapshot } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
+
+import { firebaseDb } from '../../../library/firebase'
 import '../../../styles/Posts.css'
 import '../../../styles/utilities.css'
 import { AnimePost } from './AnimePost'
 
-type AnimePostsType = {
+type AnimePostType = {
   animeId: string
   caption: string
   picture: string
@@ -14,11 +17,11 @@ type AnimePostsType = {
 }
 
 export function AnimePosts() {
-  const [animePost, setAnimePost] = useState<AnimePostsType[]>([])
+  const [animePost, setAnimePost] = useState<AnimePostType[]>([])
   const animePostsCollectionReference = collection(
     firebaseDb,
     'profiles'
-  ) as CollectionReference<AnimePostsType>
+  ) as CollectionReference<AnimePostType>
 
   useEffect(() => {
     const getAnimePost = () => {

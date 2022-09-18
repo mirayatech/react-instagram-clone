@@ -1,7 +1,5 @@
-import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
-import { VscSmiley as Smiley } from 'react-icons/vsc'
-import { useState, useEffect } from 'react'
-import { AnimeComment } from './AnimeComment'
+import type { CollectionReference } from 'firebase/firestore'
+
 import {
   query,
   addDoc,
@@ -9,17 +7,22 @@ import {
   onSnapshot,
   collection,
   serverTimestamp,
-  CollectionReference,
 } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
+import { VscSmiley as Smiley } from 'react-icons/vsc'
+
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
+import { AnimeComment } from './AnimeComment'
+
 import '../../../../styles/Comments.css'
 import '../../../../styles/utilities.css'
 
-type Comments = {
+export type Comment = {
   comment: string
-  profile: string
-  commentId: string
+  profile: string | null
+  id: string
   commentUserId: string
-  profileImage: string
+  profileImage: string | null
   timestamp: { seconds: number; nanoseconds: number }
 }
 
@@ -28,24 +31,27 @@ type AnimeCommentsProps = {
 }
 export function AnimeComments({ animeId }: AnimeCommentsProps) {
   const [comment, setComment] = useState('')
-  const [comments, setComments] = useState<Comments[]>([])
+  const [comments, setComments] = useState<Comment[]>([])
 
   const commentsCollectionReference = collection(
     firebaseDb,
     `profiles/${animeId}/comments`
-  ) as CollectionReference<Comments>
+  ) as CollectionReference<Comment>
 
   const sendComment = async () => {
     const commentToSend = comment
     setComment('')
 
-    await addDoc(commentsCollectionReference, {
-      comment: commentToSend,
-      profile: firebaseAuth.currentUser?.displayName,
-      profileImage: firebaseAuth.currentUser?.photoURL,
-      commentUserId: firebaseAuth.currentUser?.uid,
-      timestamp: serverTimestamp(),
-    })
+    if (firebaseAuth.currentUser) {
+      await addDoc(commentsCollectionReference, {
+        id: '',
+        comment: commentToSend,
+        profile: firebaseAuth.currentUser.displayName,
+        profileImage: firebaseAuth.currentUser.photoURL,
+        commentUserId: firebaseAuth.currentUser.uid,
+        timestamp: serverTimestamp(),
+      })
+    }
   }
 
   useEffect(() => {
@@ -54,7 +60,7 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
         query(commentsCollectionReference, orderBy('timestamp', 'desc')),
         (snapshot) => {
           return setComments(
-            snapshot.docs.map((doc) => ({ ...doc.data(), commentId: doc.id }))
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           )
         }
       )
@@ -64,21 +70,15 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
   return (
     <>
       <div className="comments">
-        {comments.map(
-          ({ profile, profileImage, comment, commentUserId, commentId }) => {
-            return (
-              <AnimeComment
-                animeId={animeId}
-                key={commentId}
-                profile={profile}
-                comment={comment}
-                commentId={commentId}
-                profileImage={profileImage}
-                commentUserId={commentUserId}
-              />
-            )
-          }
-        )}
+        {comments.map((comment) => {
+          return (
+            <AnimeComment
+              comment={comment}
+              key={comment.id}
+              animeId={animeId}
+            />
+          )
+        })}
       </div>
 
       <div className="comments__container">

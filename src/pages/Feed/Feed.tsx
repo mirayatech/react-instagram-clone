@@ -1,7 +1,7 @@
-import { SideProfiles } from './SideProfiles/SideProfiles'
 import { AnimePosts } from './AnimePost/AnimePosts'
-import { Stories } from './Story/Stories'
 import { Posts } from './Post/Posts'
+import { SideProfiles } from './SideProfiles/SideProfiles'
+import { Stories } from './Story/Stories'
 import './Feed.css'
 export function Feed() {
   return (

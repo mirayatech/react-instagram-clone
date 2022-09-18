@@ -1,10 +1,8 @@
 import '../../../../styles/Comments.css'
 import '../../../../styles/utilities.css'
 
-import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
-import { VscSmiley as Smiley } from 'react-icons/vsc'
-import { useState, useEffect } from 'react'
-import { Comment } from './Comment'
+import type { CollectionReference } from 'firebase/firestore'
+
 import {
   query,
   addDoc,
@@ -12,14 +10,18 @@ import {
   onSnapshot,
   collection,
   serverTimestamp,
-  CollectionReference,
 } from 'firebase/firestore'
+import { useState, useEffect } from 'react'
+import { VscSmiley as Smiley } from 'react-icons/vsc'
 
-type Comments = {
+import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
+import { Comment } from './Comment'
+
+export type CommentType = {
   comment: string
-  profile: string
+  profile: string | null
   commentId: string
-  profileImage: string
+  profileImage: string | null
   commentUserId: string
   timestamp: { seconds: number; nanoseconds: number }
 }
@@ -30,24 +32,28 @@ type CommentsProps = {
 
 export function Comments({ postId }: CommentsProps) {
   const [comment, setComment] = useState('')
-  const [comments, setComments] = useState<Comments[]>([])
+  const [comments, setComments] = useState<CommentType[]>([])
 
   const commentsCollectionReference = collection(
     firebaseDb,
     `posts/${postId}/comments`
-  ) as CollectionReference<Comments>
+  ) as CollectionReference<CommentType>
 
   const sendComment = async () => {
     const commentToSend = comment
     setComment('')
 
-    await addDoc(commentsCollectionReference, {
-      comment: commentToSend,
-      commentUserId: firebaseAuth.currentUser?.uid,
-      profile: firebaseAuth.currentUser?.displayName,
-      profileImage: firebaseAuth.currentUser?.photoURL,
-      timestamp: serverTimestamp(),
-    })
+    if (firebaseAuth.currentUser) {
+      await addDoc(commentsCollectionReference, {
+        comment: commentToSend,
+        commentUserId: firebaseAuth.currentUser.uid,
+        profile: firebaseAuth.currentUser.displayName,
+        profileImage: firebaseAuth.currentUser.photoURL,
+        timestamp: serverTimestamp(),
+        // TODO: what is comment commentId
+        commentId: '',
+      })
+    }
   }
 
   useEffect(() => {
@@ -66,21 +72,9 @@ export function Comments({ postId }: CommentsProps) {
   return (
     <>
       <div className="comments">
-        {comments.map(
-          ({ profile, profileImage, comment, commentUserId, commentId }) => {
-            return (
-              <Comment
-                postId={postId}
-                key={commentId}
-                profile={profile}
-                comment={comment}
-                commentId={commentId}
-                profileImage={profileImage}
-                commentUserId={commentUserId}
-              />
-            )
-          }
-        )}
+        {comments.map((comment) => {
+          return <Comment comment={comment} postId={postId} />
+        })}
       </div>
 
       <div className="comments__container">

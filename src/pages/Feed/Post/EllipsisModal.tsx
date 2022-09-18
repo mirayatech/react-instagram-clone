@@ -1,9 +1,15 @@
+import type { Dispatch, SetStateAction } from 'react'
+
 import { deleteDoc, doc } from 'firebase/firestore'
-import { firebaseDb } from '../../../library/firebase'
 import { motion } from 'framer-motion'
+
+import { firebaseDb } from '../../../library/firebase'
+
 import '../../../styles/utilities.css'
+
 type PostModalProps = {
   postId: string
+  setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
 export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
@@ -52,10 +58,7 @@ export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
           Are you sure you want to delete this post?
         </p>
 
-        <button
-          className="modal__action--button"
-          onClick={() => deletePost(postId)}
-        >
+        <button className="modal__action--button" onClick={() => deletePost()}>
           Delete Post
         </button>
         <button

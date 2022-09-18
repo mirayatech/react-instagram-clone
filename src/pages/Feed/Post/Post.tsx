@@ -1,6 +1,17 @@
 import '../../../styles/Posts.css'
 import '../../../styles/utilities.css'
 
+import type { CollectionReference } from 'firebase/firestore'
+
+import {
+  doc,
+  setDoc,
+  deleteDoc,
+  collection,
+  onSnapshot,
+} from 'firebase/firestore'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -8,20 +19,11 @@ import {
   HiOutlineChat as Comment,
   HiOutlineBookmark as SavePost,
 } from 'react-icons/hi'
-import {
-  doc,
-  setDoc,
-  deleteDoc,
-  collection,
-  onSnapshot,
-  CollectionReference,
-} from 'firebase/firestore'
-import { Comments } from './Comments/Comments'
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
-import { EllipsisModal } from './EllipsisModal'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
+
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
+import { Comments } from './Comments/Comments'
+import { EllipsisModal } from './EllipsisModal'
 
 type Like = {
   likeId: string
