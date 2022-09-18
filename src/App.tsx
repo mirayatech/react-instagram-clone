@@ -27,16 +27,9 @@ export function App() {
 
           <Header openModal={openModal} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            {' '}
+            <Route path="/" element={<Feed />} />
             <Route path="/login" element={<Login />} />
-            <Route
-              path="/feed"
-              element={
-                <Protected>
-                  <Feed />
-                </Protected>
-              }
-            />
           </Routes>
         </HamburgerMenuContextProvider>
       </AuthContextProvider>
