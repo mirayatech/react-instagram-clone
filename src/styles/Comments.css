@@ -116,3 +116,7 @@
 .comment p:nth-child(3) {
   word-break: normal;
 }
+
+.comment__wrapper .comment__info p .comment__username {
+  font-weight: 600;
+}
