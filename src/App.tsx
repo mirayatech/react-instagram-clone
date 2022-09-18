@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { Protected } from './components/Protected'
 import { AuthContextProvider } from './context/AuthContext'
 import { HamburgerMenuContextProvider } from './context/HamburgerMenuContext'
-import { Feed, Login, Home, Header, Modal } from './exportFiles'
+import { Feed, Login, Header, Modal } from './exportFiles'
 
 export function App() {
   const [isOpen, setIsOpen] = useState(false)
