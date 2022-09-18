@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --ext .tsx,.jsx,.js,.ts --ignore-path .gitignore src",
+    "lint-fix": "eslint --ext .tsx,.jsx,.js,.ts --ignore-path .gitignore --fix src"
   },
   "dependencies": {
     "@headlessui/react": "^1.6.6",
@@ -25,6 +27,7 @@
     "@typescript-eslint/parser": "^5.33.1",
     "@vitejs/plugin-react": "^2.0.1",
     "eslint": "^8.22.0",
+    "eslint-plugin-import": "^2.26.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.7"
   }
