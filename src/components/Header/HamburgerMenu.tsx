@@ -1,16 +1,16 @@
-import { IoMenuOutline, IoCloseOutline } from 'react-icons/io5'
-import { MenuPopup } from '../../context/HamburgerMenuContext'
-import { UserAuth } from '../../context/AuthContext'
 import { motion } from 'framer-motion'
+import { IoMenuOutline, IoCloseOutline } from 'react-icons/io5'
+
+import { useHamburgerMenuContext } from '../../context/HamburgerMenuContext'
 import './HamburgerMenu.css'
+import { logOut } from '../../library/firebase'
 
 type HamburgerMenuProps = {
   openModal: () => void
 }
 
 export function HamburgerMenu({ openModal }: HamburgerMenuProps) {
-  const { logOut } = UserAuth()
-  const { isOpen, setIsOpen } = MenuPopup()
+  const { isOpen, setIsOpen } = useHamburgerMenuContext()
 
   const openHamburgerMenu = () => {
     setIsOpen(true)

@@ -1,22 +1,24 @@
+import { GrHomeRounded } from 'react-icons/gr'
 import {
   HiOutlinePaperAirplane,
   HiOutlinePlusCircle,
   HiOutlineSearch,
   HiOutlineHeart,
 } from 'react-icons/hi'
-import { UserAuth } from '../../context/AuthContext'
-import { HamburgerMenu } from './HamburgerMenu'
-import { GrHomeRounded } from 'react-icons/gr'
 import { Link } from 'react-router-dom'
+
 import './Header.css'
 import '../../styles/utilities.css'
+
+import { useAuthContext } from '../../context/AuthContext'
+import { HamburgerMenu } from './HamburgerMenu'
 
 type HeaderProps = {
   openModal: () => void
 }
 
 export function Header({ openModal }: HeaderProps) {
-  const { user } = UserAuth()
+  const { user } = useAuthContext()
 
   return (
     <header className="header">
@@ -28,7 +30,7 @@ export function Header({ openModal }: HeaderProps) {
         />
       </div>
 
-      {user?.displayName ? (
+      {user?.uid ? (
         <aside className="header__wrapper">
           <HamburgerMenu openModal={openModal} />
           <div className="wrapper">
@@ -47,7 +49,7 @@ export function Header({ openModal }: HeaderProps) {
           </div>
           <img
             className="wrapper__profile"
-            src={user.photoURL}
+            src={user.photoURL || ''}
             alt="Your profile picture"
           />
         </aside>
