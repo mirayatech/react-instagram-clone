@@ -1,5 +1,4 @@
 export { Modal } from './components/UploadPost/Modal'
-export { Home } from './pages/Home/Home'
 export { Header } from './components/Header/Header'
 export { Feed } from './pages/Feed/Feed'
 export { Login } from './pages/Login/Login'

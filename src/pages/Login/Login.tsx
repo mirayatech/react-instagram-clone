@@ -21,7 +21,7 @@ export function Login() {
 
   useEffect(() => {
     if (user != null) {
-      navigate('/feed')
+      navigate('/')
     }
   }, [user])
 

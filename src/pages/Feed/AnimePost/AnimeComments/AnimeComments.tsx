@@ -11,6 +11,7 @@ import {
 import { useState, useEffect } from 'react'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 
+import { useAuthContext } from '../../../../context/AuthContext'
 import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 import { AnimeComment } from './AnimeComment'
 
@@ -30,6 +31,7 @@ type AnimeCommentsProps = {
   animeId: string
 }
 export function AnimeComments({ animeId }: AnimeCommentsProps) {
+  const { user } = useAuthContext()
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState<Comment[]>([])
 
@@ -81,25 +83,27 @@ export function AnimeComments({ animeId }: AnimeCommentsProps) {
         })}
       </div>
 
-      <div className="comments__container">
-        <Smiley className="comments__container--icon" />
+      {user?.uid && (
+        <div className="comments__container">
+          <Smiley className="comments__container--icon" />
 
-        <input
-          value={comment}
-          className="comments__container--input"
-          onChange={(e) => setComment(e.target.value)}
-          placeholder="Add a comment..."
-          name="comment"
-          type="text"
-        />
-        <button
-          className="comments__container--button"
-          onClick={sendComment}
-          disabled={!comment.trim()}
-        >
-          Post
-        </button>
-      </div>
+          <input
+            value={comment}
+            className="comments__container--input"
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Add a comment..."
+            name="comment"
+            type="text"
+          />
+          <button
+            className="comments__container--button"
+            onClick={sendComment}
+            disabled={!comment.trim()}
+          >
+            Post
+          </button>
+        </div>
+      )}
     </>
   )
 }

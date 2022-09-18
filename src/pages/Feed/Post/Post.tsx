@@ -21,6 +21,7 @@ import {
 } from 'react-icons/hi'
 import { MdOutlineMoreHoriz } from 'react-icons/md'
 
+import { useAuthContext } from '../../../context/AuthContext'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 import { Comments } from './Comments/Comments'
 import { EllipsisModal } from './EllipsisModal'
@@ -54,6 +55,8 @@ export function Post({
     firebaseDb,
     `posts/${postId}/likes`
   ) as CollectionReference<Like>
+
+  const { user } = useAuthContext()
 
   useEffect(
     () =>
@@ -114,40 +117,45 @@ export function Post({
       <img src={image} alt="Instagram post" className="post__image" />
 
       <div className="post__container">
-        <div className="post__actions">
-          <div className="post__actions--wrapper">
-            {hasLiked ? (
-              <motion.button
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {
-                    scale: 1.2,
-                  },
-                  visible: {
-                    scale: 1,
-                    transition: {
-                      delay: 0.1,
+        {user?.uid && (
+          <div className="post__actions">
+            <div className="post__actions--wrapper">
+              {hasLiked ? (
+                <motion.button
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {
+                      scale: 1.2,
                     },
-                  },
-                }}
-              >
-                <FilledHeart className="post--icons heart" onClick={likePost} />
-              </motion.button>
-            ) : (
-              <button>
-                <OutlinedHeart
-                  className="post--icons heart-outline"
-                  onClick={likePost}
-                />
-              </button>
-            )}
+                    visible: {
+                      scale: 1,
+                      transition: {
+                        delay: 0.1,
+                      },
+                    },
+                  }}
+                >
+                  <FilledHeart
+                    className="post--icons heart"
+                    onClick={likePost}
+                  />
+                </motion.button>
+              ) : (
+                <button>
+                  <OutlinedHeart
+                    className="post--icons heart-outline"
+                    onClick={likePost}
+                  />
+                </button>
+              )}
 
-            <Comment className="post--icons" />
-            <Plane className="post--icons" />
+              <Comment className="post--icons" />
+              <Plane className="post--icons" />
+            </div>
+            <SavePost className="post--icons" />
           </div>
-          <SavePost className="post--icons" />
-        </div>
+        )}
 
         <div className="post__likes">
           {likes.length > 0 && <p>{likes.length} likes</p>}

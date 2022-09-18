@@ -17,6 +17,7 @@ import {
 import '../../../../styles/Comments.css'
 import '../../../../styles/utilities.css'
 
+import { useAuthContext } from '../../../../context/AuthContext'
 import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 
 type Like = {
@@ -35,6 +36,8 @@ export function AnimeComment({
   comment: { comment, id, commentUserId, profile, profileImage },
   animeId,
 }: AnimeCommentProps) {
+  const { user } = useAuthContext()
+
   const [hasLikedComment, setHasLikedComment] = useState(false)
   const [likesComment, setLikesComment] = useState<Like[]>([])
 
@@ -94,29 +97,34 @@ export function AnimeComment({
             {comment}
           </p>
 
-          {hasLikedComment ? (
-            <motion.button
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {
-                  scale: 1.2,
-                },
-                visible: {
-                  scale: 1,
-                  transition: {
-                    delay: 0.1,
-                  },
-                },
-              }}
-              className="comment__heart"
-            >
-              <FilledHeart onClick={likeComment} />
-            </motion.button>
-          ) : (
-            <button className="comment__heart outlined">
-              <OutlinedHeart onClick={likeComment} />
-            </button>
+          {user?.uid && (
+            <>
+              {' '}
+              {hasLikedComment ? (
+                <motion.button
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {
+                      scale: 1.2,
+                    },
+                    visible: {
+                      scale: 1,
+                      transition: {
+                        delay: 0.1,
+                      },
+                    },
+                  }}
+                  className="comment__heart"
+                >
+                  <FilledHeart onClick={likeComment} />
+                </motion.button>
+              ) : (
+                <button className="comment__heart outlined">
+                  <OutlinedHeart onClick={likeComment} />
+                </button>
+              )}{' '}
+            </>
           )}
         </div>
         <div className="comment__footer">

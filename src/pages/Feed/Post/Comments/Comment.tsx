@@ -17,6 +17,7 @@ import {
   HiHeart as FilledHeart,
 } from 'react-icons/hi'
 
+import { useAuthContext } from '../../../../context/AuthContext'
 import { firebaseAuth, firebaseDb } from '../../../../library/firebase'
 
 type Like = {
@@ -41,6 +42,7 @@ export function Comment({
     firebaseDb,
     `posts/${postId}/comments/${commentId}/likes`
   ) as CollectionReference<Like>
+  const { user } = useAuthContext()
 
   useEffect(
     () =>
@@ -94,30 +96,34 @@ export function Comment({
             <span className="comment__username"> {profile}</span>
             {comment}
           </p>
-
-          {hasLikedComment ? (
-            <motion.button
-              initial="hidden"
-              animate="visible"
-              variants={{
-                hidden: {
-                  scale: 1.2,
-                },
-                visible: {
-                  scale: 1,
-                  transition: {
-                    delay: 0.1,
-                  },
-                },
-              }}
-              className="comment__heart"
-            >
-              <FilledHeart onClick={likeComment} />
-            </motion.button>
-          ) : (
-            <button className="comment__heart outlined">
-              <OutlinedHeart onClick={likeComment} />
-            </button>
+          {user?.uid && (
+            <>
+              {' '}
+              {hasLikedComment ? (
+                <motion.button
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {
+                      scale: 1.2,
+                    },
+                    visible: {
+                      scale: 1,
+                      transition: {
+                        delay: 0.1,
+                      },
+                    },
+                  }}
+                  className="comment__heart"
+                >
+                  <FilledHeart onClick={likeComment} />
+                </motion.button>
+              ) : (
+                <button className="comment__heart outlined">
+                  <OutlinedHeart onClick={likeComment} />
+                </button>
+              )}{' '}
+            </>
           )}
         </div>
         <div className="comment__footer">

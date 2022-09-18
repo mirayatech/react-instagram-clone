@@ -1,18 +1,17 @@
 import '../../../styles/Posts.css'
 import '../../../styles/utilities.css'
 
-import type {
-  CollectionReference} from 'firebase/firestore';
+import type { CollectionReference } from 'firebase/firestore'
 
 import {
   doc,
   setDoc,
   deleteDoc,
   collection,
-  onSnapshot
+  onSnapshot,
 } from 'firebase/firestore'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { useEffect, useId, useState } from 'react'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,
@@ -21,6 +20,7 @@ import {
   HiOutlineBookmark as SavePost,
 } from 'react-icons/hi'
 
+import { useAuthContext } from '../../../context/AuthContext'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 import { AnimeComments } from './AnimeComments/AnimeComments'
 
@@ -52,6 +52,8 @@ export function AnimePost({
     animeId,
     'likes'
   ) as CollectionReference<Like>
+
+  const { user } = useAuthContext()
 
   useEffect(
     () =>
@@ -106,40 +108,45 @@ export function AnimePost({
       <img src={post} alt="Instagram post" className="post__image" />
 
       <div className="post__container">
-        <div className="post__actions">
-          <div className="post__actions--wrapper">
-            {hasLiked ? (
-              <motion.button
-                initial="hidden"
-                animate="visible"
-                variants={{
-                  hidden: {
-                    scale: 1.2,
-                  },
-                  visible: {
-                    scale: 1,
-                    transition: {
-                      delay: 0.1,
+        {user?.uid && (
+          <div className="post__actions">
+            <div className="post__actions--wrapper">
+              {hasLiked ? (
+                <motion.button
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: {
+                      scale: 1.2,
                     },
-                  },
-                }}
-              >
-                <FilledHeart className="post--icons heart" onClick={likePost} />
-              </motion.button>
-            ) : (
-              <button>
-                <OutlinedHeart
-                  className="post--icons heart-outline"
-                  onClick={likePost}
-                />
-              </button>
-            )}
+                    visible: {
+                      scale: 1,
+                      transition: {
+                        delay: 0.1,
+                      },
+                    },
+                  }}
+                >
+                  <FilledHeart
+                    className="post--icons heart"
+                    onClick={likePost}
+                  />
+                </motion.button>
+              ) : (
+                <button>
+                  <OutlinedHeart
+                    className="post--icons heart-outline"
+                    onClick={likePost}
+                  />
+                </button>
+              )}
 
-            <Comment className="post--icons" />
-            <Plane className="post--icons" />
+              <Comment className="post--icons" />
+              <Plane className="post--icons" />
+            </div>
+            <SavePost className="post--icons" />
           </div>
-          <SavePost className="post--icons" />
-        </div>
+        )}
 
         <div className="post__likes">
           {likes.length > 0 && <p>{likes.length} likes</p>}
