@@ -73,7 +73,13 @@ export function Comments({ postId }: CommentsProps) {
     <>
       <div className="comments">
         {comments.map((comment) => {
-          return <Comment comment={comment} postId={postId} />
+          return (
+            <Comment
+              comment={comment}
+              postId={postId}
+              key={comment.commentId}
+            />
+          )
         })}
       </div>
 
