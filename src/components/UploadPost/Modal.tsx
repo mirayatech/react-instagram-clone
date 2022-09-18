@@ -1,11 +1,4 @@
-import { ref, getDownloadURL, uploadString } from 'firebase/storage'
-import { IoCameraOutline } from 'react-icons/io5'
-import { useRef, useState } from 'react'
-import { motion } from 'framer-motion'
-import { FiX } from 'react-icons/fi'
-import './Modal.css'
-import '../../styles/utilities.css'
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   doc,
   addDoc,
@@ -13,21 +6,30 @@ import {
   updateDoc,
   serverTimestamp,
 } from 'firebase/firestore'
+import { ref, getDownloadURL, uploadString } from 'firebase/storage'
+import { motion } from 'framer-motion'
+import { useState, useRef } from 'react'
+import { FiX } from 'react-icons/fi'
+import { IoCameraOutline } from 'react-icons/io5'
+
 import {
   firebaseDb,
   firebaseAuth,
   firebaseStorage,
 } from '../../library/firebase'
 
+import './Modal.css'
+import '../../styles/utilities.css'
+
 type ModalProps = {
   closeModal: () => void
 }
 
 export function Modal({ closeModal }: ModalProps) {
-  const [selectedFile, setSelectedFile] = useState(null)
+  const [selectedFile, setSelectedFile] = useState<any>(null)
   const [loading, setLoading] = useState(false)
-  const filePickerRef = useRef(null)
-  const captionRef = useRef(null)
+  const filePickerRef = useRef<any>(null)
+  const captionRef = useRef<any>(null)
 
   const uploadPost = async () => {
     if (loading) return
@@ -47,7 +49,7 @@ export function Modal({ closeModal }: ModalProps) {
     )
 
     await uploadString(imageReference, selectedFile, 'data_url').then(
-      async (snapshot) => {
+      async () => {
         const downloadURL = await getDownloadURL(imageReference)
 
         await updateDoc(doc(firebaseDb, `posts/${documentReference.id}`), {
@@ -61,7 +63,7 @@ export function Modal({ closeModal }: ModalProps) {
     setSelectedFile(null)
   }
 
-  const addImageToPost = (e) => {
+  const addImageToPost = (e: any) => {
     const reader = new FileReader()
 
     if (e.target.files[0]) {
