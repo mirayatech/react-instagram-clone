@@ -1,7 +1,12 @@
 import { initializeApp } from 'firebase/app'
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
-import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_API_KEY,
@@ -18,5 +23,14 @@ const firebaseStorage = getStorage(app)
 const firebaseDb = getFirestore(app)
 const firebaseAuth = getAuth(app)
 const googleAuthProvider = new GoogleAuthProvider()
+
+export const googleSignIn = async () => {
+  const provider = new GoogleAuthProvider()
+  await signInWithPopup(firebaseAuth, provider)
+}
+
+export const logOut = async () => {
+  await signOut(firebaseAuth)
+}
 
 export { firebaseStorage, firebaseDb, firebaseAuth, googleAuthProvider }
