@@ -1,10 +1,13 @@
 import './SideProfile.css'
+import type { CollectionReference} from 'firebase/firestore';
+
+import { collection, onSnapshot } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
-import { SideProfile } from './SideProfile'
-import { firebaseDb } from '../../../library/firebase'
+
+import { useAuthContext } from '../../../context/AuthContext'
 import { SecondaryFooter } from '../../../exportFiles'
-import { UserAuth } from '../../../context/AuthContext'
-import { collection, CollectionReference, onSnapshot } from 'firebase/firestore'
+import { firebaseDb, logOut } from '../../../library/firebase'
+import { SideProfile } from './SideProfile'
 
 type SideProfiles = {
   info: string
@@ -14,7 +17,7 @@ type SideProfiles = {
 }
 
 export function SideProfiles() {
-  const { user, logOut } = UserAuth()
+  const { user } = useAuthContext()
 
   const [profiles, setProfiles] = useState<SideProfiles[]>([])
 
@@ -45,7 +48,7 @@ export function SideProfiles() {
   return (
     <div className="side-profiles">
       <div className="main__profile">
-        <img src={user?.photoURL} alt="Your profile picture" />
+        <img src={user?.photoURL || undefined} alt="your profile" />
 
         <div className="main__profile--info">
           <p className="username">{user?.displayName}</p>

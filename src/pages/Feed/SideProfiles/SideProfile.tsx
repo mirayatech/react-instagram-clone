@@ -1,16 +1,18 @@
+import type { CollectionReference } from 'firebase/firestore'
+
 import {
   doc,
   setDoc,
   deleteDoc,
   collection,
   onSnapshot,
-  CollectionReference,
 } from 'firebase/firestore'
+import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+
 import './SideProfile.css'
 import '../../../styles/utilities.css'
 
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import { firebaseAuth, firebaseDb } from '../../../library/firebase'
 
 type follows = {
