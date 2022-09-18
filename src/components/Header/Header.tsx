@@ -5,7 +5,7 @@ import {
   HiOutlineSearch,
   HiOutlineHeart,
 } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import './Header.css'
 import '../../styles/utilities.css'
@@ -19,11 +19,17 @@ type HeaderProps = {
 
 export function Header({ openModal }: HeaderProps) {
   const { user } = useAuthContext()
+  const navigate = useNavigate()
+
+  const navigateToHome = () => {
+    navigate('/')
+  }
 
   return (
     <header className="header">
       <div className="header__logo">
         <img
+          onClick={navigateToHome}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png"
           alt="Instagram logo"
           tabIndex={1}

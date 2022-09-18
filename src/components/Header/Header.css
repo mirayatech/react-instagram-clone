@@ -24,6 +24,7 @@
 }
 
 .header__logo img {
+  cursor: pointer;
   width: 100%;
   max-width: 110px;
   margin-right: 15rem;
