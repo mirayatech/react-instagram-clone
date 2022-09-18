@@ -73,7 +73,7 @@
 /* container */
 .post__container .post__actions {
   display: flex;
-  padding: 10px 10px 8px;
+  padding: 10px 10px 0px;
   justify-content: space-between;
 }
 
@@ -96,7 +96,7 @@
 
 .post__container .post__likes {
   font-weight: 600;
-  padding: 0px 10px 5px 10px;
+  padding: 10px 10px 5px 10px;
   font-size: calc(14 / 16 * 1rem);
 }
 
