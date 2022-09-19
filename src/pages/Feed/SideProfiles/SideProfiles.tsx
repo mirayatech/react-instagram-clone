@@ -34,9 +34,8 @@ export function SideProfiles() {
         )
       )
     }
-    return () => {
-      getSideProfiles()
-    }
+
+    getSideProfiles()
   }, [])
 
   const handleSignOut = async () => {
