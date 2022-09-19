@@ -42,7 +42,7 @@
   border-bottom: 1px solid var(--grey);
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .hamburger-menu {
     display: flex;
     position: relative;

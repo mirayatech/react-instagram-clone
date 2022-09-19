@@ -68,7 +68,7 @@
   border-radius: 50%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
   .header__wrapper .wrapper__profile {
     width: 26px;
     margin-left: 12px;
