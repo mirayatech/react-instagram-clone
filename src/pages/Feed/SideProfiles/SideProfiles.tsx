@@ -1,5 +1,5 @@
 import './SideProfile.css'
-import type { CollectionReference} from 'firebase/firestore';
+import type { CollectionReference } from 'firebase/firestore'
 
 import { collection, onSnapshot } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
@@ -9,7 +9,7 @@ import { SecondaryFooter } from '../../../exportFiles'
 import { firebaseDb, logOut } from '../../../library/firebase'
 import { SideProfile } from './SideProfile'
 
-type SideProfiles = {
+export type SideProfiles = {
   info: string
   picture: string
   username: string
@@ -34,7 +34,9 @@ export function SideProfiles() {
         )
       )
     }
-    getSideProfiles()
+    return () => {
+      getSideProfiles()
+    }
   }, [])
 
   const handleSignOut = async () => {
@@ -65,16 +67,8 @@ export function SideProfiles() {
         </div>
       </div>
 
-      {profiles.map(({ username, picture, info, profileId }) => {
-        return (
-          <SideProfile
-            info={info}
-            key={profileId}
-            picture={picture}
-            username={username}
-            profileId={profileId}
-          />
-        )
+      {profiles.map((profile) => {
+        return <SideProfile profile={profile} key={profile.profileId} />
       })}
       <SecondaryFooter />
     </div>

@@ -1,3 +1,4 @@
+import type { SideProfiles } from './SideProfiles'
 import type { CollectionReference } from 'firebase/firestore'
 
 import {
@@ -21,17 +22,11 @@ type follows = {
 }
 
 type SideProfileProps = {
-  info: string
-  picture: string
-  username: string
-  profileId: string
+  profile: SideProfiles
 }
 
 export function SideProfile({
-  info,
-  picture,
-  username,
-  profileId,
+  profile: { info, picture, username, profileId },
 }: SideProfileProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [hasFollowed, setHasFollowed] = useState(false)
