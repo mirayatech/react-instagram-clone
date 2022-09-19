@@ -119,8 +119,15 @@ export function Modal({ closeModal }: ModalProps) {
           </div>
         ) : (
           <div onClick={() => filePickerRef.current.click()}>
-            <IoCameraOutline className="modal__svg" />{' '}
+            <label htmlFor="fileInput">
+              <IoCameraOutline
+                className="modal__svg"
+                aria-label="select an image"
+              />
+            </label>
+
             <input
+              id="fileInput"
               className="modal__file--btn"
               type="file"
               ref={filePickerRef}
@@ -136,9 +143,13 @@ export function Modal({ closeModal }: ModalProps) {
             type="text"
             ref={captionRef}
             className="modal__caption"
-            placeholder="Please enter a caption..."
+            placeholder="I love instagram!"
           />
-          <button onClick={uploadPost} className="upload-post__btn">
+          <button
+            onClick={uploadPost}
+            className="upload-post__btn"
+            disabled={!selectedFile}
+          >
             {loading ? 'Uploading...' : 'Upload Post'}
           </button>{' '}
         </div>

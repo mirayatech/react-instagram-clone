@@ -27,6 +27,7 @@
   width: 400px;
   border-radius: 8px;
   position: relative;
+  z-index: 300;
   border: 1px solid var(--grey);
   background-color: var(--white);
 }
