@@ -10,7 +10,7 @@ export function Feed() {
     <div className="feed">
       <div className="feed__container">
         <section className="feed__wrapper">
-          <Stories />
+          {user?.uid && <Stories />}
           <Posts />
           <AnimePosts />
         </section>
