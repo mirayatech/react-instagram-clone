@@ -101,6 +101,7 @@ export function Comment({
               {' '}
               {hasLikedComment ? (
                 <motion.button
+                  aria-label="like comment"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -119,7 +120,10 @@ export function Comment({
                   <FilledHeart onClick={likeComment} />
                 </motion.button>
               ) : (
-                <button className="comment__heart outlined">
+                <button
+                  aria-label="unlike comment"
+                  className="comment__heart outlined"
+                >
                   <OutlinedHeart onClick={likeComment} />
                 </button>
               )}{' '}

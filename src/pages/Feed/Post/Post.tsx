@@ -103,18 +103,21 @@ export function Post({
     <div className="post">
       <div className="post__header">
         <div className="post__header--wrapper">
-          <img src={userImage} alt={username} />
+          <img src={userImage} alt="your profile" />
           <p className="username">{username}</p>
         </div>
         {postUserId === firebaseAuth.currentUser?.uid && (
-          <button className="post__header--ellipsis">
+          <button
+            className="post__header--ellipsis"
+            aria-label="Continue to delete your post"
+          >
             <MdOutlineMoreHoriz onClick={() => setIsOpen(true)} />
           </button>
         )}
         {isOpen ? <EllipsisModal postId={postId} setIsOpen={setIsOpen} /> : ''}
       </div>
 
-      <img src={image} alt="Instagram post" className="post__image" />
+      <img src={image} alt="an instagram post" className="post__image" />
 
       <div className="post__container">
         {user?.uid && (
@@ -122,6 +125,7 @@ export function Post({
             <div className="post__actions--wrapper">
               {hasLiked ? (
                 <motion.button
+                  aria-label="like post"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -142,7 +146,7 @@ export function Post({
                   />
                 </motion.button>
               ) : (
-                <button>
+                <button aria-label="unlike post">
                   <OutlinedHeart
                     className="post--icons heart-outline"
                     onClick={likePost}

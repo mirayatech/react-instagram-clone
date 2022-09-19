@@ -40,7 +40,6 @@
 .story .story__image {
   padding: 1px;
   display: flex;
-  cursor: pointer;
   border-radius: 50%;
   align-items: center;
   margin: 0 10px 2px 10px;

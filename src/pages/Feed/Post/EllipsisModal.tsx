@@ -54,7 +54,7 @@ export function EllipsisModal({ setIsOpen, postId }: PostModalProps) {
         }}
         className="modal"
       >
-        <p className="modal__info">
+        <p tabIndex={0} className="modal__info">
           Are you sure you want to delete this post?
         </p>
 

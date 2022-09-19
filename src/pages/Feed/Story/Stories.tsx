@@ -27,13 +27,21 @@ export function Stories() {
 
   return (
     <div className="stories" ref={sliderRef}>
-      <button onClick={slideLeft} className="story__button left">
+      <button
+        onClick={slideLeft}
+        className="story__button left"
+        aria-label="Slide left"
+      >
         <IoIosArrowBack />
       </button>
       {stories.map((story) => {
         return <Story story={story} key={story.username} />
       })}
-      <button onClick={slideRight} className="story__button right">
+      <button
+        onClick={slideRight}
+        className="story__button right"
+        aria-label="Slide right"
+      >
         <IoIosArrowForward />
       </button>
     </div>

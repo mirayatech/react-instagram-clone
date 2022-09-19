@@ -32,7 +32,6 @@ export function Header({ openModal }: HeaderProps) {
           onClick={navigateToHome}
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1280px-Instagram_logo.svg.png"
           alt="Instagram logo"
-          tabIndex={1}
         />
       </div>
 
@@ -46,7 +45,6 @@ export function Header({ openModal }: HeaderProps) {
               className="upload__button"
               aria-label="upload post"
               onClick={openModal}
-              tabIndex={1}
             >
               <HiOutlinePlusCircle className="wrapper__icon" />
             </button>
@@ -56,7 +54,7 @@ export function Header({ openModal }: HeaderProps) {
           <img
             className="wrapper__profile"
             src={user.photoURL || ''}
-            alt="Your profile picture"
+            alt="Your profile "
           />
         </aside>
       ) : (

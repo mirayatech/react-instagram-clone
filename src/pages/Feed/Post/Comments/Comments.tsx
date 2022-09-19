@@ -53,7 +53,6 @@ export function Comments({ postId }: CommentsProps) {
         profile: firebaseAuth.currentUser.displayName,
         profileImage: firebaseAuth.currentUser.photoURL,
         timestamp: serverTimestamp(),
-        // TODO: what is comment commentId
         commentId: '',
       })
     }
@@ -99,6 +98,7 @@ export function Comments({ postId }: CommentsProps) {
             type="text"
           />
           <button
+            aria-label="post comment"
             className="comments__container--button"
             onClick={sendComment}
             disabled={!comment.trim()}

@@ -41,17 +41,13 @@ export function Login() {
             className="login__logo"
           />
 
-          <p tabIndex={1} className="login__info">
+          <p tabIndex={0} className="login__info">
             Sign in with Google to see what your favorite Demon Slayer
             characters have posted. Like their posts, comment on their posts and
             upload your own posts.
           </p>
 
-          <button
-            onClick={handleGoogleSignIn}
-            tabIndex={1}
-            className="login__button"
-          >
+          <button onClick={handleGoogleSignIn} className="login__button">
             Sign in with Google
           </button>
         </div>

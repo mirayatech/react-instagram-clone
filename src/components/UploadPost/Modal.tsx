@@ -92,7 +92,11 @@ export function Modal({ closeModal }: ModalProps) {
       }}
       className="overlay"
     >
-      <button className="close__btn" onClick={closeModal}>
+      <button
+        className="close__btn"
+        onClick={closeModal}
+        aria-label="close modal"
+      >
         <FiX />
       </button>
       <motion.div
@@ -130,6 +134,7 @@ export function Modal({ closeModal }: ModalProps) {
               id="fileInput"
               className="modal__file--btn"
               type="file"
+              name="file"
               ref={filePickerRef}
               onChange={addImageToPost}
               hidden
@@ -139,8 +144,11 @@ export function Modal({ closeModal }: ModalProps) {
 
         <div className="modal__wrapper">
           <h1>Upload new post</h1>
+          <label htmlFor="caption" className=""></label>
           <input
+            id="caption"
             type="text"
+            name="caption"
             ref={captionRef}
             className="modal__caption"
             placeholder="I love instagram!"

@@ -113,6 +113,7 @@ export function AnimePost({
             <div className="post__actions--wrapper">
               {hasLiked ? (
                 <motion.button
+                  aria-label="like post"
                   initial="hidden"
                   animate="visible"
                   variants={{
@@ -133,7 +134,7 @@ export function AnimePost({
                   />
                 </motion.button>
               ) : (
-                <button>
+                <button aria-label="unlike post">
                   <OutlinedHeart
                     className="post--icons heart-outline"
                     onClick={likePost}
