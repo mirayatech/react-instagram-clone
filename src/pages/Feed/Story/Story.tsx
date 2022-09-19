@@ -1,23 +1,15 @@
 import './stories.css'
-
-export type StoryType = {
-  username: string
-  storyId: string
-  picture: string
-  caption: string
-  post: string
-  id: string
-}
+import type { StoryType } from './Stories'
 
 type StoryProps = {
   story: StoryType
 }
 
-export function Story({ story: { picture, username } }: StoryProps) {
+export function Story({ story: { profile, username } }: StoryProps) {
   return (
     <div className="story">
       <div className="story__image">
-        <img src={picture} alt="Story" />
+        <img src={profile} alt="Story" />
       </div>
       <p>{username}</p>
     </div>
