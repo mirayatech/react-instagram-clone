@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import React from 'react'
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
 
 import './stories.css'

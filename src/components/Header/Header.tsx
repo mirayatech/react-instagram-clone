@@ -1,3 +1,4 @@
+import React from 'react'
 import { GrHomeRounded } from 'react-icons/gr'
 import {
   HiOutlinePaperAirplane,

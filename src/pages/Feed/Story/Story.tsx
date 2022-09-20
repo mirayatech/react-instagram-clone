@@ -1,6 +1,8 @@
 import './stories.css'
 import type { StoryType } from './Stories'
 
+import React from 'react'
+
 type StoryProps = {
   story: StoryType
 }

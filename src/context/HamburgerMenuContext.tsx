@@ -1,12 +1,7 @@
-import type {
-  Dispatch,
-  SetStateAction} from 'react';
+import type { Dispatch, SetStateAction } from 'react'
 
-import {
-  useContext,
-  createContext,
-  useState
-} from 'react'
+import React from 'react'
+import { useContext, createContext, useState } from 'react'
 
 type HamburgerMenuContextType = {
   isOpen: boolean

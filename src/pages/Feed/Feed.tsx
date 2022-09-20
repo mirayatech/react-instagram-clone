@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { useAuthContext } from '../../context/AuthContext'
 import { AnimePosts } from './AnimePost/AnimePosts'
 import { Posts } from './Post/Posts'

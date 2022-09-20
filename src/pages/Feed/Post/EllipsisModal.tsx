@@ -2,6 +2,7 @@ import type { Dispatch, SetStateAction } from 'react'
 
 import { deleteDoc, doc } from 'firebase/firestore'
 import { motion } from 'framer-motion'
+import React from 'react'
 
 import { firebaseDb } from '../../../library/firebase'
 

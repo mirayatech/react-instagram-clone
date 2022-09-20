@@ -8,6 +8,7 @@ import {
 } from 'firebase/firestore'
 import { ref, getDownloadURL, uploadString } from 'firebase/storage'
 import { motion } from 'framer-motion'
+import React from 'react'
 import { useState, useRef } from 'react'
 import { FiX } from 'react-icons/fi'
 import { IoCameraOutline } from 'react-icons/io5'

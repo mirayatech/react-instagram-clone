@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import React from 'react'
 import {
   HiOutlineHeart as OutlinedHeart,
   HiHeart as FilledHeart,

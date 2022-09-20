@@ -2,6 +2,7 @@ import type { User } from 'firebase/auth'
 
 import { onAuthStateChanged } from 'firebase/auth'
 import { useContext, createContext, useEffect, useState } from 'react'
+import React from 'react'
 
 import { firebaseAuth } from '../library/firebase'
 

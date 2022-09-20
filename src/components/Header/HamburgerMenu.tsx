@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import React from 'react'
 import { IoMenuOutline, IoCloseOutline } from 'react-icons/io5'
 
 import { useHamburgerMenuContext } from '../../context/HamburgerMenuContext'

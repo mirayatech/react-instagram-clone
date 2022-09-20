@@ -11,6 +11,7 @@ import {
   collection,
   serverTimestamp,
 } from 'firebase/firestore'
+import React from 'react'
 import { useState, useEffect } from 'react'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 

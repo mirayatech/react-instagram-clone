@@ -1,6 +1,7 @@
-import type { CollectionReference} from 'firebase/firestore';
+import type { CollectionReference } from 'firebase/firestore'
 
 import { collection, onSnapshot } from 'firebase/firestore'
+import React from 'react'
 import { useState, useEffect } from 'react'
 
 import { firebaseDb } from '../../../library/firebase'
