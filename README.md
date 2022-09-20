@@ -30,5 +30,8 @@ suggested users on the side profile as long as you are logged in.
 ### 🎥 - Preview
  
 
-https://user-images.githubusercontent.com/71933266/190892897-d4d66ebe-2fb2-4084-a516-ecd7d7417e58.mov
+ 
+
+https://user-images.githubusercontent.com/71933266/191236258-14dea048-fe10-4e85-a9ee-73666dce626b.mp4
+
 
