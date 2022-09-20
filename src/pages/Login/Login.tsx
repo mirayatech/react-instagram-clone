@@ -1,9 +1,8 @@
 import './Login.css'
-import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import AnimePicture from '../../Assets/images/image1.png'
+import AnimePicture from '../../Assets/images/image.png'
 import { useAuthContext } from '../../context/AuthContext'
 import { PrimaryFooter } from '../../exportFiles'
 import { googleSignIn } from '../../library/firebase'

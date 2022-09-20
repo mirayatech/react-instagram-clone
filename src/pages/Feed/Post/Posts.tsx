@@ -4,7 +4,6 @@ import '../../../styles/utilities.css'
 import type { CollectionReference } from 'firebase/firestore'
 
 import { query, orderBy, onSnapshot, collection } from 'firebase/firestore'
-import React from 'react'
 import { useEffect, useState } from 'react'
 
 import { firebaseDb } from '../../../library/firebase'

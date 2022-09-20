@@ -3,7 +3,6 @@ import type { CollectionReference } from 'firebase/firestore'
 
 import { collection, onSnapshot } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
-import React from 'react'
 
 import { useAuthContext } from '../../../context/AuthContext'
 import { SecondaryFooter } from '../../../exportFiles'

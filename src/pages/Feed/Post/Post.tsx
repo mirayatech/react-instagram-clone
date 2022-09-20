@@ -12,7 +12,6 @@ import {
 } from 'firebase/firestore'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import React from 'react'
 import {
   HiOutlinePaperAirplane as Plane,
   HiOutlineHeart as OutlinedHeart,

@@ -9,7 +9,6 @@ import {
   serverTimestamp,
 } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
-import React from 'react'
 import { VscSmiley as Smiley } from 'react-icons/vsc'
 
 import { useAuthContext } from '../../../../context/AuthContext'
