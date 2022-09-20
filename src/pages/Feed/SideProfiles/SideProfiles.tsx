@@ -3,11 +3,13 @@ import type { CollectionReference } from 'firebase/firestore'
 
 import { collection, onSnapshot } from 'firebase/firestore'
 import { useState, useEffect } from 'react'
+import React from 'react'
 
 import { useAuthContext } from '../../../context/AuthContext'
 import { SecondaryFooter } from '../../../exportFiles'
 import { firebaseDb, logOut } from '../../../library/firebase'
 import { SideProfile } from './SideProfile'
+import { SideProfileSkeleton } from './skeleton/SideProfileSkeleton'
 
 export type SideProfiles = {
   info: string
@@ -18,6 +20,7 @@ export type SideProfiles = {
 
 export function SideProfiles() {
   const { user } = useAuthContext()
+  const [isLoading, setIsLoading] = useState(true)
 
   const [profiles, setProfiles] = useState<SideProfiles[]>([])
 
@@ -33,6 +36,7 @@ export function SideProfiles() {
           snapshot.docs.map((doc) => ({ ...doc.data(), profileId: doc.id }))
         )
       )
+      setIsLoading(false)
     }
 
     getSideProfiles()
@@ -65,6 +69,9 @@ export function SideProfiles() {
           <p>Suggestions for you</p> <p>See All</p>
         </div>
       </div>
+
+      {isLoading && <SideProfileSkeleton />}
+      {/* <SideProfileSkeleton /> */}
 
       {profiles.map((profile) => {
         return <SideProfile profile={profile} key={profile.profileId} />

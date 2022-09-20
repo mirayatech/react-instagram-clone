@@ -1,0 +1,12 @@
+.profile-skeleton {
+  display: flex;
+  align-items: center;
+}
+
+.profile-skeleton .profile-skeleton__image {
+  margin: 5px 10px 5px 0px;
+}
+
+.profile-skeleton .profile-skeleton__username {
+  width: 250px;
+}
