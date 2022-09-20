@@ -4,10 +4,12 @@ import '../../../styles/utilities.css'
 import type { CollectionReference } from 'firebase/firestore'
 
 import { query, orderBy, onSnapshot, collection } from 'firebase/firestore'
+import React from 'react'
 import { useEffect, useState } from 'react'
 
 import { firebaseDb } from '../../../library/firebase'
 import { Post } from './Post'
+import { PostSkeleton } from './skeleton/skeleton'
 
 type Post = {
   image: string
@@ -19,6 +21,7 @@ type Post = {
 }
 
 export function Posts() {
+  const [isLoading, setLoading] = useState(true)
   const [posts, setPosts] = useState<Post[]>([])
   const postsCollectionReference = collection(
     firebaseDb,
@@ -32,6 +35,7 @@ export function Posts() {
         setPosts(
           snapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
         )
+        setLoading(false)
       }
     )
 
@@ -42,6 +46,24 @@ export function Posts() {
 
   return (
     <div className="posts">
+      {isLoading && (
+        <>
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+          <PostSkeleton />
+        </>
+      )}
+
       {posts.map(
         ({ username, userImage, caption, image, postId, postUserId }) => {
           return (
