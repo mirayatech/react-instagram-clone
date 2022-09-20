@@ -1,4 +1,3 @@
-import React from 'react'
 import './skeleton.css'
 import '../../../../styles/Posts.css'
 import '../../../../styles/Comments.css'
