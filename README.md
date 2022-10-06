@@ -13,7 +13,7 @@ suggested users on the side profile as long as you are logged in.
 **Note:** I designed the instagram logo with Nezuko (Nezuko = the character sitting in front of the instagram logo) <br><br>
 
 
-### 🧠 - What I learned 
+### 🧠 - What I've learned 
 
 - Using `useContext`
 - useEffect with cleanup
